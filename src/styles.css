@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.dirtyMarker {
+  position: relative;
+  display: inline;
+  padding-left: 5px;
+  font-size: 1.5em;
+}
+
+.red {
+  color: crimson;
+}
+
+.green {
+  color: green;
+}

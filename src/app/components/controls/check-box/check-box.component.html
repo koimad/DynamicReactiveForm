@@ -1,0 +1,17 @@
+<mat-form-field [formGroup]="group"
+  floatLabel="always"
+  class="mat-form-field--no-underline">
+  <mat-label>{{field.label}}</mat-label>
+  <input matInput
+    placeholder="Input"
+    style="display: none">
+  <mat-checkbox [formControlName]="field.key"
+    [indeterminate]="controlValue === null"
+    (click)="onClick()">
+    <mat-label>{{field.label}}</mat-label>
+  </mat-checkbox>
+  <mat-label></mat-label>
+  <ng-container *ngFor="let validation of field.validators">
+    <mat-error *ngIf="group.get(field.key).hasError(validation.name)">{{validation.message}}</mat-error>
+  </ng-container>
+</mat-form-field>

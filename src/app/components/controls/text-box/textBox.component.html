@@ -1,0 +1,12 @@
+<mat-form-field [formGroup]="group"
+  floatLabel="always">
+  <mat-label>{{field.label}}</mat-label>
+  <input matInput
+    [formControlName]="field.key"
+    [type]="field.inputType"
+    [errorStateMatcher]="errorMapper">
+  <ng-container *ngFor="let validation of field.validators"
+    ngProjectAs="mat-error">
+    <mat-error *ngIf="group.get(field.key).hasError(validation.name)">{{validation.message}}</mat-error>
+  </ng-container>
+</mat-form-field>

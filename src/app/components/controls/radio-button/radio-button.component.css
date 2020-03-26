@@ -1,0 +1,11 @@
+:host {
+  width: 100%;
+}
+
+:host > * {
+  width: 95%;
+}
+
+::ng-deep .mat-form-field--no-underline .mat-form-field-underline {
+  background-color: transparent;
+}
