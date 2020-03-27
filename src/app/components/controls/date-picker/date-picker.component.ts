@@ -2,7 +2,7 @@ import { ComponentErrorMapper } from './../component-error-mapper';
 import { Component, OnInit, Input } from '@angular/core';
 import { FieldConfig } from 'src/app/model/form-item-definition';
 import { FormGroup } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'date-picker',

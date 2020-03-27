@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { ComponentErrorMapper } from '../component-error-mapper';
 import { FormGroup, FormArray, AbstractControl } from '@angular/forms';
 import { FieldConfig } from 'src/app/model/form-item-definition';
