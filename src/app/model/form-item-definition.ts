@@ -1,4 +1,4 @@
-import { ValidatorFn, AsyncValidatorFn } from '@angular/forms';
+import { ValidatorFn, AsyncValidatorFn, FormGroup } from '@angular/forms';
 
 export interface FieldValidator {
   name: string;
@@ -17,4 +17,5 @@ export interface FieldConfig {
   validators?: FieldValidator[];
   required?: boolean;
   children?: FieldConfig[];
+  group?: FormGroup;
 }

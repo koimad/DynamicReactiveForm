@@ -1,12 +1,17 @@
-<p>cud-grid works!</p>
-<div [formGroup]="group">
-  <fieldset>
-    <legend>{{field.key}}
-      <p class="dirtyMarker" [ngClass]="group.controls[field.key].dirty ? 'red': 'green'"> *</p>
-    </legend>
-    <div *ngIf="field.children.length > 0">
-      <div *ngFor="let child of field.children" DynamicElement [field]="child" [group]="group.controls[field.key]">
+<fieldset>
+  <legend>{{field.label}}
+    <p class="dirtyMarker" [ngClass]="group.dirty ? 'red': 'green'"> *</p>
+  </legend>
+  <div [formGroup]=group>
+    <div formArrayName="formArray" *ngFor="let item of formArray.controls; let i = index;">
+      <div [formGroupName]="i">
+        <input formControlName="name" placeholder="Item name">
+        <input formControlName="description" placeholder="Item description">
+        <input formControlName="price" placeholder="Item price">
       </div>
     </div>
-  </fieldset>
-</div>
+  </div>
+  <button (click)="onAdd()">Add </button>
+  <button (click)="onRemove()">Remove</button>
+  <button (click)="onReset()">Reset</button>
+</fieldset>

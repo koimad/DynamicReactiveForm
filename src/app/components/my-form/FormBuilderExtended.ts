@@ -1,7 +1,13 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormControl, ValidatorFn, AbstractControlOptions, AsyncValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import {
+  FormControl,
+  ValidatorFn,
+  AbstractControlOptions,
+  AsyncValidatorFn
+} from '@angular/forms';
 import { FormControlExtended } from './FormControlExtended';
 import { FormGroupExtended } from './FormGroupExtended';
+import { FormArrayExtended } from './FormArrayExtended';
 import { Injectable } from '@angular/core';
 
 function isAbstractControlOptions(
@@ -24,10 +30,30 @@ export class FormBuilderExtended extends FormBuilder {
 
   public control(
     formState: any,
-    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
+    validatorOrOpts?:
+      | ValidatorFn
+      | ValidatorFn[]
+      | AbstractControlOptions
+      | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): FormControl {
     return new FormControlExtended(formState, validatorOrOpts, asyncValidator);
+  }
+
+  public array(
+    controlsConfig: any[],
+    validatorOrOpts?:
+      | ValidatorFn
+      | ValidatorFn[]
+      | AbstractControlOptions
+      | null,
+    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+  ): FormArray {
+    return new FormArrayExtended(
+      controlsConfig,
+      validatorOrOpts,
+      asyncValidator
+    );
   }
 
   group(
@@ -49,17 +75,23 @@ export class FormBuilderExtended extends FormBuilder {
       if (isAbstractControlOptions(options)) {
         // `options` are `AbstractControlOptions`
         validators = options.validators != null ? options.validators : null;
-        asyncValidators = options.asyncValidators != null ? options.asyncValidators : null;
+        asyncValidators =
+          options.asyncValidators != null ? options.asyncValidators : null;
         updateOn = options.updateOn != null ? options.updateOn : undefined;
       } else {
         // `options` are legacy form group options
         validators = options.validator != null ? options.validator : null;
-        asyncValidators = options.asyncValidator != null ? options.asyncValidator : null;
+        asyncValidators =
+          options.asyncValidator != null ? options.asyncValidator : null;
       }
     }
 
     const g = super.group(controlsConfig, options);
 
-    return new FormGroupExtended(g.controls, { asyncValidators, updateOn, validators });
+    return new FormGroupExtended(g.controls, {
+      asyncValidators,
+      updateOn,
+      validators
+    });
   }
 }

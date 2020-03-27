@@ -1,3 +1,4 @@
+import { FormTabComponent } from './form-tab/form-tab.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { TextBoxComponent } from './text-box/textBox.component';
 import { GroupBoxComponent } from './group-box/group-box.component';
@@ -15,7 +16,8 @@ export const componentMapper = {
   comboBox: ComboBoxComponent,
   datePicker: DatePickerComponent,
   radioButton: RadioButtonComponent,
-  cudGrid: CudGridComponent
+  cudGrid: CudGridComponent,
+  formTab: FormTabComponent
 };
 
 export enum ComponentTypes {}

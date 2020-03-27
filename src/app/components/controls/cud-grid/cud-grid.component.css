@@ -1,0 +1,11 @@
+input:nth-child(1) {
+  width: 70px;
+}
+
+input:nth-child(2) {
+  width: 200px;
+}
+
+input:nth-child(3) {
+  width: 70px;
+}

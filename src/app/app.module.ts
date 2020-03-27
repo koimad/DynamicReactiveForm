@@ -17,6 +17,7 @@ import { DatePickerComponent } from './components/controls/date-picker/date-pick
 import { RadioButtonComponent } from './components/controls/radio-button/radio-button.component';
 import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
 import { CudGridComponent } from './components/controls/cud-grid/cud-grid.component';
+import { FormTabComponent } from './components/controls/form-tab/form-tab.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CudGridComponent } from './components/controls/cud-grid/cud-grid.compon
     ComboBoxComponent,
     DatePickerComponent,
     RadioButtonComponent,
-    CudGridComponent
+    CudGridComponent,
+    FormTabComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { CudGridComponent } from './components/controls/cud-grid/cud-grid.compon
     ComboBoxComponent,
     DatePickerComponent,
     CheckBoxComponent,
-    CudGridComponent
+    CudGridComponent,
+    FormTabComponent
   ]
 })
 export class AppModule {}
