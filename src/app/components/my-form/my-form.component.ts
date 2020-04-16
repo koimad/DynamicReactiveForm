@@ -141,14 +141,14 @@ export class MyFormComponent implements OnInit {
             ],
             value: [
               {
-                firstName: 'Kieran',
-                middleName: 'Barth',
-                age: 13,
+                firstName: 'Bob',
+                middleName: 'Thomas',
+                age: 19,
               },
               {
-                firstName: 'Chloe',
-                middleName: 'Sophia',
-                age: 9,
+                firstName: 'Jordan',
+                middleName: 'Kelly',
+                age: 21,
               },
             ],
             children: [],
