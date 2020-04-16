@@ -3,9 +3,9 @@
     <legend>{{field.label}}
       <p class="dirtyMarker" [ngClass]="group.controls[field.key].dirty ? 'red': 'green'"> *</p>
     </legend>
-    <ng-container *ngIf="field.children.length > 0">
+    <div *ngIf="field.children.length > 0">
       <ng-container *ngFor="let child of field.children" DynamicElement [field]="child" [group]="group.controls[field.key]">
       </ng-container>
-    </ng-container>
+    </div>
   </fieldset>
 </div>

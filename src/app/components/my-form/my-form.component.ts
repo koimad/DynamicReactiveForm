@@ -4,23 +4,21 @@ import {
   FormGroup,
   Validators,
   ValidatorFn,
-  Form,
-  FormArray,
-  AbstractControl
+  AbstractControl,
 } from '@angular/forms';
 import { FormBuilderExtended } from './FormBuilderExtended';
-import { group } from '@angular/animations';
-import { ConstantPool } from '@angular/compiler';
-import { FormArrayExtended } from './FormArrayExtended';
+import { FormUpdatedValuesService } from 'src/app/model/form-updated-values.service';
 
 @Component({
   selector: 'app-my-form',
   templateUrl: './my-form.component.html',
   styleUrls: ['./my-form.component.css'],
-  providers: [{ provide: FormBuilderExtended, useClass: FormBuilderExtended }]
 })
 export class MyFormComponent implements OnInit {
-  constructor(private formBuilder: FormBuilderExtended) {
+  constructor(
+    private formBuilder: FormBuilderExtended,
+    private updatedFormValueService: FormUpdatedValuesService
+  ) {
     this.fields = [
       {
         key: 'Genreal',
@@ -43,9 +41,9 @@ export class MyFormComponent implements OnInit {
                   {
                     name: 'required',
                     validator: Validators.required,
-                    message: 'Must be Specified'
-                  }
-                ]
+                    message: 'Must be Specified',
+                  },
+                ],
               },
               {
                 key: 'MiddleName',
@@ -56,9 +54,9 @@ export class MyFormComponent implements OnInit {
                   {
                     name: 'required',
                     validator: Validators.required,
-                    message: 'Must be Specified'
-                  }
-                ]
+                    message: 'Must be Specified',
+                  },
+                ],
               },
               {
                 key: 'Surname',
@@ -69,23 +67,23 @@ export class MyFormComponent implements OnInit {
                   {
                     name: 'required',
                     validator: Validators.required,
-                    message: 'Must be Specified'
-                  }
-                ]
-              }
-            ]
+                    message: 'Must be Specified',
+                  },
+                ],
+              },
+            ],
           },
           {
             key: 'Gender',
             controlType: 'radioButton',
             label: 'Gender',
-            options: ['Male', 'Female']
+            options: ['Male', 'Female'],
           },
           {
             key: 'Age',
             controlType: 'comboBox',
             label: 'Age',
-            options: ['1', '2', '3', '4']
+            options: ['1', '2', '3', '4'],
           },
           {
             key: 'Nationality',
@@ -97,11 +95,11 @@ export class MyFormComponent implements OnInit {
               {
                 name: 'pattern',
                 validator: Validators.pattern('true'),
-                message: 'Must be Specified'
-              }
-            ]
-          }
-        ]
+                message: 'Must be Specified',
+              },
+            ],
+          },
+        ],
       },
       {
         key: 'FamilyMembers',
@@ -115,26 +113,48 @@ export class MyFormComponent implements OnInit {
             controlType: 'cudGrid',
             label: 'Children',
             options: null,
+            columnDefinitions: [
+              {
+                headerName: 'First Name',
+                field: 'firstName',
+                width: 120,
+                cellRenderer: 'formTextCell',
+                editable: false,
+                resizable: false,
+              },
+              {
+                headerName: 'Middle Name',
+                field: 'middleName',
+                width: 120,
+                cellRenderer: 'formTextCell',
+                editable: false,
+                resizable: false,
+              },
+              {
+                headerName: 'Age',
+                field: 'age',
+                width: 100,
+                cellRenderer: 'formTextCell',
+                editable: false,
+                resizable: false,
+              },
+            ],
             value: [
               {
-                firstName: '',
-                middleName: '',
-                age: ''
+                firstName: 'Kieran',
+                middleName: 'Barth',
+                age: 13,
               },
               {
-                firstName: '',
-                middleName: '',
-                age: ''
+                firstName: 'Chloe',
+                middleName: 'Sophia',
+                age: 9,
               },
-              {
-                firstName: '',
-                middleName: '',
-                age: ''
-              }
             ],
-            validators: []
-          }
-        ]
+            children: [],
+            validators: [],
+          },
+        ],
       },
       {
         key: 'Address',
@@ -142,54 +162,24 @@ export class MyFormComponent implements OnInit {
         value: '',
         controlType: 'formTab',
         validators: [],
-        children: []
-      }
+        children: [],
+      },
     ];
   }
   public rootFormGroup: FormGroup;
   public fields: Array<FieldConfig>;
-
-  private updatedValues = new Map<string, { control: any; oldValue: any }>();
-  private updatingControl: AbstractControl;
   public submitData = '';
 
   ngOnInit() {
     try {
-      this.rootFormGroup = new FormBuilderExtended().group({});
+      this.rootFormGroup = this.formBuilder.group({});
 
       this.createGroup(this.rootFormGroup, this.fields);
 
-      this.rootFormGroup.valueChanges.subscribe(f => {
-        this.updatingControl = undefined;
-        const allUpdatedControls = this.getUpdatedValues(this.rootFormGroup);
-
-        this.updatedValues.forEach((v, k, m) => {
-          let found = false;
-          allUpdatedControls.forEach(updatedControl => {
-            if (updatedControl.name === k) {
-              found = true;
-            }
-          });
-          if (!found) {
-            console.log(`removing ${v}`);
-            this.updatingControl = v.control;
-            this.updatedValues.delete(k);
-          }
-        });
-        console.log('All Updated Contols ');
-        console.log(this.updatedValues);
-        console.log();
-        console.log('Updating Control ');
-        console.log(this.updatingControl);
-        console.log();
-        console.log(
-          `Updated Control Value ${
-            this.updatingControl
-              ? this.updatingControl.value
-                ? this.updatingControl.value
-                : null
-              : null
-          }`
+      this.rootFormGroup.valueChanges.subscribe((f) => {
+        // this.updatingControl = undefined;
+        const allUpdatedControls = this.updatedFormValueService.getUpdatedValues(
+          this.rootFormGroup
         );
       });
     } catch (e) {
@@ -197,45 +187,8 @@ export class MyFormComponent implements OnInit {
     }
   }
 
-  getUpdatedValues(formGroup: AbstractControl) {
-    const updatedFormValues = [];
-
-    // tslint:disable-next-line:no-string-literal
-    formGroup['_forEachChild']((control, name) => {
-      if (control.dirty) {
-        if (control instanceof FormGroup) {
-          this.getUpdatedValues(control).forEach(f =>
-            updatedFormValues.push(f)
-          );
-        } else {
-          let existingChange = false;
-
-          this.updatedValues.forEach((c, k, m) => {
-            console.log(`${k}   ${name}    ${c.oldValue}    ${control.value}`);
-
-            if (k === name && c.oldValue === control.value) {
-              console.log(`${k}   ${name}`);
-              existingChange = true;
-            }
-          });
-
-          if (!existingChange) {
-            this.updatedValues.set(name, {
-              control,
-              oldValue: control.originalValue
-            });
-            console.log(`Setting updating Control to ${control.value}`);
-            this.updatingControl = control;
-          }
-          updatedFormValues.push({ name, value: control.value });
-        }
-      }
-    });
-    return updatedFormValues;
-  }
-
   private createGroup(formGroup: FormGroup, fields: Array<FieldConfig>): void {
-    fields.forEach(field => {
+    fields.forEach((field) => {
       if (field.controlType === 'group' || field.controlType === 'formTab') {
         if (field.children) {
           field.group = formGroup;
@@ -267,7 +220,7 @@ export class MyFormComponent implements OnInit {
     let result: ValidatorFn;
     const validatorList = [];
     if (validations && validations.length > 0) {
-      validations.forEach(fieldValidator => {
+      validations.forEach((fieldValidator) => {
         validatorList.push(fieldValidator.validator);
         result = Validators.compose(validatorList);
       });
@@ -276,15 +229,7 @@ export class MyFormComponent implements OnInit {
   }
 
   public submit(): void {
-    this.submitData = '';
     console.log(this.rootFormGroup.value);
-    this.updatedValues.forEach((c, k, m) => {
-      console.log(c);
-
-      console.log('adding flat');
-      this.submitData += `Property : ${k} OldValue : ${JSON.stringify(
-        c.control.originalValue
-      )} NewValue : ${JSON.stringify(c.control.value)} \r\n`;
-    });
+    this.submitData = this.updatedFormValueService.getnerateChangedControlString();
   }
 }

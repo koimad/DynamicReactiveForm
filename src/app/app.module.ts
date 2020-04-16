@@ -1,3 +1,4 @@
+import { ComponentErrorMapper } from './components/controls/component-error-mapper';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,9 +16,12 @@ import { CheckBoxComponent } from './components/controls/check-box/check-box.com
 import { ComboBoxComponent } from './components/controls/combo-box/combo-box.component';
 import { DatePickerComponent } from './components/controls/date-picker/date-picker.component';
 import { RadioButtonComponent } from './components/controls/radio-button/radio-button.component';
-import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
+import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 import { CudGridComponent } from './components/controls/cud-grid/cud-grid.component';
 import { FormTabComponent } from './components/controls/form-tab/form-tab.component';
+import { AgGridModule, AgGridAngular } from 'ag-grid-angular';
+import { FormTextCellComponent } from './components/controls/cud-grid/form-text-cell/form-text-cell.component';
+import { FormUpdatedValuesService } from './model/form-updated-values.service';
 
 @NgModule({
   declarations: [
@@ -32,18 +36,22 @@ import { FormTabComponent } from './components/controls/form-tab/form-tab.compon
     DatePickerComponent,
     RadioButtonComponent,
     CudGridComponent,
-    FormTabComponent
+    FormTabComponent,
+    FormTextCellComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    AgGridModule.withComponents([FormTextCellComponent]),
   ],
   providers: [
     { provide: FormBuilderExtended, useClass: FormBuilderExtended },
-    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop' }
+    { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: 'noop' },
+    { provide: ComponentErrorMapper, useClass: ComponentErrorMapper },
+    // { provide: FormUpdatedValuesService, useClass: FormUpdatedValuesService}
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -54,7 +62,9 @@ import { FormTabComponent } from './components/controls/form-tab/form-tab.compon
     DatePickerComponent,
     CheckBoxComponent,
     CudGridComponent,
-    FormTabComponent
-  ]
+    FormTabComponent,
+    AgGridAngular,
+    FormTextCellComponent,
+  ],
 })
 export class AppModule {}

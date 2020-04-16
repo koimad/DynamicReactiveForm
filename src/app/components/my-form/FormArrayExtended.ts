@@ -2,19 +2,23 @@ import { AbstractControl, FormArray } from '@angular/forms';
 import {
   ValidatorFn,
   AbstractControlOptions,
-  AsyncValidatorFn
+  AsyncValidatorFn,
 } from '@angular/forms';
 
 export class FormArrayExtended extends FormArray {
   get dirty(): boolean {
     let childControlsDirty = false;
-    Object.keys(this.controls).forEach(key => {
+    Object.keys(this.controls).forEach((key) => {
       childControlsDirty = childControlsDirty || this.controls[key].dirty;
     });
     if (!childControlsDirty) {
       childControlsDirty = !this.collectionsEqual();
     }
     return childControlsDirty;
+  }
+
+  get originalValue(): any {
+    return this.startCollection.values;
   }
 
   private startCollection: AbstractControl[];
@@ -53,8 +57,8 @@ export class FormArrayExtended extends FormArray {
 
     if (result) {
       const t = [];
-      this.startCollection.forEach(a => {
-        this.controls.forEach(b => {
+      this.startCollection.forEach((a) => {
+        this.controls.forEach((b) => {
           if (a.value === b.value) {
             t.push(b);
           }

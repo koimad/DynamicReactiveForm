@@ -18,4 +18,5 @@ export interface FieldConfig {
   required?: boolean;
   children?: FieldConfig[];
   group?: FormGroup;
+  columnDefinitions? : any[];
 }
