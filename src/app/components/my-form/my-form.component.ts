@@ -177,10 +177,7 @@ export class MyFormComponent implements OnInit {
       this.createGroup(this.rootFormGroup, this.fields);
 
       this.rootFormGroup.valueChanges.subscribe((f) => {
-        // this.updatingControl = undefined;
-        const allUpdatedControls = this.updatedFormValueService.getUpdatedValues(
-          this.rootFormGroup
-        );
+        this.updatedFormValueService.getUpdatedValues(this.rootFormGroup);
       });
     } catch (e) {
       console.log(e);
@@ -192,12 +189,12 @@ export class MyFormComponent implements OnInit {
       if (field.controlType === 'group' || field.controlType === 'formTab') {
         if (field.children) {
           field.group = formGroup;
-          const childGroup = new FormBuilderExtended().group({});
+          const childGroup = this.formBuilder.group({});
           this.createGroup(childGroup, field.children);
           formGroup.addControl(field.key, childGroup);
         }
       } else if (field.controlType === 'cudGrid') {
-        const childGroup = new FormBuilderExtended().group(
+        const childGroup = this.formBuilder.group(
           [field.key],
           this.buildValidators(field.validators)
         );
@@ -207,7 +204,7 @@ export class MyFormComponent implements OnInit {
         field.group = formGroup;
         formGroup.addControl(
           field.key,
-          new FormBuilderExtended().control(
+          this.formBuilder.control(
             field.value,
             this.buildValidators(field.validators)
           )
