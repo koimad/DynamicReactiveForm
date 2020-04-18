@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FieldConfig } from 'src/app/model/form-item-definition';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
+import { _countGroupLabelsBeforeOption } from '@angular/material/core';
 
 @Component({
   selector: 'check-box',
@@ -8,42 +9,83 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./check-box.component.css']
 })
 export class CheckBoxComponent implements OnInit {
-  private fieldInternal: FieldConfig;
-  private index = 0;
 
   @Input('field')
   set field(value: FieldConfig) {
-    this.fieldInternal = value;
-    this.controlValue = this.fieldInternal.value;
-    console.log(`Setting Field = ${this.controlValue}`);
-
-    this.index = this.fieldInternal.options.indexOf(this.controlValue);
+    this.internalField = value;
+    this.isIndeterniate = value.value === null;
+    this.oldValue = value.value;
+    if (this.internalGroup) {
+      this.updateControl();
+    }
   }
 
   get field(): FieldConfig {
-    return this.fieldInternal;
+    return this.internalField;
   }
 
-  @Input()
-  group: FormGroup;
+  @Input('group')
+  set group(value:FormGroup){
+    this.internalGroup = value;
+    if(this.internalField)
+    {
+      this.updateControl();
+    }
+  }
+  get group(): FormGroup{
+    return this.internalGroup;
+  }
 
-  controlValue: any;
-  constructor() {}
+  constructor() {
+
+  }
+  control: AbstractControl;
+  isIndeterniate : boolean;
+  private internalChange=false;
+  private internalField: FieldConfig;
+  private index = 0;
+  private internalGroup: FormGroup;
+  private oldValue : any;
+
+  updateControl() {
+    this.control = this.internalGroup.get(this.internalField.key);
+    this.control.valueChanges.subscribe((value) => this.valueChanges(value));
+  }
+
+  private valueChanges(newValue: any): void {
+    console.log(`Changing Value To ${newValue}`);
+
+    if (this.internalChange === false)
+    {
+      this.internalChange = true;
+      this.isIndeterniate = false;
+
+
+      let nextValueIndex = this.internalField.options.indexOf(this.oldValue) + 1;
+
+
+      if (nextValueIndex >= this.internalField.options.length)
+      {
+        nextValueIndex = 0;
+      }
+
+      console.log(`next value is ${nextValueIndex}  ${this.internalField.options[nextValueIndex]}`)
+
+      newValue = this.internalField.options[nextValueIndex];
+      this.control.setValue(newValue);
+      this.isIndeterniate = newValue === null;
+
+      this.internalChange = false;
+
+      this.oldValue = newValue;
+      console.log(`setting old value to ${this.oldValue}`);
+    }
+  }
 
   ngOnInit() {}
 
   onClick() {
-    this.controlValue = this.fieldInternal.options[++this.index % this.fieldInternal.options.length];
-
-    this.group.get(this.fieldInternal.key).setValue(this.controlValue);
-
-    if (this.group.get(this.fieldInternal.key).value !== this.fieldInternal.value) {
-      this.group.get(this.fieldInternal.key).markAsDirty();
-    } else {
-      this.group.get(this.fieldInternal.key).reset();
-    }
-
-    console.log(`Changed To Value = ${this.group.get(this.fieldInternal.key).value}`);
-    console.log(`Has Valudation Error = ${this.group.get(this.fieldInternal.key).errors}`);
+    console.log(`Changed To Value = ${this.group.get(this.field.key).value}`);
+    console.log(`Has Valudation Error = ${this.group.get(this.field.key).errors}`);
   }
 }

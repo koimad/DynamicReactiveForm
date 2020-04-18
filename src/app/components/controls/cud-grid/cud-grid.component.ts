@@ -1,3 +1,4 @@
+import { FormNumberCellComponent } from './form-number-cell/form-number-cell.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ComponentErrorMapper } from '../component-error-mapper';
@@ -116,7 +117,7 @@ export class CudGridComponent implements OnInit {
   }
 
   getComponents() {
-    return { formTextCell: FormTextCellComponent };
+    return { text: FormTextCellComponent, number: FormNumberCellComponent };
   }
 
   getContext() {

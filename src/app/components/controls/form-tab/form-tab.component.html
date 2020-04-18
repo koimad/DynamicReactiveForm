@@ -1,4 +1,8 @@
-<div [formGroup]="group" style="min-height: 700px;border: blueviolet 2px solid;">
-  <ng-container *ngFor="let child of field.children;" DynamicElement [field]="child" [group]="child.group">
+<div [formGroup]="group"
+     class="formTab">
+  <ng-container *ngFor="let child of field.children;"
+                DynamicElement
+                [field]="child"
+                [group]="child.group">
   </ng-container>
 </div>

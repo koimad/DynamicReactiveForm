@@ -1,13 +1,24 @@
 @import "ag-grid-community/dist/styles/ag-grid.css";
 @import "ag-grid-community/dist/styles/ag-theme-material.css";
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 
 html,
 body {
   height: 100%;
 }
 body {
+
+
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-checkbox-checkmark-path {
+    stroke: #ff4081 !important;
+}
+
+.mat-checkbox-mixedmark {
+    background-color: #ff4081;
 }
 
 .dirtyMarker {

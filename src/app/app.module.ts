@@ -21,7 +21,7 @@ import { CudGridComponent } from './components/controls/cud-grid/cud-grid.compon
 import { FormTabComponent } from './components/controls/form-tab/form-tab.component';
 import { AgGridModule, AgGridAngular } from 'ag-grid-angular';
 import { FormTextCellComponent } from './components/controls/cud-grid/form-text-cell/form-text-cell.component';
-import { FormUpdatedValuesService } from './model/form-updated-values.service';
+import { FormNumberCellComponent } from './components/controls/cud-grid/form-number-cell/form-number-cell.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +38,7 @@ import { FormUpdatedValuesService } from './model/form-updated-values.service';
     CudGridComponent,
     FormTabComponent,
     FormTextCellComponent,
+    FormNumberCellComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +52,6 @@ import { FormUpdatedValuesService } from './model/form-updated-values.service';
     { provide: FormBuilderExtended, useClass: FormBuilderExtended },
     { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: 'noop' },
     { provide: ComponentErrorMapper, useClass: ComponentErrorMapper },
-    // { provide: FormUpdatedValuesService, useClass: FormUpdatedValuesService}
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -65,6 +65,7 @@ import { FormUpdatedValuesService } from './model/form-updated-values.service';
     FormTabComponent,
     AgGridAngular,
     FormTextCellComponent,
+    FormNumberCellComponent
   ],
 })
 export class AppModule {}

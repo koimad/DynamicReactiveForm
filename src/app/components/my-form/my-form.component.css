@@ -32,6 +32,17 @@
   grid-template-columns: auto; */
 }
 
+.formBorder{
+  min-height: 800px;
+  border:rgb(192, 192, 255) 2px solid;
+}
+.formbackGround{
+  background-color: rgb(235, 241, 255);
+
+}
+
+
+
 .dirtyMarker {
   position: relative;
   display: inline;

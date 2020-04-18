@@ -4,8 +4,7 @@ import {
   FormGroup,
   Validators,
   ValidatorFn,
-  AbstractControl,
-} from '@angular/forms';
+ } from '@angular/forms';
 import { FormBuilderExtended } from './FormBuilderExtended';
 import { FormUpdatedValuesService } from 'src/app/model/form-updated-values.service';
 
@@ -59,8 +58,8 @@ export class MyFormComponent implements OnInit {
                 ],
               },
               {
-                key: 'Surname',
-                label: 'Surname',
+                key: 'LastName',
+                label: 'Last Name',
                 value: '',
                 controlType: 'textBox',
                 validators: [
@@ -83,18 +82,20 @@ export class MyFormComponent implements OnInit {
             key: 'Age',
             controlType: 'comboBox',
             label: 'Age',
-            options: ['1', '2', '3', '4'],
+            options: [1, 2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
+              21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
+              41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60],
           },
           {
             key: 'Nationality',
             controlType: 'checkBox',
             label: 'Are You British',
-            options: [null, true, false],
+            options: [true, false, null],
             value: null,
             validators: [
               {
                 name: 'pattern',
-                validator: Validators.pattern('true'),
+                validator: Validators.required,
                 message: 'Must be Specified',
               },
             ],
@@ -118,7 +119,7 @@ export class MyFormComponent implements OnInit {
                 headerName: 'First Name',
                 field: 'firstName',
                 width: 120,
-                cellRenderer: 'formTextCell',
+                cellRenderer: 'text',
                 editable: false,
                 resizable: false,
               },
@@ -126,7 +127,7 @@ export class MyFormComponent implements OnInit {
                 headerName: 'Middle Name',
                 field: 'middleName',
                 width: 120,
-                cellRenderer: 'formTextCell',
+                cellRenderer: 'text',
                 editable: false,
                 resizable: false,
               },
@@ -134,7 +135,7 @@ export class MyFormComponent implements OnInit {
                 headerName: 'Age',
                 field: 'age',
                 width: 100,
-                cellRenderer: 'formTextCell',
+                cellRenderer: 'number',
                 editable: false,
                 resizable: false,
               },

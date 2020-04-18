@@ -6,7 +6,7 @@
          placeholder="Input"
          style="display: none">
   <mat-checkbox [formControlName]="field.key"
-                [indeterminate]="controlValue === null"
+                [indeterminate]="isIndeterniate === true"
                 (click)="onClick()">
     <mat-label>{{field.label}}</mat-label>
   </mat-checkbox>

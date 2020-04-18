@@ -1,25 +1,31 @@
 <div class="center">
   <div class="grid">
     <div class='grid-item-right'>touched:</div>
-    <div class='dirtymarker' [ngClass]="rootFormGroup.touched ? 'red': 'green'">{{rootFormGroup.touched}}</div>
+    <div class='dirtymarker'
+         [ngClass]="rootFormGroup.touched ? 'red': 'green'">{{rootFormGroup.touched}}</div>
     <div class='grid-item-right'>dirty:</div>
-    <div class='red' [ngClass]="rootFormGroup.dirty ? 'red': 'green'">{{rootFormGroup.dirty}}</div>
+    <div class='red'
+         [ngClass]="rootFormGroup.dirty ? 'red': 'green'">{{rootFormGroup.dirty}}</div>
   </div>
-  <div style="min-height: 800px;border:blue 2px solid">
+  <div class="formBorder formbackGround">
     <form [formGroup]="rootFormGroup">
       <mat-tab-group style="min-height: 700px;">
         <mat-tab *ngFor="let item of fields;">
           <ng-template mat-tab-label>
             <legend>{{item.label}}
-              <p class="dirtyMarker" [ngClass]="item.group.controls[item.key].dirty ? 'red': 'green'"> *</p>
+              <p class="dirtyMarker"
+                 [ngClass]="item.group.controls[item.key].dirty ? 'red': 'green'"> *</p>
             </legend>
           </ng-template>
-          <ng-template DynamicElement [field]="item" [group]="item.group"></ng-template>
+          <ng-template DynamicElement
+                       [field]="item"
+                       [group]="item.group"></ng-template>
         </mat-tab>
       </mat-tab-group>
     </form>
     <div style="bottom:0">
-      <button (click)="submit()" style="margin: 10px;">Submit</button>
+      <button (click)="submit()"
+              style="margin: 10px;">Submit</button>
     </div>
     <div>{{submitData}}</div>
   </div>
