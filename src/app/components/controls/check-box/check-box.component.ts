@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FieldConfig } from 'src/app/model/form-item-definition';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { _countGroupLabelsBeforeOption } from '@angular/material/core';
@@ -9,6 +9,8 @@ import { _countGroupLabelsBeforeOption } from '@angular/material/core';
   styleUrls: ['./check-box.component.css']
 })
 export class CheckBoxComponent implements OnInit {
+
+  @HostBinding('class') get class(): string { return this.field.columnClass };
 
   @Input('field')
   set field(value: FieldConfig) {

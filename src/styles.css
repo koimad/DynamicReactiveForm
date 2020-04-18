@@ -7,8 +7,6 @@ body {
   height: 100%;
 }
 body {
-
-
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
@@ -34,4 +32,23 @@ body {
 
 .green {
   color: green;
+}
+
+.form-Grid{
+  display: grid;
+  grid-template-columns: 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px;
+  justify-content: space-evenly;
+}
+
+.form-Column1-12{
+  grid-column:1 / span 12;
+}
+.form-Column1-6{
+  grid-column:1 / span 6;
+}
+.form-Column7-6{
+  grid-column:7 / span 6;
+}
+.form-Column4-4{
+  grid-column:5 / span 4;
 }

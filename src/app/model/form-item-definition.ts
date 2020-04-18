@@ -19,4 +19,5 @@ export interface FieldConfig {
   children?: FieldConfig[];
   group?: FormGroup;
   columnDefinitions? : any[];
+  columnClass?: string;
 }

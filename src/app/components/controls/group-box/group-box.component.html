@@ -1,10 +1,14 @@
 <div [formGroup]="group">
   <fieldset>
     <legend>{{field.label}}
-      <p class="dirtyMarker" [ngClass]="group.controls[field.key].dirty ? 'red': 'green'"> *</p>
+      <p class="dirtyMarker"
+         [ngClass]="group.controls[field.key].dirty ? 'red': 'green'"> *</p>
     </legend>
     <div *ngIf="field.children.length > 0">
-      <ng-container *ngFor="let child of field.children" DynamicElement [field]="child" [group]="group.controls[field.key]">
+      <ng-container *ngFor="let child of field.children"
+                    DynamicElement
+                    [field]="child"
+                    [group]="group.controls[field.key]">
       </ng-container>
     </div>
   </fieldset>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FieldConfig } from 'src/app/model/form-item-definition';
 import { FormGroup } from '@angular/forms';
 
@@ -13,6 +13,7 @@ export class GroupBoxComponent implements OnInit {
   @Input()
   group: FormGroup;
 
+  @HostBinding('class') get class() : string {return this.field.columnClass};
   constructor() {}
 
   ngOnInit() {}

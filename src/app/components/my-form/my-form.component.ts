@@ -27,11 +27,13 @@ export class MyFormComponent implements OnInit {
         validators: [],
         children: [
           {
+            columnClass:'form-Column1-12',
             key: 'FullName',
             label: 'Full Name',
             controlType: 'group',
             children: [
               {
+                columnClass: 'form-Column1-12',
                 key: 'FirstName',
                 label: 'First Name',
                 value: '',
@@ -45,6 +47,7 @@ export class MyFormComponent implements OnInit {
                 ],
               },
               {
+                columnClass: 'form-Column1-12',
                 key: 'MiddleName',
                 label: 'Middle Name',
                 value: '',
@@ -58,6 +61,7 @@ export class MyFormComponent implements OnInit {
                 ],
               },
               {
+                columnClass: 'form-Column1-12',
                 key: 'LastName',
                 label: 'Last Name',
                 value: '',
@@ -74,12 +78,14 @@ export class MyFormComponent implements OnInit {
           },
           {
             key: 'Gender',
+            columnClass: 'form-Column1-6',
             controlType: 'radioButton',
             label: 'Gender',
             options: ['Male', 'Female'],
           },
           {
             key: 'Age',
+            columnClass: 'form-Column7-6',
             controlType: 'comboBox',
             label: 'Age',
             options: [1, 2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
@@ -88,6 +94,7 @@ export class MyFormComponent implements OnInit {
           },
           {
             key: 'Nationality',
+            columnClass: 'form-Column4-4',
             controlType: 'checkBox',
             label: 'Are You British',
             options: [true, false, null],
@@ -111,6 +118,7 @@ export class MyFormComponent implements OnInit {
         children: [
           {
             key: 'Children',
+            columnClass: 'form-Column1-12',
             controlType: 'cudGrid',
             label: 'Children',
             options: null,

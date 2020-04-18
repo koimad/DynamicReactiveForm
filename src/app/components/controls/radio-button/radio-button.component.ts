@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FieldConfig } from 'src/app/model/form-item-definition';
 import { FormGroup } from '@angular/forms';
 
@@ -8,6 +8,9 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./radio-button.component.css']
 })
 export class RadioButtonComponent implements OnInit {
+
+  @HostBinding('class') get class(): string { return this.field.columnClass };
+
   @Input()
   field: FieldConfig;
   @Input()

@@ -1,8 +1,10 @@
 <div [formGroup]="group"
      class="formTab">
-  <ng-container *ngFor="let child of field.children;"
-                DynamicElement
-                [field]="child"
-                [group]="child.group">
-  </ng-container>
+  <div class="form-Grid">
+    <ng-container *ngFor="let child of field.children;"
+                  DynamicElement
+                  [field]="child"
+                  [group]="child.group">
+    </ng-container>
+  </div>
 </div>

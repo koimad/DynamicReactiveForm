@@ -1,5 +1,5 @@
 import { ComponentErrorMapper } from './../component-error-mapper';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FieldConfig } from 'src/app/model/form-item-definition';
 import { FormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -10,6 +10,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
   styleUrls: ['./date-picker.component.css']
 })
 export class DatePickerComponent implements OnInit {
+
+  @HostBinding('class') get class(): string { return this.field.columnClass };
   errorMapper: ErrorStateMatcher;
 
   @Input()
