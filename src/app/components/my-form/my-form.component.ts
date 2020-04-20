@@ -11,7 +11,7 @@ import { FormUpdatedValuesService } from 'src/app/model/form-updated-values.serv
 @Component({
   selector: 'app-my-form',
   templateUrl: './my-form.component.html',
-  styleUrls: ['./my-form.component.css'],
+  styleUrls: ['./my-form.component.scss'],
 })
 export class MyFormComponent implements OnInit {
   constructor(
@@ -20,8 +20,8 @@ export class MyFormComponent implements OnInit {
   ) {
     this.fields = [
       {
-        key: 'Genreal',
-        label: 'Gerneral',
+        key: 'General',
+        label: 'General',
         value: '',
         controlType: 'formTab',
         validators: [],
@@ -94,7 +94,7 @@ export class MyFormComponent implements OnInit {
           },
           {
             key: 'Nationality',
-            columnClass: 'form-Column4-4',
+            columnClass: 'form-Column4-end',
             controlType: 'checkBox',
             label: 'Are You British',
             options: [true, false, null],
@@ -104,6 +104,20 @@ export class MyFormComponent implements OnInit {
                 name: 'pattern',
                 validator: Validators.required,
                 message: 'Must be Specified',
+              },
+            ],
+          },
+          {
+            key: 'DOB',
+            columnClass: 'form-Column1-4',
+            controlType: 'datePicker',
+            label: 'Date Of Birth',
+            value: null,
+            validators: [
+              {
+                name: 'pattern',
+                validator: Validators.required,
+                message: 'Date Of Birth must be specified',
               },
             ],
           },

@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'form-tab',
   templateUrl: './form-tab.component.html',
-  styleUrls: ['./form-tab.component.css']
+  styleUrls: ['./form-tab.component.scss']
 })
 export class FormTabComponent implements OnInit {
   @Input()

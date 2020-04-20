@@ -12,7 +12,7 @@ import { IAfterGuiAttachedParams } from 'ag-grid-community';
 @Component({
   selector: 'form-text-cell',
   templateUrl: './form-text-cell.component.html',
-  styleUrls: ['./form-text-cell.component.css'],
+  styleUrls: ['./form-text-cell.component.scss'],
 })
 export class FormTextCellComponent implements ICellRendererAngularComp {
   get formGroup(): FormGroup {

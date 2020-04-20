@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-group-box',
   templateUrl: './group-box.component.html',
-  styleUrls: ['./group-box.component.css']
+  styleUrls: ['./group-box.component.scss']
 })
 export class GroupBoxComponent implements OnInit {
   @Input()

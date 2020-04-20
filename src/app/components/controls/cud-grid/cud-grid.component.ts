@@ -18,7 +18,7 @@ import { FormTextCellComponent } from './form-text-cell/form-text-cell.component
 @Component({
   selector: 'cud-grid',
   templateUrl: './cud-grid.component.html',
-  styleUrls: ['./cud-grid.component.css'],
+  styleUrls: ['./cud-grid.component.scss'],
 })
 export class CudGridComponent implements OnInit {
   private api: GridApi;

@@ -7,7 +7,7 @@ import { ComponentErrorMapper } from '../component-error-mapper';
 @Component({
   selector: 'text-area',
   templateUrl: './text-area.component.html',
-  styleUrls: ['./text-area.component.css']
+  styleUrls: ['./text-area.component.scss']
 })
 export class TextAreaComponent implements OnInit {
   @HostBinding('class') get class(): string { return this.field.columnClass };

@@ -1,15 +1,16 @@
-<mat-form-field [formGroup]="group">
+<mat-form-field [formGroup]="group"
+                floatLabel="always">
   <input matInput
-    [matDatepicker]="picker"
-    [formControlName]="field.key"
-    [placeholder]="field.label"
-    [errorStateMatcher]="errorMapper">
+         [matDatepicker]="picker"
+         [formControlName]="field.key"
+         [placeholder]="field.label"
+         [errorStateMatcher]="errorMapper">
   <mat-datepicker-toggle matSuffix
-    [for]="picker"></mat-datepicker-toggle>
+                         [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
-  <mat-hint></mat-hint>
+  
   <ng-container *ngFor="let validation of field.validators;"
-    ngProjectAs="mat-error">
+                ngProjectAs="mat-error">
     <mat-error *ngIf="group.get(field.key).hasError(validation.name)">{{validation.message}}</mat-error>
   </ng-container>
 </mat-form-field>

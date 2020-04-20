@@ -7,7 +7,7 @@ import { ComponentErrorMapper } from '../component-error-mapper';
 @Component({
   selector: 'combo-box',
   templateUrl: './combo-box.component.html',
-  styleUrls: ['./combo-box.component.css']
+  styleUrls: ['./combo-box.component.scss']
 })
 export class ComboBoxComponent implements OnInit {
 

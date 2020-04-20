@@ -7,7 +7,7 @@ import { ComponentErrorMapper } from '../component-error-mapper';
 @Component({
   selector: 'text-box',
   templateUrl: './textBox.component.html',
-  styleUrls: ['./textBox.component.css']
+  styleUrls: ['./textBox.component.scss']
 })
 export class TextBoxComponent implements OnInit {
   @Input()

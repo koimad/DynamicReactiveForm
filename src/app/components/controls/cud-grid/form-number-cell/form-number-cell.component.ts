@@ -6,7 +6,7 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 @Component({
   selector: 'form-number-cell',
   templateUrl: './form-number-cell.component.html',
-  styleUrls: ['./form-number-cell.component.css']
+  styleUrls: ['./form-number-cell.component.scss']
 })
 export class FormNumberCellComponent implements ICellRendererAngularComp {
   get formGroup(): FormGroup {
