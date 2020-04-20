@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { FieldConfig } from 'src/app/model/form-item-definition';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
-import { _countGroupLabelsBeforeOption } from '@angular/material/core';
 
 @Component({
   selector: 'check-box',
@@ -27,14 +26,13 @@ export class CheckBoxComponent implements OnInit {
   }
 
   @Input('group')
-  set group(value:FormGroup){
+  set group(value: FormGroup) {
     this.internalGroup = value;
-    if(this.internalField)
-    {
+    if (this.internalField) {
       this.updateControl();
     }
   }
-  get group(): FormGroup{
+  get group(): FormGroup {
     return this.internalGroup;
   }
 
@@ -42,12 +40,13 @@ export class CheckBoxComponent implements OnInit {
 
   }
   control: AbstractControl;
-  isIndeterniate : boolean;
-  private internalChange=false;
+  isIndeterniate: boolean;
+
+  private internalChange = false;
   private internalField: FieldConfig;
   private index = 0;
   private internalGroup: FormGroup;
-  private oldValue : any;
+  private oldValue: any;
 
   updateControl() {
     this.control = this.internalGroup.get(this.internalField.key);
@@ -57,8 +56,7 @@ export class CheckBoxComponent implements OnInit {
   private valueChanges(newValue: any): void {
     console.log(`Changing Value To ${newValue}`);
 
-    if (this.internalChange === false)
-    {
+    if (this.internalChange === false) {
       this.internalChange = true;
       this.isIndeterniate = false;
 
@@ -66,8 +64,7 @@ export class CheckBoxComponent implements OnInit {
       let nextValueIndex = this.internalField.options.indexOf(this.oldValue) + 1;
 
 
-      if (nextValueIndex >= this.internalField.options.length)
-      {
+      if (nextValueIndex >= this.internalField.options.length) {
         nextValueIndex = 0;
       }
 
@@ -84,7 +81,7 @@ export class CheckBoxComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onClick() {
     console.log(`Changed To Value = ${this.group.get(this.field.key).value}`);
