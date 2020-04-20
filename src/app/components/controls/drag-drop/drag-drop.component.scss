@@ -1,0 +1,42 @@
+.example-container {
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: block;
+  min-width: 370px;
+}
+
+.example-box {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+  color: rgba(0, 0, 0, 0.87);
+  margin:auto;
+}
+
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-custom-placeholder {
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  min-width: 370px;
+}
+
+.example-custom-previewHolder {
+  background-color: white;
+  border: solid 2px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  min-width: 370px;
+  text-align: center;
+}

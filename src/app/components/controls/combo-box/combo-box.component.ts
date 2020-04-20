@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { FieldConfig } from 'src/app/model/form-item-definition';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from '../component-error-mapper';
 
 @Component({
@@ -14,15 +13,12 @@ export class ComboBoxComponent implements OnInit {
   @HostBinding('class') get class(): string { return this.field.columnClass };
 
   @Input()
-  field: FieldConfig;
+  field: IFieldConfig;
   @Input()
   group: FormGroup;
 
-  errorMapper: ErrorStateMatcher;
-
-  constructor() {
-    this.errorMapper = new ComponentErrorMapper();
+  constructor(public errorMapper: ComponentErrorMapper) {
   }
 
-  ngOnInit() {}
+  public ngOnInit() { }
 }

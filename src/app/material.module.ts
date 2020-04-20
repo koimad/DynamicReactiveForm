@@ -14,6 +14,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+
 @NgModule({
   imports: [
     MatButtonModule,
@@ -29,7 +31,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatOptionModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatTabsModule
+    MatTabsModule,
+    DragDropModule
+
   ],
   exports: [
     MatButtonModule,
@@ -45,7 +49,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatOptionModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatTabsModule
+    MatTabsModule,
+    DragDropModule
   ]
 })
 export class MaterialModule {}

@@ -1,18 +1,15 @@
-import { FormNumberCellComponent } from './form-number-cell/form-number-cell.component';
-import { Component, OnInit, Input } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { ComponentErrorMapper } from '../component-error-mapper';
-import { FormGroup, FormArray, AbstractControl } from '@angular/forms';
-import { FieldConfig } from 'src/app/model/form-item-definition';
-import { FormBuilderExtended } from '../../my-form/FormBuilderExtended';
+import { Component, Input, OnInit } from '@angular/core';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import {
-  GridApi,
+  Column,
   ColumnApi,
+  GridApi,
   GridReadyEvent,
   RowNode,
-  Column,
 } from 'ag-grid-community';
-
+import { IFieldConfig } from 'src/app/model/IFieldConfig';
+import { FormBuilderExtended } from '../../my-form/FormBuilderExtended';
+import { FormNumberCellComponent } from './form-number-cell/form-number-cell.component';
 import { FormTextCellComponent } from './form-text-cell/form-text-cell.component';
 
 @Component({
@@ -21,26 +18,25 @@ import { FormTextCellComponent } from './form-text-cell/form-text-cell.component
   styleUrls: ['./cud-grid.component.scss'],
 })
 export class CudGridComponent implements OnInit {
-  private api: GridApi;
-  private columnApi: ColumnApi;
+  private _api: GridApi;
+  private _columnApi: ColumnApi;
 
-  // tslint:disable-next-line:variable-name
-  _field: FieldConfig;
-  // tslint:disable-next-line:variable-name
-  _group: FormGroup;
+  private _field: IFieldConfig;
 
-  private formArray: FormArray;
-  private fieldName: string;
+  private _group: FormGroup;
+
+  private _formArray: FormArray;
+  private _fieldName: string;
 
   public rowSelection = 'single';
 
   public rows: any[];
 
   @Input()
-  get field(): FieldConfig {
+  get field(): IFieldConfig {
     return this._field;
   }
-  set field(value: FieldConfig) {
+  set field(value: IFieldConfig) {
     this._field = value;
 
     this.inputsChanged();
@@ -57,50 +53,49 @@ export class CudGridComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilderExtended,
-    private errorMapper: ComponentErrorMapper
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  inputsChanged() {
+  private inputsChanged() {
     if (this.field) {
       this.rows = [...this.field.value];
     }
   }
 
   public refreshFormControls() {
-    if (this.api) {
+    if (this._api) {
       // slight chicken and egg here - the grid cells will be created before the grid is ready, but
       // we need set formGroup up front
       // as such we'll create the grid (and cells) and force refresh the cells
       // Cell Component will then set the form in the refresh, completing the loop
       // this is only necessary once, on initialisation
       this.createFormControls();
-      this.api.refreshCells({ force: true });
+      this._api.refreshCells({ force: true });
     }
   }
 
   gridReady(params: GridReadyEvent) {
-    this.api = params.api;
-    this.columnApi = params.columnApi;
+    this._api = params.api;
+    this._columnApi = params.columnApi;
 
     this.refreshFormControls();
   }
 
-  onSelectionChanged() {
+  public onSelectionChanged() {
     // console.log(this.api.getSelectedRows());
   }
 
   private createFormControls() {
-    const columns = this.columnApi.getAllColumns();
+    const columns = this._columnApi.getAllColumns();
 
-    if (this.fieldName) {
-      this._group.removeControl(this.fieldName);
+    if (this._fieldName) {
+      this._group.removeControl(this._fieldName);
     }
 
     const rows = new Array<AbstractControl>();
 
-    this.api.forEachNode((rowNode: RowNode) => {
+    this._api.forEachNode((rowNode: RowNode) => {
       const rowGroup = this.formBuilder.group([]);
 
       columns.forEach((column: Column) => {
@@ -111,16 +106,16 @@ export class CudGridComponent implements OnInit {
       });
       rows.push(rowGroup);
     });
-    this.formArray = this.formBuilder.array(rows);
-    this.fieldName = this.field.key;
-    this._group.addControl(this.fieldName, this.formArray);
+    this._formArray = this.formBuilder.array(rows);
+    this._fieldName = this.field.key;
+    this._group.addControl(this._fieldName, this._formArray);
   }
 
-  getComponents() {
+  public getComponents() {
     return { text: FormTextCellComponent, number: FormNumberCellComponent };
   }
 
-  getContext() {
+  public getContext() {
     return {
       formGroup: this.group,
       formArrayName: this.field.key,
@@ -134,7 +129,7 @@ export class CudGridComponent implements OnInit {
       age: undefined,
     };
 
-    this.api.updateRowData({ add: [newItem] });
+    this._api.updateRowData({ add: [newItem] });
 
     const formGroup = this.formBuilder.group([]);
 
@@ -143,15 +138,14 @@ export class CudGridComponent implements OnInit {
       formGroup.addControl(name, this.formBuilder.control(Object.values[i++]));
     });
 
-    this.formArray.push(formGroup);
+    this._formArray.push(formGroup);
   }
 
   public onRemove(): void {
-    this.api.getSelectedNodes().forEach((n) => {
-      this.formArray.removeAt(n.rowIndex);
+    this._api.getSelectedNodes().forEach((n) => {
+      this._formArray.removeAt(n.rowIndex);
     });
-    this.api.removeItems(this.api.getSelectedNodes());
-    console.log(this.field.value);
+    this._api.removeItems(this._api.getSelectedNodes());
   }
 
   public onReset() {

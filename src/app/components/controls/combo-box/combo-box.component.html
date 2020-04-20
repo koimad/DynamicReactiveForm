@@ -1,13 +1,13 @@
 <mat-form-field [formGroup]="group"
-  floatLabel="always">
+                floatLabel="always">
   <mat-select [placeholder]="field.label"
-    [formControlName]="field.key"
-    [errorStateMatcher]="errorMapper">
+              [formControlName]="field.key"
+              [errorStateMatcher]="errorMapper">
     <mat-option *ngFor="let item of field.options"
-      [value]="item">{{item}}</mat-option>
+                [value]="item">{{item}}</mat-option>
   </mat-select>
   <ng-container *ngFor="let validation of field.validators"
-    ngProjectAs="mat-error">
+                ngProjectAs="mat-error">
     <mat-error *ngIf="group.get(field.key).hasError(validation.name)">{{validation.message}}</mat-error>
   </ng-container>
 </mat-form-field>

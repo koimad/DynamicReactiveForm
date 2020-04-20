@@ -1,12 +1,12 @@
-import { FieldConfig } from '../../model/form-item-definition';
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
-  Validators,
   ValidatorFn,
- } from '@angular/forms';
-import { FormBuilderExtended } from './FormBuilderExtended';
+  Validators,
+} from '@angular/forms';
 import { FormUpdatedValuesService } from 'src/app/model/form-updated-values.service';
+import { IFieldConfig } from 'src/app/model/IFieldConfig';
+import { FormBuilderExtended } from './FormBuilderExtended';
 
 @Component({
   selector: 'app-my-form',
@@ -14,10 +14,12 @@ import { FormUpdatedValuesService } from 'src/app/model/form-updated-values.serv
   styleUrls: ['./my-form.component.scss'],
 })
 export class MyFormComponent implements OnInit {
+
   constructor(
-    private formBuilder: FormBuilderExtended,
-    private updatedFormValueService: FormUpdatedValuesService
+    private _formBuilder: FormBuilderExtended,
+    private _updatedFormValueService: FormUpdatedValuesService
   ) {
+
     this.fields = [
       {
         key: 'General',
@@ -182,15 +184,15 @@ export class MyFormComponent implements OnInit {
         ],
       },
       {
-        key: 'Address',
-        label: 'Address',
+        key: 'Shopping',
+        label: 'Shopping Basket',
         value: '',
         controlType: 'formTab',
         validators: [],
         children: [
           {
             key: 'dragDrop',
-            label: 'Drag Drop',
+            label: 'Select Items',
             value: undefined,
             controlType: 'dragDrop',
             validators: [],
@@ -201,34 +203,34 @@ export class MyFormComponent implements OnInit {
     ];
   }
   public rootFormGroup: FormGroup;
-  public fields: Array<FieldConfig>;
+  public fields: Array<IFieldConfig>;
   public submitData = '';
 
   ngOnInit() {
     try {
-      this.rootFormGroup = this.formBuilder.group({});
+      this.rootFormGroup = this._formBuilder.group({});
 
       this.createGroup(this.rootFormGroup, this.fields);
 
       this.rootFormGroup.valueChanges.subscribe((f) => {
-        this.updatedFormValueService.getUpdatedValues(this.rootFormGroup);
+        this._updatedFormValueService.getUpdatedValues(this.rootFormGroup);
       });
     } catch (e) {
       console.log(e);
     }
   }
 
-  private createGroup(formGroup: FormGroup, fields: Array<FieldConfig>): void {
+  private createGroup(formGroup: FormGroup, fields: Array<IFieldConfig>): void {
     fields.forEach((field) => {
       if (field.controlType === 'group' || field.controlType === 'formTab') {
         if (field.children) {
           field.group = formGroup;
-          const childGroup = this.formBuilder.group({});
+          const childGroup = this._formBuilder.group({});
           this.createGroup(childGroup, field.children);
           formGroup.addControl(field.key, childGroup);
         }
       } else if (field.controlType === 'cudGrid') {
-        const childGroup = this.formBuilder.group(
+        const childGroup = this._formBuilder.group(
           [field.key],
           this.buildValidators(field.validators)
         );
@@ -238,7 +240,7 @@ export class MyFormComponent implements OnInit {
         field.group = formGroup;
         formGroup.addControl(
           field.key,
-          this.formBuilder.control(
+          this._formBuilder.control(
             field.value,
             this.buildValidators(field.validators)
           )
@@ -261,6 +263,6 @@ export class MyFormComponent implements OnInit {
 
   public submit(): void {
     console.log(this.rootFormGroup.value);
-    this.submitData = this.updatedFormValueService.getnerateChangedControlString();
+    this.submitData = this._updatedFormValueService.getnerateChangedControlString();
   }
 }

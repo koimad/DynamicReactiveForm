@@ -1,8 +1,8 @@
-import { FormGroup, AbstractControl } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 import {
-  ValidatorFn,
   AbstractControlOptions,
   AsyncValidatorFn,
+  ValidatorFn,
 } from '@angular/forms';
 export class FormGroupExtended extends FormGroup {
   get dirty(): boolean {
@@ -11,7 +11,6 @@ export class FormGroupExtended extends FormGroup {
       childControlsDirty = childControlsDirty || this.controls[key].dirty;
     });
 
-    // console.log(`FormGroup: ${childControlsDirty}`);
     return childControlsDirty;
   }
 

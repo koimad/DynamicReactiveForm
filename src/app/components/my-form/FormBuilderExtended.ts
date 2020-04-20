@@ -1,14 +1,14 @@
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { Injectable } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import {
-  FormControl,
-  ValidatorFn,
   AbstractControlOptions,
-  AsyncValidatorFn
+  AsyncValidatorFn,
+  FormControl,
+  ValidatorFn
 } from '@angular/forms';
+import { FormArrayExtended } from './FormArrayExtended';
 import { FormControlExtended } from './FormControlExtended';
 import { FormGroupExtended } from './FormGroupExtended';
-import { FormArrayExtended } from './FormArrayExtended';
-import { Injectable } from '@angular/core';
 
 function isAbstractControlOptions(
   options: AbstractControlOptions | { [key: string]: any }
@@ -63,8 +63,8 @@ export class FormBuilderExtended extends FormBuilder {
     options?:
       | AbstractControlOptions
       | {
-          [key: string]: any;
-        }
+        [key: string]: any;
+      }
       | null
   ): FormGroup {
     let validators: ValidatorFn | ValidatorFn[] | null = null;

@@ -1,1 +1,51 @@
-<p>drag-drop works!</p>
+<div cdkDropListGroup>
+  <div class="example-container">
+    <h2>Available</h2>
+    <div cdkDropList
+         id="SourceList"
+         [cdkDropListData]="todo"
+         class="example-box"
+         (cdkDropListDropped)="drop($event)"
+         [cdkDropListEnterPredicate]="toDoCanDrop"
+         cdkDropListSortingDisabled>
+      <div class="example-box"
+           [cdkDragData]="item"
+           *ngFor="let item of todo"
+           cdkDrag>
+        <div class="example-custom-placeholder"
+             *cdkDragPlaceholder>
+          <p>{{item}}</p>
+        </div>
+        <div class="example-custom-previewHolder"
+             *cdkDragPreview>
+          <p>{{item}}</p>
+        </div>
+        <p>{{item}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="example-container">
+    <h2>Basket</h2>
+    <div cdkDropList
+         id="DestinationList"
+         [cdkDropListData]="done"
+         class="example-box"
+         (cdkDropListDropped)="drop($event)"
+         cdkDropListSortingDisabled>
+      <div class="example-box"
+           [cdkDragData]="item"
+           *ngFor="let item of done"
+           cdkDrag>
+        <div class="example-custom-placeholder"
+             *cdkDragPlaceholder>
+          <p>{{item}}</p>
+        </div>
+        <div class="example-custom-previewHolder"
+             *cdkDragPreview>
+          <p>{{item}}</p>
+        </div>
+        <p>{{item}}</p>
+      </div>
+    </div>
+  </div>
+</div>

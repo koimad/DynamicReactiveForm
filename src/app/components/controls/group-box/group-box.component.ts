@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { FieldConfig } from 'src/app/model/form-item-definition';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { IFieldConfig } from 'src/app/model/IFieldConfig';
 
 @Component({
   selector: 'app-group-box',
@@ -9,12 +9,12 @@ import { FormGroup } from '@angular/forms';
 })
 export class GroupBoxComponent implements OnInit {
   @Input()
-  field: FieldConfig;
+  field: IFieldConfig;
   @Input()
   group: FormGroup;
 
-  @HostBinding('class') get class() : string {return this.field.columnClass};
-  constructor() {}
+  @HostBinding('class') get class(): string { return this.field.columnClass };
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

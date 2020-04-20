@@ -1,10 +1,21 @@
 <fieldset>
   <legend>{{field.label}}
-    <p class="dirtyMarker" [ngClass]="group.dirty ? 'red': 'green'"> *</p>
+    <p class="dirtyMarker"
+       [ngClass]="group.dirty ? 'red': 'green'"> *</p>
   </legend>
-  <div [formGroup]=group fxLayout="column" fxLayoutAlign="start center">
-    <ag-grid-angular style="width: 350px; height: 300px;" class="ag-theme-material" [rowData]="rows" [columnDefs]="field.columnDefinitions" [frameworkComponents]="getComponents()"
-      (rowDataChanged)="refreshFormControls()" (gridReady)="gridReady($event)" [context]="getContext()" [rowSelection]="rowSelection" (selectionChanged)="onSelectionChanged()">
+  <div [formGroup]=group
+       fxLayout="column"
+       fxLayoutAlign="start center">
+    <ag-grid-angular style="width: 350px; height: 300px;"
+                     class="ag-theme-material"
+                     [rowData]="rows"
+                     [columnDefs]="field.columnDefinitions"
+                     [frameworkComponents]="getComponents()"
+                     (rowDataChanged)="refreshFormControls()"
+                     (gridReady)="gridReady($event)"
+                     [context]="getContext()"
+                     [rowSelection]="rowSelection"
+                     (selectionChanged)="onSelectionChanged()">
     </ag-grid-angular>
   </div>
   <button (click)="onAdd()">Add </button>

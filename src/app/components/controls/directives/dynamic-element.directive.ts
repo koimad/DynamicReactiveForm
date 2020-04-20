@@ -1,20 +1,19 @@
 import {
   ComponentFactoryResolver,
-  ComponentRef,
   Directive,
   Input,
   OnInit,
   ViewContainerRef
 } from '@angular/core';
-import { FieldConfig } from '../../../model/form-item-definition';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { IFieldConfig } from '../../../model/IFieldConfig';
 import { componentMapper } from '../component-mapper';
 @Directive({
   selector: '[DynamicElement]'
 })
 export class DynamicElementDirective implements OnInit {
   @Input()
-  field: FieldConfig;
+  field: IFieldConfig;
   @Input()
   group: FormGroup;
 
@@ -23,7 +22,7 @@ export class DynamicElementDirective implements OnInit {
   constructor(
     private resolver: ComponentFactoryResolver,
     private container: ViewContainerRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.field) {

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { FieldConfig } from 'src/app/model/form-item-definition';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+
+import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from '../component-error-mapper';
 
 @Component({
@@ -11,17 +11,15 @@ import { ComponentErrorMapper } from '../component-error-mapper';
 })
 export class TextBoxComponent implements OnInit {
   @Input()
-  field: FieldConfig;
+  field: IFieldConfig;
   @Input()
   group: FormGroup;
 
   @HostBinding('class') get class(): string { return this.field.columnClass };
 
-  errorMapper: ErrorStateMatcher;
+  constructor(public errorMapper: ComponentErrorMapper) {
 
-  constructor() {
-    this.errorMapper = new ComponentErrorMapper();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

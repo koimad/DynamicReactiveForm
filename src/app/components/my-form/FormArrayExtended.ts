@@ -1,12 +1,13 @@
 import { AbstractControl, FormArray } from '@angular/forms';
 import {
-  ValidatorFn,
   AbstractControlOptions,
   AsyncValidatorFn,
+  ValidatorFn,
 } from '@angular/forms';
 
 export class FormArrayExtended extends FormArray {
-  get dirty(): boolean {
+
+  public get dirty(): boolean {
     let childControlsDirty = false;
     Object.keys(this.controls).forEach((key) => {
       childControlsDirty = childControlsDirty || this.controls[key].dirty;
@@ -17,11 +18,11 @@ export class FormArrayExtended extends FormArray {
     return childControlsDirty;
   }
 
-  get originalValue(): any {
-    return this.startCollection.values;
+  public get originalValue(): any {
+    return this._startCollection.values;
   }
 
-  private startCollection: AbstractControl[];
+  private _startCollection: AbstractControl[];
 
   constructor(
     controls: AbstractControl[],
@@ -34,37 +35,38 @@ export class FormArrayExtended extends FormArray {
   ) {
     super(controls, validatorOrOpts, asyncValidator);
 
-    this.startCollection = [...controls];
+    this._startCollection = [...controls];
   }
 
   push(control: AbstractControl): void {
     super.push(control);
   }
 
-  insert(index: number, control: AbstractControl): void {
+  public insert(index: number, control: AbstractControl): void {
     super.insert(index, control);
   }
-  removeAt(index: number): void {
+
+  public removeAt(index: number): void {
     super.removeAt(index);
   }
 
-  setControl(index: number, control: AbstractControl): void {
+  public setControl(index: number, control: AbstractControl): void {
     super.setControl(index, control);
   }
 
-  collectionsEqual(): boolean {
-    let result = this.startCollection.length === this.controls.length;
+  private collectionsEqual(): boolean {
+    let result = this._startCollection.length === this.controls.length;
 
     if (result) {
       const t = [];
-      this.startCollection.forEach((a) => {
+      this._startCollection.forEach((a) => {
         this.controls.forEach((b) => {
           if (a.value === b.value) {
             t.push(b);
           }
         });
       });
-      result = t.length === this.startCollection.length;
+      result = t.length === this._startCollection.length;
     }
 
     return result;

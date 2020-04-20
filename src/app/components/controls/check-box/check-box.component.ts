@@ -1,90 +1,88 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { FieldConfig } from 'src/app/model/form-item-definition';
-import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
+import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { IFieldConfig } from 'src/app/model/IFieldConfig';
 
 @Component({
   selector: 'check-box',
   templateUrl: './check-box.component.html',
   styleUrls: ['./check-box.component.scss']
 })
-export class CheckBoxComponent implements OnInit {
+export class CheckBoxComponent implements OnInit, OnDestroy {
 
   @HostBinding('class') get class(): string { return this.field.columnClass };
 
+  public get field(): IFieldConfig {
+    return this._internalField;
+  }
+
   @Input('field')
-  set field(value: FieldConfig) {
-    this.internalField = value;
+  public set field(value: IFieldConfig) {
+    this._internalField = value;
     this.isIndeterniate = value.value === null;
-    this.oldValue = value.value;
-    if (this.internalGroup) {
+    this._oldValue = value.value;
+    if (this._internalGroup) {
       this.updateControl();
     }
   }
 
-  get field(): FieldConfig {
-    return this.internalField;
+  public get group(): FormGroup {
+    return this._internalGroup;
   }
 
   @Input('group')
-  set group(value: FormGroup) {
-    this.internalGroup = value;
-    if (this.internalField) {
+  public set group(value: FormGroup) {
+    this._internalGroup = value;
+    if (this._internalField) {
       this.updateControl();
     }
   }
-  get group(): FormGroup {
-    return this.internalGroup;
+
+  private _internalChange = false;
+  private _internalField: IFieldConfig;
+  private _internalGroup: FormGroup;
+  private _oldValue: any;
+  private _subscriptions: Array<Subscription>;
+
+  public control: AbstractControl;
+  public isIndeterniate: boolean;
+
+  public constructor() {
+    this._subscriptions = [];
   }
 
-  constructor() {
-
-  }
-  control: AbstractControl;
-  isIndeterniate: boolean;
-
-  private internalChange = false;
-  private internalField: FieldConfig;
-  private index = 0;
-  private internalGroup: FormGroup;
-  private oldValue: any;
-
-  updateControl() {
-    this.control = this.internalGroup.get(this.internalField.key);
-    this.control.valueChanges.subscribe((value) => this.valueChanges(value));
+  private updateControl() {
+    this.control = this._internalGroup.get(this._internalField.key);
+    this._subscriptions.push(this.control.valueChanges.subscribe((value) => this.valueChanges(value)));
   }
 
   private valueChanges(newValue: any): void {
-    console.log(`Changing Value To ${newValue}`);
 
-    if (this.internalChange === false) {
-      this.internalChange = true;
+    if (this._internalChange === false) {
+      this._internalChange = true;
       this.isIndeterniate = false;
 
+      let nextValueIndex = this._internalField.options.indexOf(this._oldValue) + 1;
 
-      let nextValueIndex = this.internalField.options.indexOf(this.oldValue) + 1;
-
-
-      if (nextValueIndex >= this.internalField.options.length) {
+      if (nextValueIndex >= this._internalField.options.length) {
         nextValueIndex = 0;
       }
 
-      console.log(`next value is ${nextValueIndex}  ${this.internalField.options[nextValueIndex]}`)
+      newValue = this._internalField.options[nextValueIndex];
 
-      newValue = this.internalField.options[nextValueIndex];
       this.control.setValue(newValue);
       this.isIndeterniate = newValue === null;
+      this._internalChange = false;
+      this._oldValue = newValue;
 
-      this.internalChange = false;
-
-      this.oldValue = newValue;
-      console.log(`setting old value to ${this.oldValue}`);
     }
   }
 
-  ngOnInit() { }
+  public ngOnDestroy(): void {
+    this._subscriptions.forEach(s => s.unsubscribe());
 
-  onClick() {
-    console.log(`Changed To Value = ${this.group.get(this.field.key).value}`);
-    console.log(`Has Valudation Error = ${this.group.get(this.field.key).errors}`);
   }
+
+  public ngOnInit() { }
+
 }

@@ -1,10 +1,10 @@
-import { FormControl, ValidatorFn, AbstractControlOptions, AsyncValidatorFn } from '@angular/forms';
+import { AbstractControlOptions, AsyncValidatorFn, FormControl, ValidatorFn } from '@angular/forms';
 
 export class FormControlExtended extends FormControl {
-  originalValue: any;
+  private _originalValue: any;
 
   get dirty(): boolean {
-    return !this.pristine && this.value !== this.originalValue;
+    return !this.pristine && this.value !== this._originalValue;
   }
 
   constructor(
@@ -13,7 +13,7 @@ export class FormControlExtended extends FormControl {
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
     super(formState, validatorOrOpts, asyncValidator);
-    this.originalValue = this.value;
+    this._originalValue = this.value;
   }
 
   setValue(

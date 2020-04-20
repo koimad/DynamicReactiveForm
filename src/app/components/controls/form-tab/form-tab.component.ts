@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FieldConfig } from 'src/app/model/form-item-definition';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { IFieldConfig } from 'src/app/model/IFieldConfig';
 
 @Component({
   selector: 'form-tab',
@@ -9,11 +9,11 @@ import { FormGroup } from '@angular/forms';
 })
 export class FormTabComponent implements OnInit {
   @Input()
-  field: FieldConfig;
+  field: IFieldConfig;
   @Input()
   group: FormGroup;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
