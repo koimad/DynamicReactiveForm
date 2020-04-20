@@ -22,6 +22,7 @@ import { FormTabComponent } from './components/controls/form-tab/form-tab.compon
 import { AgGridModule, AgGridAngular } from 'ag-grid-angular';
 import { FormTextCellComponent } from './components/controls/cud-grid/form-text-cell/form-text-cell.component';
 import { FormNumberCellComponent } from './components/controls/cud-grid/form-number-cell/form-number-cell.component';
+import { DragDropComponent } from './components/controls/drag-drop/drag-drop.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FormNumberCellComponent } from './components/controls/cud-grid/form-num
     FormTabComponent,
     FormTextCellComponent,
     FormNumberCellComponent,
+    DragDropComponent,
   ],
   imports: [
     BrowserModule,

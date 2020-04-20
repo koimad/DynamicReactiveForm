@@ -7,6 +7,8 @@ import { CheckBoxComponent } from './check-box/check-box.component';
 import { ComboBoxComponent } from './combo-box/combo-box.component';
 import { RadioButtonComponent } from './radio-button/radio-button.component';
 import { CudGridComponent } from './cud-grid/cud-grid.component';
+import { DragDropComponent } from './drag-drop/drag-drop.component';
+
 
 export const componentMapper = {
   textBox: TextBoxComponent,
@@ -17,7 +19,8 @@ export const componentMapper = {
   datePicker: DatePickerComponent,
   radioButton: RadioButtonComponent,
   cudGrid: CudGridComponent,
-  formTab: FormTabComponent
+  formTab: FormTabComponent,
+  dragDrop: DragDropComponent
 };
 
 export enum ComponentTypes {}
