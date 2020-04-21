@@ -1,6 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\components",
+    "\\src\\app\\components\\controls",
+    "\\src\\app\\components\\controls\\check-box",
+    "\\src\\app\\components\\controls\\cud-grid\\form-number-cell",
+    "\\src\\app\\components\\controls\\cud-grid\\form-text-cell",
+    "\\src\\app\\components\\controls\\drag-drop",
+    "\\src\\app\\components\\my-form"
   ],
+  "SelectedNode": "\\src\\app\\model\\form-updated-values.service.spec.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -10,7 +10,7 @@
   <div class="formBorder formbackGround">
     <form [formGroup]="rootFormGroup">
       <mat-tab-group style="min-height: 700px;">
-        <mat-tab *ngFor="let item of fields;">
+        <mat-tab *ngFor="let item of formData;">
           <ng-template mat-tab-label>
             <legend>{{item.label}}
               <p class="dirtyMarker"

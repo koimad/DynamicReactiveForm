@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FamiliyFormData } from './model/Entities/Example/familily';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'reactiveFormsLearning';
+  formFields = new FamiliyFormData().FormData;
 }
