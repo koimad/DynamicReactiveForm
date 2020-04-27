@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
+  FormArray,
+  FormControl,
   FormGroup,
+  ValidationErrors,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
@@ -37,7 +40,7 @@ export class MyFormComponent {
   ) { }
 
   private setupForm(): void {
-    console.log(this._formData);
+
     try {
       this.rootFormGroup = this._formBuilder.group({});
 
@@ -45,6 +48,7 @@ export class MyFormComponent {
 
       this.rootFormGroup.valueChanges.subscribe((f) => {
         this._updatedFormValueService.getUpdatedValues(this.rootFormGroup);
+
       });
     } catch (e) {
       console.log(e);
@@ -53,6 +57,7 @@ export class MyFormComponent {
 
 
   private createGroup(formGroup: FormGroup, fields: Array<IFieldConfig>): void {
+
     fields.forEach((field) => {
       if (field.controlType === 'group' || field.controlType === 'formTab') {
         if (field.children) {
@@ -68,6 +73,8 @@ export class MyFormComponent {
         );
         formGroup.addControl(field.key, childGroup);
         field.group = childGroup;
+      } else if (field.controlType === 'dragDrop') {
+        field.group = formGroup;
       } else {
         field.group = formGroup;
         formGroup.addControl(
@@ -96,7 +103,6 @@ export class MyFormComponent {
 
 
   public submit(): void {
-    console.log(this.rootFormGroup.value);
     this.submitData = this._updatedFormValueService.getnerateChangedControlString();
   }
 }

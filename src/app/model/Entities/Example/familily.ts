@@ -108,62 +108,62 @@ export class FamiliyFormData {
         },
       ],
     },
-    {
-      key: 'FamilyMembers',
-      label: 'Family Members',
-      value: '',
-      controlType: 'formTab',
-      validators: [],
-      children: [
-        {
-          key: 'Children',
-          columnClass: 'form-Column1-12',
-          controlType: 'cudGrid',
-          label: 'Children',
-          options: null,
-          columnDefinitions: [
-            {
-              headerName: 'First Name',
-              field: 'firstName',
-              width: 120,
-              cellRenderer: 'text',
-              editable: false,
-              resizable: false,
-            },
-            {
-              headerName: 'Middle Name',
-              field: 'middleName',
-              width: 120,
-              cellRenderer: 'text',
-              editable: false,
-              resizable: false,
-            },
-            {
-              headerName: 'Age',
-              field: 'age',
-              width: 100,
-              cellRenderer: 'number',
-              editable: false,
-              resizable: false,
-            },
-          ],
-          value: [
-            {
-              firstName: 'Bob',
-              middleName: 'Thomas',
-              age: 19,
-            },
-            {
-              firstName: 'Jordan',
-              middleName: 'Kelly',
-              age: 21,
-            },
-          ],
-          children: [],
-          validators: [],
-        },
-      ],
-    },
+    // {
+    //   key: 'FamilyMembers',
+    //   label: 'Family Members',
+    //   value: '',
+    //   controlType: 'formTab',
+    //   validators: [],
+    //   children: [
+    //     {
+    //       key: 'Children',
+    //       columnClass: 'form-Column1-12',
+    //       controlType: 'cudGrid',
+    //       label: 'Children',
+    //       options: null,
+    //       columnDefinitions: [
+    //         {
+    //           headerName: 'First Name',
+    //           field: 'firstName',
+    //           width: 120,
+    //           cellRenderer: 'text',
+    //           editable: false,
+    //           resizable: false,
+    //         },
+    //         {
+    //           headerName: 'Middle Name',
+    //           field: 'middleName',
+    //           width: 120,
+    //           cellRenderer: 'text',
+    //           editable: false,
+    //           resizable: false,
+    //         },
+    //         {
+    //           headerName: 'Age',
+    //           field: 'age',
+    //           width: 100,
+    //           cellRenderer: 'number',
+    //           editable: false,
+    //           resizable: false,
+    //         },
+    //       ],
+    //       value: [
+    //         {
+    //           firstName: 'Bob',
+    //           middleName: 'Thomas',
+    //           age: 19,
+    //         },
+    //         {
+    //           firstName: 'Jordan',
+    //           middleName: 'Kelly',
+    //           age: 21,
+    //         },
+    //       ],
+    //       children: [],
+    //       validators: [],
+    //     },
+    //   ],
+    // },
     {
       key: 'Shopping',
       label: 'Shopping Basket',
@@ -172,11 +172,23 @@ export class FamiliyFormData {
       validators: [],
       children: [
         {
-          key: 'dragDrop',
+          key: 'ShoppingBasket',
           label: 'Select Items',
-          value: undefined,
+          options: ['Carrots', 'Apples', 'Oranges', 'Tomatoes', 'Grapes'],
+          value: ['Carrots', 'Apples'],
           controlType: 'dragDrop',
-          validators: [],
+          validators: [
+            {
+              name: 'minlength',
+              validator: Validators.minLength(3),
+              message: 'Must have at least 3 items',
+            },
+            {
+              name: 'maxlength',
+              validator: Validators.maxLength(5),
+              message: 'Must have no more than 5 items',
+            }
+          ],
           children: []
         }
       ],

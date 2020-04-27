@@ -3,14 +3,14 @@
     <h2>Available</h2>
     <div cdkDropList
          id="SourceList"
-         [cdkDropListData]="todo"
+         [cdkDropListData]="source"
          class="example-box"
          (cdkDropListDropped)="drop($event)"
          [cdkDropListEnterPredicate]="toDoCanDrop"
          cdkDropListSortingDisabled>
       <div class="example-box"
            [cdkDragData]="item"
-           *ngFor="let item of todo"
+           *ngFor="let item of source"
            cdkDrag>
         <div class="example-custom-placeholder"
              *cdkDragPlaceholder>
@@ -28,13 +28,13 @@
     <h2>Basket</h2>
     <div cdkDropList
          id="DestinationList"
-         [cdkDropListData]="done"
+         [cdkDropListData]="destination"
          class="example-box"
          (cdkDropListDropped)="drop($event)"
          cdkDropListSortingDisabled>
       <div class="example-box"
            [cdkDragData]="item"
-           *ngFor="let item of done"
+           *ngFor="let item of destination"
            cdkDrag>
         <div class="example-custom-placeholder"
              *cdkDragPlaceholder>
@@ -45,6 +45,15 @@
           <p>{{item}}</p>
         </div>
         <p>{{item}}</p>
+      </div>
+    </div>
+  </div>
+  <div style="width: 300px;"
+       *ngFor="let validationField of field.validators">
+    <div *ngIf="group.controls[field.key]">
+      <div class='red'
+           *ngIf="group.controls[field.key].errors && group.controls[field.key].errors[validationField.name]">
+        {{validationField.message}}
       </div>
     </div>
   </div>

@@ -1,28 +1,28 @@
-import { ComponentErrorMapper } from './components/controls/component-error-mapper';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MyFormComponent } from './components/my-form/my-form.component';
-import { FormBuilderExtended } from './components/my-form/FormBuilderExtended';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
-import { GroupBoxComponent } from './components/controls/group-box/group-box.component';
-import { TextBoxComponent } from './components/controls/text-box/textBox.component';
-import { DynamicElementDirective } from './components/controls/directives/dynamic-element.directive';
-import { TextAreaComponent } from './components/controls/text-area/text-area.component';
 import { CheckBoxComponent } from './components/controls/check-box/check-box.component';
 import { ComboBoxComponent } from './components/controls/combo-box/combo-box.component';
-import { DatePickerComponent } from './components/controls/date-picker/date-picker.component';
-import { RadioButtonComponent } from './components/controls/radio-button/radio-button.component';
-import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
+import { ComponentErrorMapper } from './components/controls/component-error-mapper';
 import { CudGridComponent } from './components/controls/cud-grid/cud-grid.component';
-import { FormTabComponent } from './components/controls/form-tab/form-tab.component';
-import { AgGridModule, AgGridAngular } from 'ag-grid-angular';
-import { FormTextCellComponent } from './components/controls/cud-grid/form-text-cell/form-text-cell.component';
 import { FormNumberCellComponent } from './components/controls/cud-grid/form-number-cell/form-number-cell.component';
+import { FormTextCellComponent } from './components/controls/cud-grid/form-text-cell/form-text-cell.component';
+import { DatePickerComponent } from './components/controls/date-picker/date-picker.component';
+import { DynamicElementDirective } from './components/controls/directives/dynamic-element.directive';
 import { DragDropComponent } from './components/controls/drag-drop/drag-drop.component';
+import { FormTabComponent } from './components/controls/form-tab/form-tab.component';
+import { GroupBoxComponent } from './components/controls/group-box/group-box.component';
+import { RadioButtonComponent } from './components/controls/radio-button/radio-button.component';
+import { TextAreaComponent } from './components/controls/text-area/text-area.component';
+import { TextBoxComponent } from './components/controls/text-box/textBox.component';
+import { FormBuilderExtended } from './components/my-form/FormBuilderExtended';
+import { MyFormComponent } from './components/my-form/my-form.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +52,7 @@ import { DragDropComponent } from './components/controls/drag-drop/drag-drop.com
   ],
   providers: [
     { provide: FormBuilderExtended, useClass: FormBuilderExtended },
+    { provide: FormBuilder, useClass: FormBuilderExtended },
     { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: 'noop' },
     { provide: ComponentErrorMapper, useClass: ComponentErrorMapper },
   ],
@@ -70,4 +71,4 @@ import { DragDropComponent } from './components/controls/drag-drop/drag-drop.com
     FormNumberCellComponent
   ],
 })
-export class AppModule {}
+export class AppModule { }

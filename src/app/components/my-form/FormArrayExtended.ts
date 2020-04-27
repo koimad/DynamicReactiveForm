@@ -22,6 +22,23 @@ export class FormArrayExtended extends FormArray {
     return this._startCollection.values;
   }
 
+  public getChanges(): { [key: string]: AbstractControl[] } {
+
+    const added = this.controls.filter(f => !this._startCollection.includes(f));
+    const removed = this._startCollection.filter(f => !this.controls.includes(f));
+    const modified = this.controls.filter(f => this._startCollection.includes(f) && f.dirty);
+    // console.log('getChanges');
+    // console.log(added);
+    // console.log(removed);
+    // console.log(modified);
+
+    return {
+      added,
+      removed,
+      modified
+    };
+  }
+
   private _startCollection: AbstractControl[];
 
   constructor(

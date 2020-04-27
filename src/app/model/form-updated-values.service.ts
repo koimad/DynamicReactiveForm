@@ -1,26 +1,52 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import { FormArrayExtended } from '../components/my-form/FormArrayExtended';
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormUpdatedValuesService {
-  constructor() {}
-  private updatedValues = new Map<string, { control: any; oldValue: any }>();
-  getnerateChangedControlString(): string {
-    let result = '';
-    this.updatedValues.forEach((c, k, m) => {
-      console.log(c);
+  constructor() { }
+  private _updatedValues = new Map<string, { control: any; oldValue: any }>();
 
+  public getnerateChangedControlString(): string {
+    let result = '';
+    this._updatedValues.forEach((c, k, m) => {
+      console.log(c);
       console.log('adding flat');
-      result += `Property : ${k} OldValue : ${JSON.stringify(
-        c.control.originalValue
-      )} NewValue : ${JSON.stringify(c.control.value)} \r\n`;
+      const a = c.control as FormArrayExtended;
+      if (c.control instanceof FormArrayExtended) {
+        console.log('FormArrayExtended');
+        console.log(a);
+
+        result += `Property : ${k}    `;
+        result += `Added     `;
+        a.getChanges().added.forEach(control => {
+          result += `NewValue : ${JSON.stringify(control.value)}     `;
+        });
+
+        result += `Removed     `;
+        a.getChanges().removed.forEach(control => {
+          result += `NewValue : ${JSON.stringify(control.value)}     `;
+        });
+
+        result += `Modfifed     `;
+        a.getChanges().modified.forEach(control => {
+          result += `NewValue : ${JSON.stringify(control.value)}     `;
+        });
+
+      } else {
+        result += `Property : ${k} OldValue : ${JSON.stringify(
+          c.control.originalValue
+        )} NewValue : ${JSON.stringify(c.control.value)}`;
+      }
     });
     return result;
   }
 
-  getUpdatedValues(formGroup: AbstractControl) {
+  public getUpdatedValues(formGroup: AbstractControl) {
     const updatedFormValues = [];
 
     // tslint:disable-next-line:no-string-literal
@@ -33,7 +59,7 @@ export class FormUpdatedValuesService {
         } else {
           let existingChange = false;
 
-          this.updatedValues.forEach((c, k, m) => {
+          this._updatedValues.forEach((c, k, m) => {
             // console.log(`${k}   ${name}    ${c.oldValue}    ${control.value}`);
 
             if (k === name && c.oldValue === control.value) {
@@ -43,7 +69,7 @@ export class FormUpdatedValuesService {
           });
 
           if (!existingChange) {
-            this.updatedValues.set(name, {
+            this._updatedValues.set(name, {
               control,
               oldValue: control.originalValue,
             });

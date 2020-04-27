@@ -6,6 +6,9 @@
     <div class='grid-item-right'>dirty:</div>
     <div class='red'
          [ngClass]="rootFormGroup.dirty ? 'red': 'green'">{{rootFormGroup.dirty}}</div>
+    <div class='grid-item-right'>Valid:</div>
+    <div class='red'
+         [ngClass]="rootFormGroup.status === 'INVALID' ? 'red': 'green'">{{rootFormGroup.status}}</div>
   </div>
   <div class="formBorder formbackGround">
     <form [formGroup]="rootFormGroup">
@@ -25,8 +28,11 @@
     </form>
     <div style="bottom:0">
       <button (click)="submit()"
+              [disabled]="rootFormGroup.status==='INVALID'"
               style="margin: 10px;">Submit</button>
     </div>
-    <div>{{submitData}}</div>
+    <div>
+      <p>{{submitData}}</p>
+    </div>
   </div>
 </div>
