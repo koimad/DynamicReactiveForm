@@ -1,4 +1,5 @@
 import { Validators } from '@angular/forms';
+import { maxDate } from '../../validators/dateValidators';
 
 export class FamiliyFormData {
   public FormData = [
@@ -19,7 +20,7 @@ export class FamiliyFormData {
               columnClass: 'form-Column1-12',
               key: 'FirstName',
               label: 'First Name',
-              value: '',
+              value: 'Tom',
               controlType: 'textBox',
               validators: [
                 {
@@ -33,7 +34,7 @@ export class FamiliyFormData {
               columnClass: 'form-Column1-12',
               key: 'MiddleName',
               label: 'Middle Name',
-              value: '',
+              value: 'Adrian',
               controlType: 'textBox',
               validators: [
                 {
@@ -47,7 +48,7 @@ export class FamiliyFormData {
               columnClass: 'form-Column1-12',
               key: 'LastName',
               label: 'Last Name',
-              value: '',
+              value: 'Cox',
               controlType: 'textBox',
               validators: [
                 {
@@ -65,6 +66,7 @@ export class FamiliyFormData {
           controlType: 'radioButton',
           label: 'Gender',
           options: ['Male', 'Female'],
+          value: 'Male'
         },
         {
           key: 'Age',
@@ -83,10 +85,10 @@ export class FamiliyFormData {
           controlType: 'checkBox',
           label: 'Are You British',
           options: [true, false, null],
-          value: null,
+          value: true,
           validators: [
             {
-              name: 'pattern',
+              name: 'required',
               validator: Validators.required,
               message: 'Must be Specified',
             },
@@ -97,10 +99,15 @@ export class FamiliyFormData {
           columnClass: 'form-Column1-4',
           controlType: 'datePicker',
           label: 'Date Of Birth',
-          value: null,
+          value: new Date('08/21/1975'),
           validators: [
             {
-              name: 'pattern',
+              name: 'maxDate',
+              validator: maxDate(new Date(), 'maxDate'),
+              message: 'Date cannot be greater than today.',
+            },
+            {
+              name: 'required',
               validator: Validators.required,
               message: 'Date Of Birth must be specified',
             },
@@ -175,18 +182,18 @@ export class FamiliyFormData {
           key: 'ShoppingBasket',
           label: 'Select Items',
           options: ['Carrots', 'Apples', 'Oranges', 'Tomatoes', 'Grapes'],
-          value: ['Carrots', 'Apples'],
+          value: ['Carrots', 'Apples', 'Apples'],
           controlType: 'dragDrop',
           validators: [
             {
               name: 'minlength',
               validator: Validators.minLength(3),
-              message: 'Must have at least 3 items',
+              message: 'Must have at least 3 items.',
             },
             {
               name: 'maxlength',
-              validator: Validators.maxLength(5),
-              message: 'Must have no more than 5 items',
+              validator: Validators.maxLength(4),
+              message: 'Don\'t be greedy no more than 4 items.',
             }
           ],
           children: []

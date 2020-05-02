@@ -6,6 +6,11 @@
   width: 95%;
 }
 
-::ng-deep .mat-form-field--no-underline .mat-form-field-underline {
-  background-color: transparent;
+// ::ng-deep .mat-form-field--no-underline .mat-form-field-underline {
+//   background-color: transparent;
+// }
+
+.mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper {
+    margin-top: 1em;
+    top: calc(100% - 1.6666666667em);
 }

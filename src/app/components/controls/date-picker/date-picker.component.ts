@@ -22,5 +22,8 @@ export class DatePickerComponent implements OnInit {
   constructor(public errorMapper: ComponentErrorMapper) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
+
+
 }

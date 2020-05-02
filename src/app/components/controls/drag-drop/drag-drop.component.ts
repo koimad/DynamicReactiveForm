@@ -110,8 +110,6 @@ export class DragDropComponent implements OnInit {
 
     this.group.addControl(this._field.key, this._destinationArray);
 
-
-    console.log(`validation errors ${this._destinationArray.errors}`);
   }
 
 }
