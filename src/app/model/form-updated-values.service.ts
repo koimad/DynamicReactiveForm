@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ComponentFactoryResolver, Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { FormArrayExtended } from '../components/my-form/FormArrayExtended';
 
@@ -47,14 +47,14 @@ export class FormUpdatedValuesService {
   }
 
   public getUpdatedValues(formGroup: AbstractControl) {
-    const updatedFormValues = [];
+    const updatedFormValue = [];
 
     // tslint:disable-next-line:no-string-literal
     formGroup['_forEachChild']((control, name) => {
       if (control.dirty) {
         if (control instanceof FormGroup) {
           this.getUpdatedValues(control).forEach((f) =>
-            updatedFormValues.push(f)
+            updatedFormValue.push(f)
           );
         } else {
           let existingChange = false;
@@ -71,15 +71,16 @@ export class FormUpdatedValuesService {
           if (!existingChange) {
             this._updatedValues.set(name, {
               control,
-              oldValue: control.originalValue,
+              oldValue: control.value,
             });
             // console.log(`Setting updating Control to ${control.value}`);
+            updatedFormValue.push({ name, newValue: control.value, oldValue: control.PreviousValue, control: control });
             // this.updatingControl = control;
           }
-          updatedFormValues.push({ name, value: control.value });
+
         }
       }
     });
-    return updatedFormValues;
+    return updatedFormValue;
   }
 }

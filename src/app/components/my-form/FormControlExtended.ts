@@ -2,9 +2,17 @@ import { AbstractControlOptions, AsyncValidatorFn, FormControl, ValidatorFn } fr
 
 export class FormControlExtended extends FormControl {
   private _originalValue: any;
-
+  private _previousValue: any;
   get dirty(): boolean {
     return !this.pristine && this.value !== this._originalValue;
+  }
+
+  get originalValue(): any {
+    return this._originalValue;
+  }
+
+  get PreviousValue(): any {
+    return this._previousValue;
   }
 
   constructor(
@@ -14,6 +22,7 @@ export class FormControlExtended extends FormControl {
   ) {
     super(formState, validatorOrOpts, asyncValidator);
     this._originalValue = this.value;
+    this._previousValue = this.value;
   }
 
   setValue(
@@ -25,6 +34,7 @@ export class FormControlExtended extends FormControl {
       emitViewToModelChange?: boolean;
     }
   ): void {
+    this._previousValue = this.value;
     super.setValue(value, options);
   }
 }

@@ -23,6 +23,7 @@ import { TextBoxComponent } from './components/controls/text-box/textBox.compone
 import { FormBuilderExtended } from './components/my-form/FormBuilderExtended';
 import { MyFormComponent } from './components/my-form/my-form.component';
 import { MaterialModule } from './material.module';
+import { DisplayValueChangedComponent } from './components/display-value-changed/display-value-changed.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MaterialModule } from './material.module';
     FormTextCellComponent,
     FormNumberCellComponent,
     DragDropComponent,
+    DisplayValueChangedComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@ import {
 import { FormUpdatedValuesService } from 'src/app/model/form-updated-values.service';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { FormBuilderExtended } from './FormBuilderExtended';
+import { MatDialog } from '@angular/material/dialog';
+import { DisplayValueChangedComponent } from '../display-value-changed/display-value-changed.component';
 
 @Component({
   selector: 'my-form',
@@ -36,7 +38,8 @@ export class MyFormComponent {
 
   constructor(
     private _formBuilder: FormBuilderExtended,
-    private _updatedFormValueService: FormUpdatedValuesService
+    private _updatedFormValueService: FormUpdatedValuesService,
+    private _dialogue: MatDialog
   ) { }
 
   private setupForm(): void {
@@ -45,11 +48,38 @@ export class MyFormComponent {
       this.rootFormGroup = this._formBuilder.group({});
 
       this.createGroup(this.rootFormGroup, this._formData);
+      let settingValue = false;
 
       this.rootFormGroup.valueChanges.subscribe((f) => {
-        this._updatedFormValueService.getUpdatedValues(this.rootFormGroup);
+        let changes = this._updatedFormValueService.getUpdatedValues(this.rootFormGroup);
+        console.log(changes);
 
+        changes.forEach(c => {
+          if (!settingValue) {
+            settingValue = true;
+            const dialogRef = this._dialogue.open(DisplayValueChangedComponent, {
+              width: '400px',
+              height: '300px',
+              data: {
+                oldValue: c.oldValue,
+                newValue: c.newValue,
+                label: c.name
+              }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              if (result) {
+                c.control.setValue(c.oldValue);
+              }
+              settingValue = false;
+
+            });
+          }
+
+        });
       });
+
+
     } catch (e) {
       console.log(e);
     }

@@ -76,14 +76,12 @@ export class FormArrayExtended extends FormArray {
 
     if (result) {
       const t = [];
-      this._startCollection.forEach((a) => {
-        this.controls.forEach((b) => {
-          if (a.value === b.value) {
-            t.push(b);
-          }
-        });
-      });
-      result = t.length === this._startCollection.length;
+      for (let i = 0; i < this._startCollection.length; i++) {
+        if (this._startCollection[i].value !== this.controls[i].value) {
+          result = false;
+          break;
+        };
+      }
     }
 
     return result;

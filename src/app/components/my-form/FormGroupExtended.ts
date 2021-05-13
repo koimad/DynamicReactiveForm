@@ -4,10 +4,18 @@ import {
   AsyncValidatorFn,
   ValidatorFn,
 } from '@angular/forms';
+
+let t = false;
+
 export class FormGroupExtended extends FormGroup {
   get dirty(): boolean {
     let childControlsDirty = false;
+
     Object.keys(this.controls).forEach((key) => {
+      if (this.controls[key].dirty && !t) {
+        console.log(this.controls[key]);
+        t = true;
+      }
       childControlsDirty = childControlsDirty || this.controls[key].dirty;
     });
 
