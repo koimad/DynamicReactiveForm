@@ -34,7 +34,8 @@ export class MyFormComponent {
 
   public rootFormGroup: FormGroup;
   public fields: Array<IFieldConfig>;
-  public submitData = '';
+  public submitData = [];
+  public jsonSubmitData: string;
 
   constructor(
     private _formBuilder: FormBuilderExtended,
@@ -54,8 +55,13 @@ export class MyFormComponent {
         let changes = this._updatedFormValueService.getUpdatedValues(this.rootFormGroup);
         console.log(changes);
 
+        for (let i = 0; i < 1000000; i++) {
+          let c = 0;
+          c++;
+        }
+
         changes.forEach(c => {
-          if (!settingValue) {
+          if (!settingValue && c.name.includes('Age')) {
             settingValue = true;
             const dialogRef = this._dialogue.open(DisplayValueChangedComponent, {
               width: '400px',
@@ -63,12 +69,13 @@ export class MyFormComponent {
               data: {
                 oldValue: c.oldValue,
                 newValue: c.newValue,
-                label: c.name
+                label: c.name.replace(/[0-9]/g, '')
               }
             });
 
             dialogRef.afterClosed().subscribe(result => {
               if (result) {
+                c.newValue = c.oldValue;
                 c.control.setValue(c.oldValue);
               }
               settingValue = false;
@@ -134,5 +141,9 @@ export class MyFormComponent {
 
   public submit(): void {
     this.submitData = this._updatedFormValueService.getnerateChangedControlString();
+    // let t = this._updatedFormValueService.getChangeCommands(this.rootFormGroup);
+    // console.log(t)
+    // this.jsonSubmitData = JSON.stringify(t);
   }
 }
+
