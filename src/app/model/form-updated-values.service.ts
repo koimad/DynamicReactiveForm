@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { FormArrayExtended } from '../components/my-form/FormArrayExtended';
 
@@ -11,36 +11,48 @@ export class FormUpdatedValuesService {
   constructor() { }
   private _updatedValues = new Map<string, { control: any; oldValue: any }>();
 
-  public getnerateChangedControlString(): string {
-    let result = '';
+  public getnerateChangedControlString(): string[] {
+    let result = [];
+
     this._updatedValues.forEach((c, k, m) => {
-      console.log(c);
-      console.log('adding flat');
+      let resultItem = '';
+      //console.log(c);
+      //console.log('adding flat');
       const a = c.control as FormArrayExtended;
       if (c.control instanceof FormArrayExtended) {
-        console.log('FormArrayExtended');
-        console.log(a);
+        //console.log('FormArrayExtended');
+        //console.log(a);
 
-        result += `Property : ${k}    `;
-        result += `Added     `;
         a.getChanges().added.forEach(control => {
-          result += `NewValue : ${JSON.stringify(control.value)}     `;
+          resultItem = `Property : ${k}    `;
+          resultItem += `Added     `;
+          resultItem += `NewValue : ${JSON.stringify(control.value)}     `;
+          result.push(resultItem);
         });
 
-        result += `Removed     `;
+
         a.getChanges().removed.forEach(control => {
-          result += `NewValue : ${JSON.stringify(control.value)}     `;
+          resultItem = `Property : ${k}    `;
+          resultItem += `Removed     `;
+          resultItem += `NewValue : ${JSON.stringify(control.value)}     `;
+          result.push(resultItem);
         });
 
-        result += `Modfifed     `;
+
         a.getChanges().modified.forEach(control => {
-          result += `NewValue : ${JSON.stringify(control.value)}     `;
+          resultItem = `Property : ${k}    `;
+          resultItem += `Modfifed     `;
+          resultItem += `NewValue : ${JSON.stringify(control.value)}     `;
+          result.push(resultItem);
         });
 
-      } else {
-        result += `Property : ${k} OldValue : ${JSON.stringify(
+
+      } else if (c.control.value !== c.control.originalValue) {
+
+        resultItem = `Property : ${k} OldValue : ${JSON.stringify(
           c.control.originalValue
         )} NewValue : ${JSON.stringify(c.control.value)}`;
+        result.push(resultItem);
       }
     });
     return result;
@@ -53,10 +65,18 @@ export class FormUpdatedValuesService {
     formGroup['_forEachChild']((control, name) => {
       if (control.dirty) {
         if (control instanceof FormGroup) {
+          let index = 0;
           this.getUpdatedValues(control).forEach((f) =>
-            updatedFormValue.push(f)
+            updatedFormValue.push({ name: `${f.name}${index++}`, newValue: f.newValue, oldValue: f.oldValue, control: f.control })
           );
-        } else {
+        }
+        else if (control instanceof FormArray) {
+          let index = 0;
+          this.getUpdatedValues(control).forEach((f) =>
+            updatedFormValue.push({ name: `${f.name}${index++}`, newValue: f.newValue, oldValue: f.oldValue, control: f.control })
+          );
+        }
+        else {
           let existingChange = false;
 
           this._updatedValues.forEach((c, k, m) => {
@@ -69,6 +89,9 @@ export class FormUpdatedValuesService {
           });
 
           if (!existingChange) {
+
+            this._updatedValues.delete(name);
+
             this._updatedValues.set(name, {
               control,
               oldValue: control.value,
@@ -77,7 +100,6 @@ export class FormUpdatedValuesService {
             updatedFormValue.push({ name, newValue: control.value, oldValue: control.PreviousValue, control: control });
             // this.updatingControl = control;
           }
-
         }
       }
     });

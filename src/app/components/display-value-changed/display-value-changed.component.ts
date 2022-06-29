@@ -18,11 +18,9 @@ export class DisplayValueChangedComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.data.cancelChanges = false;
     this.dialogRef.close(false);
   }
   onYesClick(): void {
-    this.data.cancelChanges = true;
     this.dialogRef.close(true);
   }
 }
@@ -32,5 +30,4 @@ export interface DialogData {
   oldValue: any;
   newValue: any;
   label: string;
-  cancelChanges?: boolean;
 }

@@ -32,7 +32,14 @@
               style="margin: 10px;">Submit</button>
     </div>
     <div>
-      <p>{{submitData}}</p>
+      <ul>
+        <li *ngFor="let item of submitData">
+          <p>{{item}}</p>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <p>{{jsonSubmitData}}</p>
     </div>
   </div>
 </div>
