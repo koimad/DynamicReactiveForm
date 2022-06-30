@@ -26,51 +26,38 @@ import { MaterialModule } from './material.module';
 import { DisplayValueChangedComponent } from './components/display-value-changed/display-value-changed.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MyFormComponent,
-    GroupBoxComponent,
-    TextBoxComponent,
-    DynamicElementDirective,
-    TextAreaComponent,
-    CheckBoxComponent,
-    ComboBoxComponent,
-    DatePickerComponent,
-    RadioButtonComponent,
-    CudGridComponent,
-    FormTabComponent,
-    FormTextCellComponent,
-    FormNumberCellComponent,
-    DragDropComponent,
-    DisplayValueChangedComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    AgGridModule.withComponents([FormTextCellComponent]),
-  ],
-  providers: [
-    { provide: FormBuilderExtended, useClass: FormBuilderExtended },
-    { provide: FormBuilder, useClass: FormBuilderExtended },
-    { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: 'noop' },
-    { provide: ComponentErrorMapper, useClass: ComponentErrorMapper },
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    TextBoxComponent,
-    GroupBoxComponent,
-    RadioButtonComponent,
-    ComboBoxComponent,
-    DatePickerComponent,
-    CheckBoxComponent,
-    CudGridComponent,
-    FormTabComponent,
-    AgGridAngular,
-    FormTextCellComponent,
-    FormNumberCellComponent
-  ],
+    declarations: [
+        AppComponent,
+        MyFormComponent,
+        GroupBoxComponent,
+        TextBoxComponent,
+        DynamicElementDirective,
+        TextAreaComponent,
+        CheckBoxComponent,
+        ComboBoxComponent,
+        DatePickerComponent,
+        RadioButtonComponent,
+        CudGridComponent,
+        FormTabComponent,
+        FormTextCellComponent,
+        FormNumberCellComponent,
+        DragDropComponent,
+        DisplayValueChangedComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        AgGridModule.withComponents([FormTextCellComponent]),
+    ],
+    providers: [
+        { provide: FormBuilderExtended, useClass: FormBuilderExtended },
+        { provide: FormBuilder, useClass: FormBuilderExtended },
+        { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: 'noop' },
+        { provide: ComponentErrorMapper, useClass: ComponentErrorMapper },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
