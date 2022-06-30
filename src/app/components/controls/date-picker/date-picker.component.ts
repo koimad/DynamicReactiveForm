@@ -12,7 +12,7 @@ import { ComponentErrorMapper } from './../component-error-mapper';
 export class DatePickerComponent implements OnInit {
 
   @HostBinding('class') get class(): string { return this.field.columnClass };
-  errorMapper: ErrorStateMatcher;
+  errorStateMatcher: ErrorStateMatcher;
 
   @Input()
   field: IFieldConfig;
