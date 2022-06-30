@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 import { FormArrayExtended } from '../components/my-form/FormArrayExtended';
 
 
@@ -64,13 +64,13 @@ export class FormUpdatedValuesService {
     // tslint:disable-next-line:no-string-literal
     formGroup['_forEachChild']((control, name) => {
       if (control.dirty) {
-        if (control instanceof FormGroup) {
+        if (control instanceof UntypedFormGroup) {
           let index = 0;
           this.getUpdatedValues(control).forEach((f) =>
             updatedFormValue.push({ name: `${f.name}${index++}`, newValue: f.newValue, oldValue: f.oldValue, control: f.control })
           );
         }
-        else if (control instanceof FormArray) {
+        else if (control instanceof UntypedFormArray) {
           let index = 0;
           this.getUpdatedValues(control).forEach((f) =>
             updatedFormValue.push({ name: `${f.name}${index++}`, newValue: f.newValue, oldValue: f.oldValue, control: f.control })

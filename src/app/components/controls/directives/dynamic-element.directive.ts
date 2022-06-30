@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewContainerRef
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { IFieldConfig } from '../../../model/IFieldConfig';
 import { componentMapper } from '../component-mapper';
 @Directive({
@@ -15,7 +15,7 @@ export class DynamicElementDirective implements OnInit {
   @Input()
   field: IFieldConfig;
   @Input()
-  group: FormGroup;
+  group: UntypedFormGroup;
 
   componentRef: any;
 

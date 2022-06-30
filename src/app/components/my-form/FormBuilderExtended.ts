@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import {
   AbstractControlOptions,
   AsyncValidatorFn,
-  FormControl,
+  UntypedFormControl,
   ValidatorFn
 } from '@angular/forms';
 import { FormArrayExtended } from './FormArrayExtended';
@@ -23,7 +23,7 @@ function isAbstractControlOptions(
 export type FormHooks = 'change' | 'blur' | 'submit';
 
 @Injectable()
-export class FormBuilderExtended extends FormBuilder {
+export class FormBuilderExtended extends UntypedFormBuilder {
   constructor() {
     super();
   }
@@ -36,7 +36,7 @@ export class FormBuilderExtended extends FormBuilder {
       | AbstractControlOptions
       | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
-  ): FormControl {
+  ): UntypedFormControl {
     return new FormControlExtended(formState, validatorOrOpts, asyncValidator);
   }
 
@@ -48,7 +48,7 @@ export class FormBuilderExtended extends FormBuilder {
       | AbstractControlOptions
       | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
-  ): FormArray {
+  ): UntypedFormArray {
     return new FormArrayExtended(
       controlsConfig,
       validatorOrOpts,
@@ -66,7 +66,7 @@ export class FormBuilderExtended extends FormBuilder {
         [key: string]: any;
       }
       | null
-  ): FormGroup {
+  ): UntypedFormGroup {
     let validators: ValidatorFn | ValidatorFn[] | null = null;
     let asyncValidators: AsyncValidatorFn | AsyncValidatorFn[] | null = null;
     let updateOn: FormHooks | undefined;

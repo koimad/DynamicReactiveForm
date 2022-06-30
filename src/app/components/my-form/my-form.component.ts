@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import {
   FormArray,
   FormControl,
-  FormGroup,
+  UntypedFormGroup,
   ValidationErrors,
   ValidatorFn,
   Validators,
@@ -32,7 +32,7 @@ export class MyFormComponent {
 
   private _formData: IFieldConfig[];
 
-  public rootFormGroup: FormGroup;
+  public rootFormGroup: UntypedFormGroup;
   public fields: Array<IFieldConfig>;
   public submitData = [];
   public jsonSubmitData: string;
@@ -93,7 +93,7 @@ export class MyFormComponent {
   }
 
 
-  private createGroup(formGroup: FormGroup, fields: Array<IFieldConfig>): void {
+  private createGroup(formGroup: UntypedFormGroup, fields: Array<IFieldConfig>): void {
 
     fields.forEach((field) => {
       if (field.controlType === 'group' || field.controlType === 'formTab') {

@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup, ValidationErrors } from '@angular/forms';
+import { UntypedFormArray, UntypedFormGroup, ValidationErrors } from '@angular/forms';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { FormBuilderExtended } from './../../my-form/FormBuilderExtended';
 
@@ -11,12 +11,12 @@ import { CdkDrag, CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/c
   styleUrls: ['./drag-drop.component.scss']
 })
 export class DragDropComponent implements OnInit {
-  private _destinationArray: FormArray;
+  private _destinationArray: UntypedFormArray;
 
   @HostBinding('class') get class(): string { return this.field.columnClass };
 
   private _field: IFieldConfig;
-  private _group: FormGroup;
+  private _group: UntypedFormGroup;
 
   @Input('field')
   set field(value: IFieldConfig) {
@@ -29,12 +29,12 @@ export class DragDropComponent implements OnInit {
   }
 
   @Input('group')
-  set group(value: FormGroup) {
+  set group(value: UntypedFormGroup) {
     this._group = value;
     this.setupControl();
   }
 
-  get group(): FormGroup {
+  get group(): UntypedFormGroup {
     return this._group;
   }
 

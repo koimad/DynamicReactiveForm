@@ -15,6 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatCheckboxModule,
     MatRadioModule,
     MatTabsModule,
-    DragDropModule
+    DragDropModule,
+    MatDialogModule
 
   ],
   exports: [
@@ -50,7 +52,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatCheckboxModule,
     MatRadioModule,
     MatTabsModule,
-    DragDropModule
+    DragDropModule,
+    
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },]
 })

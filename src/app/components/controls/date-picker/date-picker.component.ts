@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from './../component-error-mapper';
@@ -17,7 +17,7 @@ export class DatePickerComponent implements OnInit {
   @Input()
   field: IFieldConfig;
   @Input()
-  group: FormGroup;
+  group: UntypedFormGroup;
 
   constructor(public errorMapper: ComponentErrorMapper) {
   }

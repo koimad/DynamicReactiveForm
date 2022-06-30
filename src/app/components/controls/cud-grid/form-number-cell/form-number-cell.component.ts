@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IAfterGuiAttachedParams } from 'ag-grid-community';
-import { FormGroup, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormArray } from '@angular/forms';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
@@ -9,23 +9,23 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   styleUrls: ['./form-number-cell.component.scss']
 })
 export class FormNumberCellComponent implements ICellRendererAngularComp {
-  get formGroup(): FormGroup {
+  get formGroup(): UntypedFormGroup {
     if (this.rootFormGroup && this.rootFormGroup.controls[this.formArrayKey]) {
-      return (this.rootFormGroup.controls[this.formArrayKey] as FormArray)
-        .controls[this.rowIndex] as FormGroup;
+      return (this.rootFormGroup.controls[this.formArrayKey] as UntypedFormArray)
+        .controls[this.rowIndex] as UntypedFormGroup;
     } else {
       return undefined;
     }
   }
 
-  private rootFormGroup: FormGroup;
+  private rootFormGroup: UntypedFormGroup;
   private value: any;
   public key: string;
   private formArrayKey: any;
   private rowIndex: number;
 
   agInit(params: any) {
-    this.rootFormGroup = params.context.formGroup as FormGroup;
+    this.rootFormGroup = params.context.formGroup as UntypedFormGroup;
     this.formArrayKey = params.context.formArrayName;
     this.key = params.column.colId;
     this.value = params.value;

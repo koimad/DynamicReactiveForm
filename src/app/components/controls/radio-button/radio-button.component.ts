@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 
 @Component({
@@ -14,7 +14,7 @@ export class RadioButtonComponent implements OnInit {
   @Input()
   field: IFieldConfig;
   @Input()
-  group: FormGroup;
+  group: UntypedFormGroup;
 
   constructor() { }
 

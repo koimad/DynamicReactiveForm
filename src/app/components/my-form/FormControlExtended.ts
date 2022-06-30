@@ -1,6 +1,6 @@
-import { AbstractControlOptions, AsyncValidatorFn, FormControl, ValidatorFn } from '@angular/forms';
+import { AbstractControlOptions, AsyncValidatorFn, UntypedFormControl, ValidatorFn } from '@angular/forms';
 
-export class FormControlExtended extends FormControl {
+export class FormControlExtended extends UntypedFormControl {
   private _originalValue: any;
   private _previousValue: any;
   get dirty(): boolean {

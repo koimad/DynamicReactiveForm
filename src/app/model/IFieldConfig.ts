@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { IFieldValidator } from './IFieldValidator';
 export interface IFieldConfig {
     key?: string;
@@ -11,7 +11,7 @@ export interface IFieldConfig {
     validators?: IFieldValidator[];
     required?: boolean;
     children?: IFieldConfig[];
-    group?: FormGroup;
+    group?: UntypedFormGroup;
     columnDefinitions?: any[];
     columnClass?: string;
 }

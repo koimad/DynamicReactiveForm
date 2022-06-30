@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -54,7 +54,7 @@ import { DisplayValueChangedComponent } from './components/display-value-changed
     ],
     providers: [
         { provide: FormBuilderExtended, useClass: FormBuilderExtended },
-        { provide: FormBuilder, useClass: FormBuilderExtended },
+        { provide: UntypedFormBuilder, useClass: FormBuilderExtended },
         { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: 'noop' },
         { provide: ComponentErrorMapper, useClass: ComponentErrorMapper },
     ],

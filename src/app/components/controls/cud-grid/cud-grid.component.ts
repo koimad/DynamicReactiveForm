@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 import {
   Column,
   ColumnApi,
@@ -23,9 +23,9 @@ export class CudGridComponent implements OnInit {
 
   private _field: IFieldConfig;
 
-  private _group: FormGroup;
+  private _group: UntypedFormGroup;
 
-  private _formArray: FormArray;
+  private _formArray: UntypedFormArray;
   private _fieldName: string;
 
   public rowSelection = 'single';
@@ -43,10 +43,10 @@ export class CudGridComponent implements OnInit {
   }
 
   @Input()
-  get group(): FormGroup {
+  get group(): UntypedFormGroup {
     return this._group;
   }
-  set group(value: FormGroup) {
+  set group(value: UntypedFormGroup) {
     this._group = value;
     this.inputsChanged();
   }

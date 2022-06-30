@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import {
   AbstractControlOptions,
   AsyncValidatorFn,
@@ -7,7 +7,7 @@ import {
 
 let t = false;
 
-export class FormGroupExtended extends FormGroup {
+export class FormGroupExtended extends UntypedFormGroup {
   get dirty(): boolean {
     let childControlsDirty = false;
 

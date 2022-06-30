@@ -1,11 +1,11 @@
-import { AbstractControl, FormArray } from '@angular/forms';
+import { AbstractControl, UntypedFormArray } from '@angular/forms';
 import {
   AbstractControlOptions,
   AsyncValidatorFn,
   ValidatorFn,
 } from '@angular/forms';
 
-export class FormArrayExtended extends FormArray {
+export class FormArrayExtended extends UntypedFormArray {
 
   public get dirty(): boolean {
     let childControlsDirty = false;

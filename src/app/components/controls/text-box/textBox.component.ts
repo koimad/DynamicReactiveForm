@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from '../component-error-mapper';
@@ -13,7 +13,7 @@ export class TextBoxComponent implements OnInit {
   @Input()
   field: IFieldConfig;
   @Input()
-  group: FormGroup;
+  group: UntypedFormGroup;
 
   @HostBinding('class') get class(): string { return this.field.columnClass };
 

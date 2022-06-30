@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 
@@ -26,12 +26,12 @@ export class CheckBoxComponent implements OnInit, OnDestroy {
     }
   }
 
-  public get group(): FormGroup {
+  public get group(): UntypedFormGroup {
     return this._internalGroup;
   }
 
   @Input('group')
-  public set group(value: FormGroup) {
+  public set group(value: UntypedFormGroup) {
     this._internalGroup = value;
     if (this._internalField) {
       this.updateControl();
@@ -40,7 +40,7 @@ export class CheckBoxComponent implements OnInit, OnDestroy {
 
   private _internalChange = false;
   private _internalField: IFieldConfig;
-  private _internalGroup: FormGroup;
+  private _internalGroup: UntypedFormGroup;
   private _oldValue: any;
   private _subscriptions: Array<Subscription>;
 
