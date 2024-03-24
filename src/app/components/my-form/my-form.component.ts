@@ -1,17 +1,10 @@
 import { Component, Input } from '@angular/core';
-import {
-  FormArray,
-  FormControl,
-  UntypedFormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
 import { FormUpdatedValuesService } from 'src/app/model/form-updated-values.service';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { FormBuilderExtended } from './FormBuilderExtended';
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayValueChangedComponent } from '../display-value-changed/display-value-changed.component';
+import { UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'my-form',

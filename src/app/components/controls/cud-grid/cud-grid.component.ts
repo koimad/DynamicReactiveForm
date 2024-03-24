@@ -19,7 +19,6 @@ import { FormTextCellComponent } from './form-text-cell/form-text-cell.component
 })
 export class CudGridComponent implements OnInit {
   private _api: GridApi;
-  private _columnApi: ColumnApi;
 
   private _field: IFieldConfig;
 
@@ -77,8 +76,6 @@ export class CudGridComponent implements OnInit {
 
   gridReady(params: GridReadyEvent) {
     this._api = params.api;
-    this._columnApi = params.columnApi;
-
     this.refreshFormControls();
   }
 
@@ -87,7 +84,7 @@ export class CudGridComponent implements OnInit {
   }
 
   private createFormControls() {
-    const columns = this._columnApi.getAllColumns();
+    const columns = this._api.getColumns();
 
     if (this._fieldName) {
       this._group.removeControl(this._fieldName);
@@ -129,7 +126,7 @@ export class CudGridComponent implements OnInit {
       age: undefined,
     };
 
-    this._api.updateRowData({ add: [newItem] });
+    this._api.applyTransaction({ add: [newItem] });
 
     const formGroup = this.formBuilder.group([]);
 
@@ -145,7 +142,7 @@ export class CudGridComponent implements OnInit {
     this._api.getSelectedNodes().forEach((n) => {
       this._formArray.removeAt(n.rowIndex);
     });
-    this._api.removeItems(this._api.getSelectedNodes());
+    this._api.applyTransaction({remove:[this._api.getSelectedNodes()]});
   }
 
   public onReset() {

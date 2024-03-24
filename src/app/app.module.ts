@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
-import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AgGridAngular, AgGridModule } from 'ag-grid-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CheckBoxComponent } from './components/controls/check-box/check-box.component';
@@ -24,6 +22,9 @@ import { FormBuilderExtended } from './components/my-form/FormBuilderExtended';
 import { MyFormComponent } from './components/my-form/my-form.component';
 import { MaterialModule } from './material.module';
 import { DisplayValueChangedComponent } from './components/display-value-changed/display-value-changed.component';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AgGridModule,AgGridAngular } from 'ag-grid-angular';
 
 @NgModule({
     declarations: [
@@ -45,12 +46,14 @@ import { DisplayValueChangedComponent } from './components/display-value-changed
         DisplayValueChangedComponent
     ],
     imports: [
+        CommonModule,
         BrowserModule,
         AppRoutingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MaterialModule,
-        AgGridModule.withComponents([FormTextCellComponent]),
+        AgGridModule,
+        AgGridAngular
     ],
     providers: [
         { provide: FormBuilderExtended, useClass: FormBuilderExtended },

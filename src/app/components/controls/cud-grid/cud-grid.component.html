@@ -10,7 +10,7 @@
                      class="ag-theme-material"
                      [rowData]="rows"
                      [columnDefs]="field.columnDefinitions"
-                     [frameworkComponents]="getComponents()"
+                     [components]="getComponents()"
                      (rowDataChanged)="refreshFormControls()"
                      (gridReady)="gridReady($event)"
                      [context]="getContext()"

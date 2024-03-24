@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,8 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatRadioModule,
     MatTabsModule,
     DragDropModule,
-    MatDialogModule
-
+    MatDialogModule,
   ],
   exports: [
     MatButtonModule,
