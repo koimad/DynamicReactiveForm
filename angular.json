@@ -67,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "reactiveFormsLearning:build"
+            "buildTarget": "reactiveFormsLearning:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "reactiveFormsLearning:build:production"
+              "buildTarget": "reactiveFormsLearning:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "reactiveFormsLearning:build"
+            "buildTarget": "reactiveFormsLearning:build"
           }
         },
         "test": {
