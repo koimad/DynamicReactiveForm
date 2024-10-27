@@ -22,7 +22,6 @@ export class FormUpdatedValuesService {
       if (c.control instanceof FormArrayExtended) {
         //console.log('FormArrayExtended');
         //console.log(a);
-
         a.getChanges().added.forEach(control => {
           resultItem = `Property : ${k}    `;
           resultItem += `Added     `;
@@ -56,53 +55,5 @@ export class FormUpdatedValuesService {
       }
     });
     return result;
-  }
-
-  public getUpdatedValues(formGroup: AbstractControl) {
-    const updatedFormValue = [];
-
-    // tslint:disable-next-line:no-string-literal
-    formGroup['_forEachChild']((control, name) => {
-      if (control.dirty) {
-        if (control instanceof UntypedFormGroup) {
-          let index = 0;
-          this.getUpdatedValues(control).forEach((f) =>
-            updatedFormValue.push({ name: `${f.name}${index++}`, newValue: f.newValue, oldValue: f.oldValue, control: f.control })
-          );
-        }
-        else if (control instanceof UntypedFormArray) {
-          let index = 0;
-          this.getUpdatedValues(control).forEach((f) =>
-            updatedFormValue.push({ name: `${f.name}${index++}`, newValue: f.newValue, oldValue: f.oldValue, control: f.control })
-          );
-        }
-        else {
-          let existingChange = false;
-
-          this._updatedValues.forEach((c, k, m) => {
-            // console.log(`${k}   ${name}    ${c.oldValue}    ${control.value}`);
-
-            if (k === name && c.oldValue === control.value) {
-              // console.log(`${k}   ${name}`);
-              existingChange = true;
-            }
-          });
-
-          if (!existingChange) {
-
-            this._updatedValues.delete(name);
-
-            this._updatedValues.set(name, {
-              control,
-              oldValue: control.value,
-            });
-            // console.log(`Setting updating Control to ${control.value}`);
-            updatedFormValue.push({ name, newValue: control.value, oldValue: control.PreviousValue, control: control });
-            // this.updatingControl = control;
-          }
-        }
-      }
-    });
-    return updatedFormValue;
-  }
+  }  
 }

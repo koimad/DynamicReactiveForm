@@ -78,7 +78,7 @@ export class DragDropComponent implements OnInit {
           event.container.data,
           event.previousIndex,
           event.currentIndex);
-        this._destinationArray.push(this.formBuilder.control(event.item.data));
+        this._destinationArray.push(this.formBuilder.control("",event.item.data));
 
       }
     }
@@ -108,7 +108,7 @@ export class DragDropComponent implements OnInit {
     this._destinationArray = this.formBuilder.array(controls, this._field.validators.map(f => f.validator));
 
 
-    this.group.addControl(this._field.key, this._destinationArray);
+    this.group.addControl(this._field.key, this._destinationArray,{ emitEvent: false});
 
   }
 

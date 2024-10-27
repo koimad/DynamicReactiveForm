@@ -37,10 +37,25 @@ export class FormBuilderExtended extends UntypedFormBuilder {
       | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): UntypedFormControl {
-    return new FormControlExtended(formState, validatorOrOpts, asyncValidator);
+    return new FormControlExtended("", formState, validatorOrOpts, asyncValidator);
   }
 
-  public array(
+
+  public controlWithkey(
+    key: string,
+    formState: any,
+    validatorOrOpts?:
+      | ValidatorFn
+      | ValidatorFn[]
+      | AbstractControlOptions
+      | null,
+    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+  ): UntypedFormControl {
+    return new FormControlExtended(key, formState, validatorOrOpts, asyncValidator);
+  }
+
+
+  public array(    
     controlsConfig: any[],
     validatorOrOpts?:
       | ValidatorFn
@@ -50,6 +65,25 @@ export class FormBuilderExtended extends UntypedFormBuilder {
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): UntypedFormArray {
     return new FormArrayExtended(
+      "",
+      controlsConfig,
+      validatorOrOpts,
+      asyncValidator
+    );
+  }
+
+  public arrayWithKey(    
+    key: string,
+    controlsConfig: any[],
+    validatorOrOpts?:
+      | ValidatorFn
+      | ValidatorFn[]
+      | AbstractControlOptions
+      | null,
+    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+  ): UntypedFormArray {
+    return new FormArrayExtended(
+      key,
       controlsConfig,
       validatorOrOpts,
       asyncValidator

@@ -103,9 +103,9 @@ export class CudGridComponent implements OnInit {
       });
       rows.push(rowGroup);
     });
-    this._formArray = this.formBuilder.array(rows);
+    this._formArray = this.formBuilder.arrayWithKey(this.field.key,rows);
     this._fieldName = this.field.key;
-    this._group.addControl(this._fieldName, this._formArray);
+    this._group.addControl(this._fieldName, this._formArray, { emitEvent: false});
   }
 
   public getComponents() {

@@ -30,6 +30,10 @@
       <button (click)="submit()"
               [disabled]="rootFormGroup.status==='INVALID'"
               style="margin: 10px;">Submit</button>
+      
+      <button (click)="reset()"
+              [disabled]="rootFormGroup.status==='INVALID'"
+              style="margin: 10px;">Reset</button>
     </div>
     <div>
       <ul>

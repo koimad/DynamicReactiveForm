@@ -4,7 +4,10 @@ import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { FormBuilderExtended } from './FormBuilderExtended';
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayValueChangedComponent } from '../display-value-changed/display-value-changed.component';
-import { UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormArray, FormGroup, UntypedFormGroup, ValidatorFn, Validators, ValueChangeEvent } from '@angular/forms';
+import { FormControlExtended } from './FormControlExtended';
+import { FormArrayExtended } from './FormArrayExtended';
+import { distinctUntilChanged,throttleTime,takeUntil,filter } from 'rxjs/operators';
 
 @Component({
   selector: 'my-form',
@@ -12,6 +15,9 @@ import { UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
   styleUrls: ['./my-form.component.scss'],
 })
 export class MyFormComponent {
+reset() {
+  this.rootFormGroup.reset();
+}
 
   @Input('formData')
   public set formData(value: IFieldConfig[]) {
@@ -39,49 +45,65 @@ export class MyFormComponent {
   private setupForm(): void {
 
     try {
-      this.rootFormGroup = this._formBuilder.group({});
+      this.rootFormGroup = this._formBuilder.group({});          
+      this.rootFormGroup.events.pipe(filter(e => e instanceof ValueChangeEvent)).subscribe(f => {
+        console.log(f);
+        if( f.source.dirty) {
+          
+          if(f.source instanceof FormControlExtended) {    
+            let control :FormControlExtended = f.source;
+            
+            let arrayCollection  = this.getFormArrayExtended(control.parent)
 
-      this.createGroup(this.rootFormGroup, this._formData);
-      let settingValue = false;
+            if(arrayCollection != undefined) {
+              console.log(arrayCollection.Key + arrayCollection.value);
+            }
 
-      this.rootFormGroup.valueChanges.subscribe((f) => {
-        let changes = this._updatedFormValueService.getUpdatedValues(this.rootFormGroup);
-        console.log(changes);
+            if(control.Key == "Age")
+            {
+              const dialogRef = this._dialogue.open(DisplayValueChangedComponent, {
+                width: '400px',
+                height: '300px',
+                data: {
+                  oldValue: control.PreviousValue,
+                  newValue: control.value,
+                  label: control.Key.replace(/[0-9]/g, '')
+                }
+              });
 
-        for (let i = 0; i < 1000000; i++) {
-          let c = 0;
-          c++;
-        }
-
-        changes.forEach(c => {
-          if (!settingValue && c.name.includes('Age')) {
-            settingValue = true;
-            const dialogRef = this._dialogue.open(DisplayValueChangedComponent, {
-              width: '400px',
-              height: '300px',
-              data: {
-                oldValue: c.oldValue,
-                newValue: c.newValue,
-                label: c.name.replace(/[0-9]/g, '')
-              }
-            });
-
-            dialogRef.afterClosed().subscribe(result => {
-              if (result) {
-                c.newValue = c.oldValue;
-                c.control.setValue(c.oldValue);
-              }
-              settingValue = false;
-
-            });
+              dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                  f.source.setValue(control.PreviousValue, { emitEvent: false} );                                  
+                }              
+              });                            
+            }
           }
-
-        });
+        }
       });
-
+              
+      this.createGroup(this.rootFormGroup, this._formData);
 
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  private getFormArrayExtended(source: FormGroup<any> | FormArray<any>) : FormArrayExtended | undefined {
+   
+    let parent: FormArrayExtended | undefined = undefined;
+   
+    if(source != undefined){
+      if( source.parent != undefined) {
+        
+        if(source.parent instanceof FormArrayExtended){
+          parent = source.parent;
+        } 
+        else{
+          parent = this.getFormArrayExtended(source.parent)
+        }      
+
+      }
+      return parent;
     }
   }
 
@@ -94,14 +116,14 @@ export class MyFormComponent {
           field.group = formGroup;
           const childGroup = this._formBuilder.group({});
           this.createGroup(childGroup, field.children);
-          formGroup.addControl(field.key, childGroup);
+          formGroup.addControl(field.key, childGroup, { emitEvent: false});
         }
       } else if (field.controlType === 'cudGrid') {
         const childGroup = this._formBuilder.group(
           [field.key],
           this.buildValidators(field.validators)
         );
-        formGroup.addControl(field.key, childGroup);
+        formGroup.addControl(field.key, childGroup,{ emitEvent: false});
         field.group = childGroup;
       } else if (field.controlType === 'dragDrop') {
         field.group = formGroup;
@@ -109,9 +131,10 @@ export class MyFormComponent {
         field.group = formGroup;
         formGroup.addControl(
           field.key,
-          this._formBuilder.control(
+          this._formBuilder.controlWithkey(
+            field.key,
             field.value,
-            this.buildValidators(field.validators)
+            this.buildValidators(field.validators),
           )
         );
       }
