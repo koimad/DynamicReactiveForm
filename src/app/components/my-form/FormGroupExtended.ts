@@ -13,7 +13,7 @@ export class FormGroupExtended extends UntypedFormGroup {
 
     Object.keys(this.controls).forEach((key) => {
       if (this.controls[key].dirty && !t) {
-        console.log(this.controls[key]);
+        console.debug(this.controls[key]);
         t = true;
       }
       childControlsDirty = childControlsDirty || this.controls[key].dirty;

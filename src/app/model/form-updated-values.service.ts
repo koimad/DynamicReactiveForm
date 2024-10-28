@@ -73,7 +73,6 @@ export class FormUpdatedValuesService {
       if(control.dirty){
 
         if (control instanceof FormControlExtended) {
-            console.log(control.Key)
             command.properties[control.Key] = control.value;            
         }
         else if(control instanceof FormGroupExtended){            
@@ -98,17 +97,11 @@ export class FormUpdatedValuesService {
       const control = rootFormGroup.get(field);          
 
       if(control.dirty) {
-        console.error(control);
-        if (control instanceof FormControlExtended) {
-          console.log(field)          
+        if (control instanceof FormControlExtended) {     
           command.properties[field] = new ChangedPropertyValueDto(control.value);
         }
         else if(control instanceof FormGroupExtended) {
           this.getFormGroupChanges(control,command);          
-        }
-        else if(control instanceof FormArrayExtended)
-        {
-          console.log(control.Key)
         }
       }
 

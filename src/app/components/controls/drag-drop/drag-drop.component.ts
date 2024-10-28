@@ -67,12 +67,9 @@ export class DragDropComponent implements OnInit {
       if (event.previousContainer.id === 'DestinationList') {
 
         this.destination.splice(event.previousIndex, 1);
-        //console.log(this._destinationArray.dirty);
 
         this._destinationArray.removeAt(event.previousIndex);
-        // console.log(this._destinationArray.dirty);
-        // console.log(this._destinationArray);
-        // console.log(this.group.dirty);
+
       } else {
         copyArrayItem(event.previousContainer.data,
           event.container.data,

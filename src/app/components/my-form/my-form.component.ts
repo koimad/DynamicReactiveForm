@@ -53,12 +53,6 @@ reset() {
           if(f.source instanceof FormControlExtended) {    
             let control :FormControlExtended = f.source;
             
-            let arrayCollection  = this.getFormArrayExtended(control.parent)
-
-            if(arrayCollection != undefined) {
-              console.log(arrayCollection.Key + arrayCollection.value);
-            }
-
             if(control.Key == "Age")
             {
               const dialogRef = this._dialogue.open(DisplayValueChangedComponent, {
@@ -84,7 +78,7 @@ reset() {
       this.createGroup(this.rootFormGroup, this._formData);
 
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 

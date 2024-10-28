@@ -74,13 +74,13 @@ export class CudGridComponent implements OnInit {
     }
   }
 
-  gridReady(params: GridReadyEvent) {
+  public gridReady(params: GridReadyEvent) {
     this._api = params.api;
     this.refreshFormControls();
   }
 
   public onSelectionChanged() {
-    // console.log(this.api.getSelectedRows());
+    console.debug(this._api.getSelectedRows());
   }
 
   private createFormControls() {
