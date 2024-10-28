@@ -33,7 +33,7 @@ reset() {
 
   public rootFormGroup: UntypedFormGroup;
   public fields: Array<IFieldConfig>;
-  public submitData = [];
+  public submitData :string;
   public jsonSubmitData: string;
 
   constructor(
@@ -156,10 +156,8 @@ reset() {
 
 
   public submit(): void {
-    this.submitData = this._updatedFormValueService.getnerateChangedControlString();
-    // let t = this._updatedFormValueService.getChangeCommands(this.rootFormGroup);
-    // console.log(t)
-    // this.jsonSubmitData = JSON.stringify(t);
+    let commands = this._updatedFormValueService.getnerateChangedControlString(this.rootFormGroup)
+    this.submitData = JSON.stringify(commands, null ,2);
   }
 }
 

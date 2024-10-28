@@ -121,6 +121,7 @@ export class CudGridComponent implements OnInit {
 
   public onAdd(): void {
     const newItem = {
+      id: 0,
       firstName: '',
       middleName: '',
       age: undefined,

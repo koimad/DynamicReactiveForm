@@ -129,7 +129,15 @@ export class FamiliyFormData {
           label: 'Children',
           options: null,
           columnDefinitions: [
-            {
+            {              
+              headerName: 'Id',
+              field: 'id',
+              width: 20,
+              cellRenderer: 'number',
+              editable: false,
+              resizable: false,
+            },
+            {              
               headerName: 'First Name',
               field: 'firstName',
               width: 120,
@@ -156,11 +164,13 @@ export class FamiliyFormData {
           ],
           value: [
             {
+              id: 100,
               firstName: 'Bob',
               middleName: 'Thomas',
               age: 19,
             },
             {
+              id: 101,
               firstName: 'Jordan',
               middleName: 'Kelly',
               age: 21,

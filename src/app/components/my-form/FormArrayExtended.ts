@@ -31,16 +31,12 @@ export class FormArrayExtended extends UntypedFormArray {
   public getChanges(): { [key: string]: AbstractControl[] } {
 
     const added = this.controls.filter(f => !this._startCollection.includes(f));
-    const removed = this._startCollection.filter(f => !this.controls.includes(f));
+    const deleted = this._startCollection.filter(f => !this.controls.includes(f));
     const modified = this.controls.filter(f => this._startCollection.includes(f) && f.dirty);
-    // console.log('getChanges');
-    // console.log(added);
-    // console.log(removed);
-    // console.log(modified);
-
+1
     return {
       added,
-      removed,
+      deleted,
       modified
     };
   }
