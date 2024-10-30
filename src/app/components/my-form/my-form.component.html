@@ -36,12 +36,7 @@
               style="margin: 10px;">Reset</button>
     </div>
     <div>
-      <ul>
-          <p>{{submitData}}</p>
-      </ul>
-    </div>
-    <div>
-      <p>{{jsonSubmitData}}</p>
+      <div style="text-align: left;" [innerHTML]="submitData | jsonprettyprint"></div>
     </div>
   </div>
 </div>

@@ -8,6 +8,7 @@ import { FormArray, FormGroup, UntypedFormGroup, ValidatorFn, Validators, ValueC
 import { FormControlExtended } from './FormControlExtended';
 import { FormArrayExtended } from './FormArrayExtended';
 import { distinctUntilChanged,throttleTime,takeUntil,filter } from 'rxjs/operators';
+import { JsonPrettyPrintPipe } from './jsonPrettyPrint'
 
 @Component({
   selector: 'my-form',
@@ -33,7 +34,7 @@ reset() {
 
   public rootFormGroup: UntypedFormGroup;
   public fields: Array<IFieldConfig>;
-  public submitData :string;
+  public submitData :any;
   public jsonSubmitData: string;
 
   constructor(
@@ -48,6 +49,7 @@ reset() {
       this.rootFormGroup = this._formBuilder.group({});          
       this.rootFormGroup.events.pipe(filter(e => e instanceof ValueChangeEvent)).subscribe(f => {
         console.log(f);
+        
         if( f.source.dirty) {
           
           if(f.source instanceof FormControlExtended) {    
@@ -151,7 +153,7 @@ reset() {
 
   public submit(): void {
     let commands = this._updatedFormValueService.getnerateChangedControlString(this.rootFormGroup)
-    this.submitData = JSON.stringify(commands, null ,2);
+    this.submitData = commands; // JSON.stringify(commands,undefined,2);
   }
 }
 

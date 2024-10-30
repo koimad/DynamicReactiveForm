@@ -38,7 +38,7 @@ export class DragDropComponent implements OnInit {
     return this._group;
   }
 
-  constructor(private formBuilder: FormBuilderExtended) {
+  constructor(private _formBuilder: FormBuilderExtended) {
     this.destination = [];
     this.source = [];
   }
@@ -75,7 +75,7 @@ export class DragDropComponent implements OnInit {
           event.container.data,
           event.previousIndex,
           event.currentIndex);
-        this._destinationArray.push(this.formBuilder.control("",event.item.data));
+        this._destinationArray.push(this._formBuilder.controlWithkey("name",event.item.data));
 
       }
     }
@@ -100,11 +100,10 @@ export class DragDropComponent implements OnInit {
     const controls = [];
 
     this.destination.forEach(f => {
-      controls.push(this.formBuilder.control(f));
+      controls.push(this._formBuilder.control(f));
     });
-    this._destinationArray = this.formBuilder.array(controls, this._field.validators.map(f => f.validator));
-
-
+    this._destinationArray = this._formBuilder.arrayWithKey(this._field.key ,controls, this._field.validators.map(f => f.validator));
+    
     this.group.addControl(this._field.key, this._destinationArray,{ emitEvent: false});
 
   }

@@ -25,6 +25,7 @@ import { DisplayValueChangedComponent } from './components/display-value-changed
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AgGridModule,AgGridAngular } from 'ag-grid-angular';
+import { JsonPrettyPrintPipe } from './components/my-form/jsonPrettyPrint';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { AgGridModule,AgGridAngular } from 'ag-grid-angular';
         FormTextCellComponent,
         FormNumberCellComponent,
         DragDropComponent,
-        DisplayValueChangedComponent
+        DisplayValueChangedComponent,
+        JsonPrettyPrintPipe
     ],
     imports: [
         CommonModule,
@@ -53,7 +55,7 @@ import { AgGridModule,AgGridAngular } from 'ag-grid-angular';
         BrowserAnimationsModule,
         MaterialModule,
         AgGridModule,
-        AgGridAngular
+        AgGridAngular        
     ],
     providers: [
         { provide: FormBuilderExtended, useClass: FormBuilderExtended },

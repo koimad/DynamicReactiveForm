@@ -6,6 +6,7 @@ import { FormGroupExtended } from '../components/my-form/FormGroupExtended';
 import { CommandDto } from './commands/CommandDto';
 import { ChangedPropertyValueDto } from './commands/ChangedPropertyValueDto';
 import { CommandOperationDto } from './commands/CommandOperationDto';
+import { EntityTypeDto } from './commands/EntityTypeDto';
 
 
 
@@ -40,6 +41,10 @@ export class FormUpdatedValuesService {
               
               if(rowControl instanceof FormGroupExtended){
                 this.getFormGroupChanges(rowControl, itemCommand,true);
+              }
+              else if (rowControl instanceof FormControlExtended){
+                itemCommand.entityName = EntityTypeDto.Category;
+                itemCommand.properties[rowControl.Key] = rowControl.value;
               }
             });
 
@@ -91,6 +96,7 @@ export class FormUpdatedValuesService {
   public getnerateChangedControlString(rootFormGroup: UntypedFormGroup): CommandDto[] {
     let result : CommandDto[] = [];
     let command = new CommandDto();
+    command.entityName = EntityTypeDto.Policy 
     result.push(command);
     for (const field in rootFormGroup.controls) { 
       
