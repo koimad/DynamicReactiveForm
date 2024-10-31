@@ -26,9 +26,9 @@ export class FamiliyFormData {
                 {
                   name: 'required',
                   validator: Validators.required,
-                  message: 'Must be Specified',
-                },
-              ],
+                  message: 'Must be Specified'
+                }
+              ]
             },
             {
               columnClass: 'form-Column1-12',
@@ -40,9 +40,9 @@ export class FamiliyFormData {
                 {
                   name: 'required',
                   validator: Validators.required,
-                  message: 'Must be Specified',
-                },
-              ],
+                  message: 'Must be Specified'
+                }
+              ]
             },
             {
               columnClass: 'form-Column1-12',
@@ -54,11 +54,11 @@ export class FamiliyFormData {
                 {
                   name: 'required',
                   validator: Validators.required,
-                  message: 'Must be Specified',
-                },
-              ],
-            },
-          ],
+                  message: 'Must be Specified'
+                }
+              ]
+            }
+          ]
         },
         {
           key: 'Gender',
@@ -74,10 +74,9 @@ export class FamiliyFormData {
           controlType: 'comboBox',
           label: 'Age',
           options: [
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-            21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-            41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60
-          ],
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
+            60
+          ]
         },
         {
           key: 'Nationality',
@@ -90,9 +89,9 @@ export class FamiliyFormData {
             {
               name: 'required',
               validator: Validators.required,
-              message: 'Must be Specified',
-            },
-          ],
+              message: 'Must be Specified'
+            }
+          ]
         },
         {
           key: 'DOB',
@@ -104,16 +103,16 @@ export class FamiliyFormData {
             {
               name: 'maxDate',
               validator: maxDate(new Date(), 'maxDate'),
-              message: 'Date cannot be greater than today.',
+              message: 'Date cannot be greater than today.'
             },
             {
               name: 'required',
               validator: Validators.required,
-              message: 'Date Of Birth must be specified',
-            },
-          ],
-        },
-      ],
+              message: 'Date Of Birth must be specified'
+            }
+          ]
+        }
+      ]
     },
     {
       key: 'FamilyMembers',
@@ -129,21 +128,21 @@ export class FamiliyFormData {
           label: 'Children',
           options: null,
           columnDefinitions: [
-            {              
+            {
               headerName: 'Id',
               field: 'id',
               width: 20,
               cellRenderer: 'number',
               editable: false,
-              resizable: false,
+              resizable: false
             },
-            {              
+            {
               headerName: 'First Name',
               field: 'firstName',
               width: 120,
               cellRenderer: 'text',
               editable: false,
-              resizable: false,
+              resizable: false
             },
             {
               headerName: 'Middle Name',
@@ -151,7 +150,7 @@ export class FamiliyFormData {
               width: 120,
               cellRenderer: 'text',
               editable: false,
-              resizable: false,
+              resizable: false
             },
             {
               headerName: 'Age',
@@ -159,27 +158,27 @@ export class FamiliyFormData {
               width: 100,
               cellRenderer: 'number',
               editable: false,
-              resizable: false,
-            },
+              resizable: false
+            }
           ],
           value: [
             {
               id: 100,
               firstName: 'Bob',
               middleName: 'Thomas',
-              age: 19,
+              age: 19
             },
             {
               id: 101,
               firstName: 'Jordan',
               middleName: 'Kelly',
-              age: 21,
-            },
+              age: 21
+            }
           ],
           children: [],
-          validators: [],
-        },
-      ],
+          validators: []
+        }
+      ]
     },
     {
       key: 'Shopping',
@@ -198,17 +197,17 @@ export class FamiliyFormData {
             {
               name: 'minlength',
               validator: Validators.minLength(3),
-              message: 'Must have at least 3 items.',
+              message: 'Must have at least 3 items.'
             },
             {
               name: 'maxlength',
               validator: Validators.maxLength(4),
-              message: 'Don\'t be greedy no more than 4 items.',
+              message: "Don't be greedy no more than 4 items."
             }
           ],
           children: []
         }
-      ],
-    },
+      ]
+    }
   ];
 }

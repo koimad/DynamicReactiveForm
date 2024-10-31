@@ -24,45 +24,36 @@ import { MaterialModule } from './material.module';
 import { DisplayValueChangedComponent } from './components/display-value-changed/display-value-changed.component';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AgGridModule,AgGridAngular } from 'ag-grid-angular';
+import { AgGridModule, AgGridAngular } from 'ag-grid-angular';
 import { JsonPrettyPrintPipe } from './components/my-form/jsonPrettyPrint';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        MyFormComponent,
-        GroupBoxComponent,
-        TextBoxComponent,
-        DynamicElementDirective,
-        TextAreaComponent,
-        CheckBoxComponent,
-        ComboBoxComponent,
-        DatePickerComponent,
-        RadioButtonComponent,
-        CudGridComponent,
-        FormTabComponent,
-        FormTextCellComponent,
-        FormNumberCellComponent,
-        DragDropComponent,
-        DisplayValueChangedComponent,
-        JsonPrettyPrintPipe
-    ],
-    imports: [
-        CommonModule,
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        AgGridModule,
-        AgGridAngular        
-    ],
-    providers: [
-        { provide: FormBuilderExtended, useClass: FormBuilderExtended },
-        { provide: UntypedFormBuilder, useClass: FormBuilderExtended },
-        { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: 'noop' },
-        { provide: ComponentErrorMapper, useClass: ComponentErrorMapper },
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    MyFormComponent,
+    GroupBoxComponent,
+    TextBoxComponent,
+    DynamicElementDirective,
+    TextAreaComponent,
+    CheckBoxComponent,
+    ComboBoxComponent,
+    DatePickerComponent,
+    RadioButtonComponent,
+    CudGridComponent,
+    FormTabComponent,
+    FormTextCellComponent,
+    FormNumberCellComponent,
+    DragDropComponent,
+    DisplayValueChangedComponent,
+    JsonPrettyPrintPipe
+  ],
+  imports: [CommonModule, BrowserModule, AppRoutingModule, ReactiveFormsModule, BrowserAnimationsModule, MaterialModule, AgGridModule, AgGridAngular],
+  providers: [
+    { provide: FormBuilderExtended, useClass: FormBuilderExtended },
+    { provide: UntypedFormBuilder, useClass: FormBuilderExtended },
+    { provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: 'noop' },
+    { provide: ComponentErrorMapper, useClass: ComponentErrorMapper }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

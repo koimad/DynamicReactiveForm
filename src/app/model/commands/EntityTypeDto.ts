@@ -1,7 +1,6 @@
-
 export enum EntityTypeDto {
-    None = "None",
-    Policy = "Policy",
-    Category = "Category",
-    PolicyCategory = "PolicyCategory"
+  None = 'None',
+  Policy = 'Policy',
+  Category = 'Category',
+  PolicyCategory = 'PolicyCategory'
 }

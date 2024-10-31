@@ -1,5 +1,0 @@
-parser: typescript;
-printWidth: 240;
-tabWidth: 4;
-singleQuote: true;
-trailingComma: none;
