@@ -3,7 +3,7 @@ export class Guid {
 
   public static EMPTY = '00000000-0000-0000-0000-000000000000';
 
-  public static isGuid(guid: any) {
+  public static isGuid(guid: unknown) {
     const value: string = guid.toString();
     return guid && (guid instanceof Guid || Guid.validator.test(value));
   }
@@ -25,9 +25,8 @@ export class Guid {
   }
 
   private static gen(count: number) {
-    let out: string = '';
-    for (let i: number = 0; i < count; i++) {
-      // tslint:disable-next-line:no-bitwise
+    let out = '';
+    for (let i = 0; i < count; i++) {
       out += (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     }
     return out;
@@ -61,7 +60,7 @@ export class Guid {
     return this.value;
   }
 
-  public toJSON(): any {
+  public toJSON(): unknown {
     return {
       value: this.value
     };

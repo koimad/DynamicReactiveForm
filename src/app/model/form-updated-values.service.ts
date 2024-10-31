@@ -12,7 +12,7 @@ import { EntityTypeDto } from './commands/EntityTypeDto';
   providedIn: 'root'
 })
 export class FormUpdatedValuesService {
-  private async getFormGroupChanges(group: FormGroupExtended, command: CommandDto, handleInserts: boolean = false) {
+  private async getFormGroupChanges(group: FormGroupExtended, command: CommandDto, handleInserts = false) {
     await console.log('hello world');
 
     for (const field in group.controls) {
@@ -24,15 +24,15 @@ export class FormUpdatedValuesService {
         } else if (control instanceof FormGroupExtended) {
           this.getFormGroupChanges(control, command);
         } else if (control instanceof FormArrayExtended) {
-          let formArray = control as FormArrayExtended;
-          let commands: CommandDto[] = [];
+          const formArray = control as FormArrayExtended;
+          const commands: CommandDto[] = [];
 
           command.associatedCommands[control.Key] = commands;
 
-          let changes = formArray.getChanges();
+          const changes = formArray.getChanges();
 
           changes.added.forEach(rowControl => {
-            let itemCommand: CommandDto = new CommandDto();
+            const itemCommand: CommandDto = new CommandDto();
             commands.push(itemCommand);
             itemCommand.operation = CommandOperationDto.Create;
 
@@ -45,7 +45,7 @@ export class FormUpdatedValuesService {
           });
 
           changes.modified.forEach(rowControl => {
-            let itemCommand: CommandDto = new CommandDto();
+            const itemCommand: CommandDto = new CommandDto();
             commands.push(itemCommand);
             itemCommand.operation = CommandOperationDto.Update;
             if (rowControl instanceof FormGroupExtended) {
@@ -54,7 +54,7 @@ export class FormUpdatedValuesService {
           });
 
           changes.deleted.forEach(rowControl => {
-            let itemCommand: CommandDto = new CommandDto();
+            const itemCommand: CommandDto = new CommandDto();
             commands.push(itemCommand);
             itemCommand.operation = CommandOperationDto.Delete;
             if (rowControl instanceof FormGroupExtended) {
@@ -87,8 +87,8 @@ export class FormUpdatedValuesService {
   }
 
   public getnerateChangedControlString(rootFormGroup: UntypedFormGroup): CommandDto[] {
-    let result: CommandDto[] = [];
-    let command = new CommandDto();
+    const result: CommandDto[] = [];
+    const command = new CommandDto();
     command.entityName = EntityTypeDto.Policy;
     result.push(command);
     for (const field in rootFormGroup.controls) {

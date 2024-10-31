@@ -6,11 +6,11 @@ import { ValidationErrorDto } from './ValidationErrorDto';
 
 export class CommandDto {
   correlationId: Guid = Guid.create();
-  entityId: number = 0;
+  entityId: 0;
   operation: CommandOperationDto = CommandOperationDto.None;
   entityName: EntityTypeDto = EntityTypeDto.None;
-  properties: { [key: string]: ChangedPropertyValueDto } = {};
-  rowVersion: string = '';
-  associatedCommands?: { [key: string]: CommandDto[] } = {};
+  properties: Record<string, ChangedPropertyValueDto> = {};
+  rowVersion: '';
+  associatedCommands?: Record<string, CommandDto[]> = {};
   validationErrors?: ValidationErrorDto[] | undefined;
 }

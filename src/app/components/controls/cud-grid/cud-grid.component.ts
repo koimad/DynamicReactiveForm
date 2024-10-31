@@ -1,12 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractControl, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
-import {
-  Column,
-  ColumnApi,
-  GridApi,
-  GridReadyEvent,
-  RowNode,
-} from 'ag-grid-community';
+import { Column, GridApi, GridReadyEvent, RowNode } from 'ag-grid-community';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { FormBuilderExtended } from '../../my-form/FormBuilderExtended';
 import { FormNumberCellComponent } from './form-number-cell/form-number-cell.component';
@@ -15,9 +9,9 @@ import { FormTextCellComponent } from './form-text-cell/form-text-cell.component
 @Component({
   selector: 'cud-grid',
   templateUrl: './cud-grid.component.html',
-  styleUrls: ['./cud-grid.component.scss'],
+  styleUrls: ['./cud-grid.component.scss']
 })
-export class CudGridComponent implements OnInit {
+export class CudGridComponent {
   private _api: GridApi;
 
   private _field: IFieldConfig;
@@ -50,15 +44,11 @@ export class CudGridComponent implements OnInit {
     this.inputsChanged();
   }
 
-  constructor(
-    private formBuilder: FormBuilderExtended,
-  ) { }
-
-  ngOnInit() { }
+  constructor(private formBuilder: FormBuilderExtended) {}
 
   private inputsChanged() {
-    if (this.field) {
-      this.rows = [...this.field.value];
+    if (this.field && Array.isArray(this.field)) {
+      this.rows = [...(this.field.value as [])];
     }
   }
 
@@ -96,16 +86,13 @@ export class CudGridComponent implements OnInit {
       const rowGroup = this.formBuilder.group([]);
 
       columns.forEach((column: Column) => {
-        rowGroup.addControl(
-          column.getColDef().field,
-          this.formBuilder.control(rowNode.data[column.getColDef().field])
-        );
+        rowGroup.addControl(column.getColDef().field, this.formBuilder.control(rowNode.data[column.getColDef().field]));
       });
       rows.push(rowGroup);
     });
-    this._formArray = this.formBuilder.arrayWithKey(this.field.key,rows);
+    this._formArray = this.formBuilder.arrayWithKey(this.field.key, rows);
     this._fieldName = this.field.key;
-    this._group.addControl(this._fieldName, this._formArray, { emitEvent: false});
+    this._group.addControl(this._fieldName, this._formArray, { emitEvent: false });
   }
 
   public getComponents() {
@@ -115,7 +102,7 @@ export class CudGridComponent implements OnInit {
   public getContext() {
     return {
       formGroup: this.group,
-      formArrayName: this.field.key,
+      formArrayName: this.field.key
     };
   }
 
@@ -124,7 +111,7 @@ export class CudGridComponent implements OnInit {
       id: 0,
       firstName: '',
       middleName: '',
-      age: undefined,
+      age: undefined
     };
 
     this._api.applyTransaction({ add: [newItem] });
@@ -132,7 +119,7 @@ export class CudGridComponent implements OnInit {
     const formGroup = this.formBuilder.group([]);
 
     let i: 0;
-    Object.keys(newItem).forEach((name) => {
+    Object.keys(newItem).forEach(name => {
       formGroup.addControl(name, this.formBuilder.control(Object.values[i++]));
     });
 
@@ -140,10 +127,10 @@ export class CudGridComponent implements OnInit {
   }
 
   public onRemove(): void {
-    this._api.getSelectedNodes().forEach((n) => {
+    this._api.getSelectedNodes().forEach(n => {
       this._formArray.removeAt(n.rowIndex);
     });
-    this._api.applyTransaction({remove:[this._api.getSelectedNodes()]});
+    this._api.applyTransaction({ remove: [this._api.getSelectedNodes()] });
   }
 
   public onReset() {
@@ -151,3 +138,4 @@ export class CudGridComponent implements OnInit {
     this.createFormControls();
   }
 }
+

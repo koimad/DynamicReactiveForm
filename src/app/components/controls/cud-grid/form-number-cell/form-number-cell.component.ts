@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { IAfterGuiAttachedParams } from 'ag-grid-community';
 import { UntypedFormGroup, UntypedFormArray } from '@angular/forms';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
@@ -11,8 +10,7 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 export class FormNumberCellComponent implements ICellRendererAngularComp {
   get formGroup(): UntypedFormGroup {
     if (this.rootFormGroup && this.rootFormGroup.controls[this.formArrayKey]) {
-      return (this.rootFormGroup.controls[this.formArrayKey] as UntypedFormArray)
-        .controls[this.rowIndex] as UntypedFormGroup;
+      return (this.rootFormGroup.controls[this.formArrayKey] as UntypedFormArray).controls[this.rowIndex] as UntypedFormGroup;
     } else {
       return undefined;
     }
@@ -32,12 +30,11 @@ export class FormNumberCellComponent implements ICellRendererAngularComp {
     this.rowIndex = params.rowIndex;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   refresh(params: any): boolean {
     if (this.formGroup) {
       this.formGroup.controls[this.key].patchValue(this.value);
     }
     return true;
   }
-
-  afterGuiAttached?(params?: IAfterGuiAttachedParams): void { }
 }

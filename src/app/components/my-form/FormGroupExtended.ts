@@ -1,9 +1,5 @@
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
-import {
-  AbstractControlOptions,
-  AsyncValidatorFn,
-  ValidatorFn,
-} from '@angular/forms';
+import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
 let t = false;
 
@@ -11,7 +7,7 @@ export class FormGroupExtended extends UntypedFormGroup {
   get dirty(): boolean {
     let childControlsDirty = false;
 
-    Object.keys(this.controls).forEach((key) => {
+    Object.keys(this.controls).forEach(key => {
       if (this.controls[key].dirty && !t) {
         console.debug(this.controls[key]);
         t = true;
@@ -22,17 +18,7 @@ export class FormGroupExtended extends UntypedFormGroup {
     return childControlsDirty;
   }
 
-  constructor(
-    controls: {
-      [key: string]: AbstractControl;
-    },
-    validatorOrOpts?:
-      | ValidatorFn
-      | ValidatorFn[]
-      | AbstractControlOptions
-      | null,
-    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
-  ) {
+  constructor(controls: Record<string, AbstractControl>, validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null, asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null) {
     super(controls, validatorOrOpts, asyncValidator);
   }
 }

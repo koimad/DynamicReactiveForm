@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 
@@ -7,13 +7,9 @@ import { IFieldConfig } from 'src/app/model/IFieldConfig';
   templateUrl: './form-tab.component.html',
   styleUrls: ['./form-tab.component.scss']
 })
-export class FormTabComponent implements OnInit {
+export class FormTabComponent {
   @Input()
   field: IFieldConfig;
   @Input()
   group: UntypedFormGroup;
-
-  constructor() { }
-
-  ngOnInit() { }
 }

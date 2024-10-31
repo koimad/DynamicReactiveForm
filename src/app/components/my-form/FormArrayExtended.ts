@@ -1,17 +1,12 @@
 import { AbstractControl, UntypedFormArray } from '@angular/forms';
-import {
-  AbstractControlOptions,
-  AsyncValidatorFn,
-  ValidatorFn,
-} from '@angular/forms';
+import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
 export class FormArrayExtended extends UntypedFormArray {
-
   private _key: string;
 
   public get dirty(): boolean {
     let childControlsDirty = false;
-    Object.keys(this.controls).forEach((key) => {
+    Object.keys(this.controls).forEach(key => {
       childControlsDirty = childControlsDirty || this.controls[key].dirty;
     });
     if (!childControlsDirty) {
@@ -20,7 +15,7 @@ export class FormArrayExtended extends UntypedFormArray {
     return childControlsDirty;
   }
 
-  get Key() : string {
+  get Key(): string {
     return this._key;
   }
 
@@ -28,12 +23,11 @@ export class FormArrayExtended extends UntypedFormArray {
     return this._startCollection.values;
   }
 
-  public getChanges(): { [key: string]: AbstractControl[] } {
-
+  public getChanges(): Record<string, AbstractControl[]> {
     const added = this.controls.filter(f => !this._startCollection.includes(f));
     const deleted = this._startCollection.filter(f => !this.controls.includes(f));
     const modified = this.controls.filter(f => this._startCollection.includes(f) && f.dirty);
-1
+
     return {
       added,
       deleted,
@@ -43,20 +37,11 @@ export class FormArrayExtended extends UntypedFormArray {
 
   private _startCollection: AbstractControl[];
 
-  constructor(
-    key: string,
-    controls: AbstractControl[],
-    validatorOrOpts?:
-      | ValidatorFn
-      | ValidatorFn[]
-      | AbstractControlOptions
-      | null,
-    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
-  ) {
+  constructor(key: string, controls: AbstractControl[], validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null, asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null) {
     super(controls, validatorOrOpts, asyncValidator);
 
     this._startCollection = [...controls];
-    this._key= key;
+    this._key = key;
   }
 
   push(control: AbstractControl): void {
@@ -79,12 +64,11 @@ export class FormArrayExtended extends UntypedFormArray {
     let result = this._startCollection.length === this.controls.length;
 
     if (result) {
-      const t = [];
       for (let i = 0; i < this._startCollection.length; i++) {
         if (this._startCollection[i].value !== this.controls[i].value) {
           result = false;
           break;
-        };
+        }
       }
     }
 

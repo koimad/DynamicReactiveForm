@@ -6,7 +6,5 @@ export class ApiResponse {
   message?: string | undefined;
   isError?: boolean;
   responseException?: ApiError;
-  result?: any | undefined;
-
-  constructor() {}
+  result?: unknown | undefined;
 }

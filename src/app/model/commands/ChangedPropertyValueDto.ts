@@ -1,4 +1,3 @@
-import { numberAttribute } from '@angular/core';
 import { ValueOneOfCaseDto } from './ValueOneOfCaseDto';
 
 export class ChangedPropertyValueDto {

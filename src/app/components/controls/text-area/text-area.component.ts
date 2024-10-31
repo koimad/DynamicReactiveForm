@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from '../component-error-mapper';
@@ -8,17 +8,15 @@ import { ComponentErrorMapper } from '../component-error-mapper';
   templateUrl: './text-area.component.html',
   styleUrls: ['./text-area.component.scss']
 })
-export class TextAreaComponent implements OnInit {
-  @HostBinding('class') get class(): string { return this.field.columnClass };
+export class TextAreaComponent {
+  @HostBinding('class') get class(): string {
+    return this.field.columnClass;
+  }
 
   @Input()
   field: IFieldConfig;
   @Input()
   group: UntypedFormGroup;
 
-  constructor(public errorMapper: ComponentErrorMapper) {
-
-  }
-
-  ngOnInit() { }
+  constructor(public errorMapper: ComponentErrorMapper) {}
 }
