@@ -1,0 +1,12 @@
+parser: typescript
+printWidth: 240
+tabWidth: 2
+singleQuote: true
+trailingComma: "none"
+useTabs: false
+semi: true
+arrowParens: avoid
+ignorePath: .prettierignore
+singleAttributePerLine: true
+endOfLine: lf
+useEditorConfig: true

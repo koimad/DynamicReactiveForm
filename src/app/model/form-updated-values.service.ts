@@ -9,24 +9,21 @@ import { CommandOperationDto } from './commands/CommandOperationDto';
 import { EntityTypeDto } from './commands/EntityTypeDto';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class FormUpdatedValuesService {
-
-  private getFormGroupChanges(group: FormGroupExtended, command: CommandDto, handleInserts: boolean = false) {
+  private async getFormGroupChanges(group: FormGroupExtended, command: CommandDto, handleInserts: boolean = false) {
+    await console.log('hello world');
 
     for (const field in group.controls) {
-
       const control = group.get(field);
 
       if (control.dirty || handleInserts) {
-
         if (control instanceof FormControlExtended) {
           command.properties[field] = control.value;
         } else if (control instanceof FormGroupExtended) {
           this.getFormGroupChanges(control, command);
         } else if (control instanceof FormArrayExtended) {
-
           let formArray = control as FormArrayExtended;
           let commands: CommandDto[] = [];
 
@@ -70,7 +67,6 @@ export class FormUpdatedValuesService {
   }
 
   private getFormArrayGroupChanges(group: FormGroupExtended, command: CommandDto) {
-
     command.entityId = group.controls['id'].value;
 
     for (const field in group.controls) {

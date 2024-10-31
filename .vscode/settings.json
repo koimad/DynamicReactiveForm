@@ -1,24 +1,42 @@
 {
-  "editor.formatOnSave": true, // Set the default formatter to Prettier
-  //"editor.defaultFormatter": "esbenp.prettier-vscode", // 
+  "editor.defaultFormatter": "esbenp.prettier-vscode", 
+  "editor.formatOnSave": true, // Set the default formatter to Prettier  
   "editor.formatOnType": true,
   "editor.formatOnPaste": true,  
   "editor.codeActionsOnSave": {
         "source.fixAll": "explicit"
     },
-  
-   "[typescript]": {    
-    //"editor.defaultFormatter": "esbenp.prettier-vscode", // 
+
+   "[typescript]": {        
+    "editor.defaultFormatter": "esbenp.prettier-vscode",  
     "diffEditor.ignoreTrimWhitespace": true,
         
   },
   
   "[markdown]": {    
+    "editor.defaultFormatter": "esbenp.prettier-vscode",  
     "editor.wordWrap": "on",
     "editor.renderWhitespace": "all",
     "editor.acceptSuggestionOnEnter": "off"
   },
 
-  "prettier.requireConfig": true,
-  "prettier.ignorePath": ".gitignore",
+ 
+  
+  // "eslint.format.enable": false,
+  // "eslint.codeActionsOnSave.mode": "all",
+  // "eslint.probe": [
+  //   "astro",
+  //   "javascript",
+  //   "javascriptreact",
+  //   "typescript",
+  //   "typescriptreact",
+  //   "html",
+  //   "mdx",
+  //   "vue",
+  //   "markdown",
+  //   "json",
+  //   "jsonc"
+  // ], 
+  // "eslint.useFlatConfig": true,
+  
 }
