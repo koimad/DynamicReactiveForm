@@ -3,14 +3,13 @@ import { AbstractControlOptions, AsyncValidatorFn, UntypedFormControl, Validator
 export class FormControlExtended extends UntypedFormControl {
   private _originalValue: any;
   private _previousValue: any;
-  private _key : string;
-  
+  private _key: string;
+
   get dirty(): boolean {
     return !this.pristine && this.value !== this._originalValue;
   }
 
-  
-  get Key() : string {
+  get Key(): string {
     return this._key;
   }
 

@@ -47,7 +47,7 @@ export class CudGridComponent {
   constructor(private formBuilder: FormBuilderExtended) {}
 
   private inputsChanged() {
-    if (this.field && Array.isArray(this.field)) {
+    if (this.field && Array.isArray(this.field.value)) {
       this.rows = [...(this.field.value as [])];
     }
   }

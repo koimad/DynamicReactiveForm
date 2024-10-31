@@ -7,7 +7,7 @@ import { DisplayValueChangedComponent } from '../display-value-changed/display-v
 import { UntypedFormGroup, ValidatorFn, Validators, ValueChangeEvent } from '@angular/forms';
 import { FormControlExtended } from './FormControlExtended';
 import { filter } from 'rxjs/operators';
-//import { IFieldValidator } from 'src/app/model/IFieldValidator';
+import { IFieldValidator } from 'src/app/model/IFieldValidator';
 
 @Component({
   selector: 'my-form',
@@ -104,7 +104,7 @@ export class MyFormComponent {
     });
   }
 
-  private buildValidators(validations: any[]): ValidatorFn {
+  private buildValidators(validations: IFieldValidator[]): ValidatorFn {
     let result: ValidatorFn;
     const validatorList = [];
     if (validations && validations.length > 0) {

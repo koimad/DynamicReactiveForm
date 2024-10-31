@@ -12,7 +12,9 @@ import { IAfterGuiAttachedParams } from 'ag-grid-community';
 export class FormTextCellComponent implements ICellRendererAngularComp {
   get formGroup(): UntypedFormGroup {
     if (this.rootFormGroup && this.rootFormGroup.controls[this.formArrayKey]) {
-      return (this.rootFormGroup.controls[this.formArrayKey] as UntypedFormArray).controls[this.rowIndex] as UntypedFormGroup;
+      return (this.rootFormGroup.controls[this.formArrayKey] as UntypedFormArray).controls[
+        this.rowIndex
+      ] as UntypedFormGroup;
     } else {
       return undefined;
     }
