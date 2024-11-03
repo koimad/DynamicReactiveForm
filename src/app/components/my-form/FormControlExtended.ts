@@ -3,14 +3,9 @@ import { AbstractControlOptions, AsyncValidatorFn, UntypedFormControl, Validator
 export class FormControlExtended extends UntypedFormControl {
   private _originalValue: any;
   private _previousValue: any;
-  private _key: string;
 
   get dirty(): boolean {
     return !this.pristine && this.value !== this._originalValue;
-  }
-
-  get Key(): string {
-    return this._key;
   }
 
   get originalValue(): any {
@@ -22,7 +17,6 @@ export class FormControlExtended extends UntypedFormControl {
   }
 
   constructor(
-    key: string,
     formState?: any,
     validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
@@ -30,7 +24,6 @@ export class FormControlExtended extends UntypedFormControl {
     super(formState, validatorOrOpts, asyncValidator);
     this._originalValue = this.value;
     this._previousValue = this.value;
-    this._key = key;
   }
 
   setValue(

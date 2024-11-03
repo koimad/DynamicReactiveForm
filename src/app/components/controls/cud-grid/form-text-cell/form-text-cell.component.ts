@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { IAfterGuiAttachedParams } from 'ag-grid-community';
+import { IAfterGuiAttachedParams, ICellRendererParams } from 'ag-grid-community';
 
 @Component({
   selector: 'form-text-cell',
@@ -21,21 +21,21 @@ export class FormTextCellComponent implements ICellRendererAngularComp {
   }
 
   private rootFormGroup: UntypedFormGroup;
-  private value: any;
+  private value: string;
   public key: string;
-  private formArrayKey: any;
+  private formArrayKey: string;
   private rowIndex: number;
 
-  agInit(params: any) {
+  agInit(params: ICellRendererParams<string>) {
     this.rootFormGroup = params.context.formGroup as UntypedFormGroup;
     this.formArrayKey = params.context.formArrayName;
-    this.key = params.column.colId;
+    this.key = params.column.getColId();
     this.value = params.value;
-    this.rowIndex = params.rowIndex;
+    this.rowIndex = params.node.rowIndex;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  refresh(params: any): boolean {
+  refresh(params: ICellRendererParams<string>): boolean {
     if (this.formGroup) {
       this.formGroup.controls[this.key].patchValue(this.value);
     }
@@ -45,3 +45,4 @@ export class FormTextCellComponent implements ICellRendererAngularComp {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   afterGuiAttached?(params?: IAfterGuiAttachedParams): void {}
 }
+

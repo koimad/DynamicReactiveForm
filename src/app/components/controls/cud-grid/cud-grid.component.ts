@@ -21,7 +21,7 @@ export class CudGridComponent {
   private _formArray: UntypedFormArray;
   private _fieldName: string;
 
-  public rowSelection = 'single';
+  public rowSelection = { mode: 'singleRow', checkboxes: false, enableClickSelection: true };
 
   public rows: any[];
 
@@ -90,7 +90,7 @@ export class CudGridComponent {
       });
       rows.push(rowGroup);
     });
-    this._formArray = this.formBuilder.arrayWithKey(this.field.key, rows);
+    this._formArray = this.formBuilder.array(rows);
     this._fieldName = this.field.key;
     this._group.addControl(this._fieldName, this._formArray, { emitEvent: false });
   }
@@ -108,10 +108,10 @@ export class CudGridComponent {
 
   public onAdd(): void {
     const newItem = {
-      id: 0,
-      firstName: '',
-      middleName: '',
-      age: undefined
+      Id: 0,
+      FirstName: '',
+      MiddleName: '',
+      Age: undefined
     };
 
     this._api.applyTransaction({ add: [newItem] });

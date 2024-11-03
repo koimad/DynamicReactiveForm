@@ -46,28 +46,32 @@ export class MyFormComponent {
     try {
       this.rootFormGroup = this._formBuilder.group({});
       this.rootFormGroup.events.pipe(filter(e => e instanceof ValueChangeEvent)).subscribe(f => {
-        console.log(f);
-
         if (f.source.dirty) {
           if (f.source instanceof FormControlExtended) {
             const control: FormControlExtended = f.source;
 
-            if (control.Key == 'Age') {
-              const dialogRef = this._dialogue.open(DisplayValueChangedComponent, {
-                width: '400px',
-                height: '300px',
-                data: {
-                  oldValue: control.PreviousValue,
-                  newValue: control.value,
-                  label: control.Key.replace(/[0-9]/g, '')
-                }
-              });
+            const parent = control.parent;
 
-              dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                  f.source.setValue(control.PreviousValue, { emitEvent: false });
+            for (const key in parent.controls) {
+              if (control === parent.controls[key]) {
+                if (key == 'ParentAge') {
+                  const dialogRef = this._dialogue.open(DisplayValueChangedComponent, {
+                    width: '400px',
+                    height: '300px',
+                    data: {
+                      oldValue: control.PreviousValue,
+                      newValue: control.value,
+                      label: key.replace(/[0-9]/g, '')
+                    }
+                  });
+
+                  dialogRef.afterClosed().subscribe(result => {
+                    if (result) {
+                      f.source.setValue(control.PreviousValue, { emitEvent: false });
+                    }
+                  });
                 }
-              });
+              }
             }
           }
         }
@@ -96,10 +100,7 @@ export class MyFormComponent {
         field.group = formGroup;
       } else {
         field.group = formGroup;
-        formGroup.addControl(
-          field.key,
-          this._formBuilder.controlWithkey(field.key, field.value, this.buildValidators(field.validators))
-        );
+        formGroup.addControl(field.key, this._formBuilder.control(field.value, this.buildValidators(field.validators)));
       }
     });
   }

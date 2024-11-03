@@ -10,7 +10,7 @@
             "request": "launch",            
             "preLaunchTask": "npm: start",
             "postDebugTask": "Terminate All Tasks",
-            "url": "http://localhost:4200",
+            "url": "http://localhost:4200/",
             "webRoot": "${workspaceFolder}"
         },
         {

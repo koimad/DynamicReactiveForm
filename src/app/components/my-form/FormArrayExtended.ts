@@ -2,8 +2,6 @@ import { AbstractControl, UntypedFormArray } from '@angular/forms';
 import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
 export class FormArrayExtended extends UntypedFormArray {
-  private _key: string;
-
   public get dirty(): boolean {
     let childControlsDirty = false;
     Object.keys(this.controls).forEach(key => {
@@ -13,10 +11,6 @@ export class FormArrayExtended extends UntypedFormArray {
       childControlsDirty = !this.collectionsEqual();
     }
     return childControlsDirty;
-  }
-
-  get Key(): string {
-    return this._key;
   }
 
   public get originalValue(): any {
@@ -37,11 +31,14 @@ export class FormArrayExtended extends UntypedFormArray {
 
   private _startCollection: AbstractControl[];
 
-  constructor(key: string, controls: AbstractControl[], validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null, asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null) {
+  constructor(
+    controls: AbstractControl[],
+    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
+    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+  ) {
     super(controls, validatorOrOpts, asyncValidator);
 
     this._startCollection = [...controls];
-    this._key = key;
   }
 
   push(control: AbstractControl): void {

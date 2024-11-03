@@ -13,13 +13,12 @@ import { EntityTypeDto } from './commands/EntityTypeDto';
 })
 export class FormUpdatedValuesService {
   private async getFormGroupChanges(group: FormGroupExtended, command: CommandDto, handleInserts = false) {
-    await console.log('hello world');
-
     for (const field in group.controls) {
       const control = group.get(field);
 
       if (control.dirty || handleInserts) {
         if (control instanceof FormControlExtended) {
+          this.getControlValue(control, command);
           command.properties[field] = control.value;
         } else if (control instanceof FormGroupExtended) {
           this.getFormGroupChanges(control, command);
@@ -27,12 +26,18 @@ export class FormUpdatedValuesService {
           const formArray = control as FormArrayExtended;
           const commands: CommandDto[] = [];
 
-          command.associatedCommands[control.Key] = commands;
+          for (const key in control.parent.controls) {
+            if (control === control.parent.controls[key]) {
+              command.associatedCommands[key] = commands;
+              break;
+            }
+          }
 
           const changes = formArray.getChanges();
 
           changes.added.forEach(rowControl => {
             const itemCommand: CommandDto = new CommandDto();
+            itemCommand.correlationId = command.correlationId;
             commands.push(itemCommand);
             itemCommand.operation = CommandOperationDto.Create;
 
@@ -40,12 +45,14 @@ export class FormUpdatedValuesService {
               this.getFormGroupChanges(rowControl, itemCommand, true);
             } else if (rowControl instanceof FormControlExtended) {
               itemCommand.entityName = EntityTypeDto.Category;
-              itemCommand.properties[rowControl.Key] = rowControl.value;
+
+              this.getControlValue(rowControl, itemCommand);
             }
           });
 
           changes.modified.forEach(rowControl => {
             const itemCommand: CommandDto = new CommandDto();
+            itemCommand.correlationId = command.correlationId;
             commands.push(itemCommand);
             itemCommand.operation = CommandOperationDto.Update;
             if (rowControl instanceof FormGroupExtended) {
@@ -55,6 +62,8 @@ export class FormUpdatedValuesService {
 
           changes.deleted.forEach(rowControl => {
             const itemCommand: CommandDto = new CommandDto();
+            itemCommand.correlationId = command.correlationId;
+
             commands.push(itemCommand);
             itemCommand.operation = CommandOperationDto.Delete;
             if (rowControl instanceof FormGroupExtended) {
@@ -66,14 +75,23 @@ export class FormUpdatedValuesService {
     }
   }
 
+  private getControlValue(control: FormControlExtended, command: CommandDto): void {
+    for (const key in control.parent.controls) {
+      if (control.parent.controls[key] === control) {
+        command.properties[key] = control.value;
+        break;
+      }
+    }
+  }
+
   private getFormArrayGroupChanges(group: FormGroupExtended, command: CommandDto) {
-    command.entityId = group.controls['id'].value;
+    command.entityId = group.controls['Id'].value;
 
     for (const field in group.controls) {
       const control = group.get(field);
       if (control.dirty) {
         if (control instanceof FormControlExtended) {
-          command.properties[control.Key] = control.value;
+          this.getControlValue(control, command);
         } else if (control instanceof FormGroupExtended) {
           this.getFormGroupChanges(control, command);
         }

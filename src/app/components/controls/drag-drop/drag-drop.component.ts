@@ -70,7 +70,7 @@ export class DragDropComponent {
         this._destinationArray.removeAt(event.previousIndex);
       } else {
         copyArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
-        this._destinationArray.push(this._formBuilder.controlWithkey('name', event.item.data));
+        this._destinationArray.push(this._formBuilder.control(event.item.data));
       }
     }
   }
@@ -93,8 +93,7 @@ export class DragDropComponent {
     this.destination.forEach(f => {
       controls.push(this._formBuilder.control(f));
     });
-    this._destinationArray = this._formBuilder.arrayWithKey(
-      this._field.key,
+    this._destinationArray = this._formBuilder.array(
       controls,
       this._field.validators.map(f => f.validator)
     );

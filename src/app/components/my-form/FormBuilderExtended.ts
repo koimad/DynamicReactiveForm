@@ -28,16 +28,7 @@ export class FormBuilderExtended extends UntypedFormBuilder {
     validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): UntypedFormControl {
-    return new FormControlExtended('', formState, validatorOrOpts, asyncValidator);
-  }
-
-  public controlWithkey(
-    key: string,
-    formState: any,
-    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
-    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
-  ): UntypedFormControl {
-    return new FormControlExtended(key, formState, validatorOrOpts, asyncValidator);
+    return new FormControlExtended(formState, validatorOrOpts, asyncValidator);
   }
 
   public array(
@@ -45,16 +36,7 @@ export class FormBuilderExtended extends UntypedFormBuilder {
     validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): UntypedFormArray {
-    return new FormArrayExtended('', controlsConfig, validatorOrOpts, asyncValidator);
-  }
-
-  public arrayWithKey(
-    key: string,
-    controlsConfig: any[],
-    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
-    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
-  ): UntypedFormArray {
-    return new FormArrayExtended(key, controlsConfig, validatorOrOpts, asyncValidator);
+    return new FormArrayExtended(controlsConfig, validatorOrOpts, asyncValidator);
   }
 
   group(
