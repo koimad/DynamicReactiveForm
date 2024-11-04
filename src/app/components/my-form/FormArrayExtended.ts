@@ -4,6 +4,31 @@ import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/
 export class FormArrayExtended extends UntypedFormArray {
   private _startCollection: AbstractControl[];
 
+  public constructor(
+    controls: AbstractControl[],
+    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
+    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+  ) {
+    super(controls, validatorOrOpts, asyncValidator);
+
+    this._startCollection = [...controls];
+  }
+
+  private collectionsEqual(): boolean {
+    let result = this._startCollection.length === this.controls.length;
+
+    if (result) {
+      for (let i = 0; i < this._startCollection.length; i++) {
+        if (this._startCollection[i].value !== this.controls[i].value) {
+          result = false;
+          break;
+        }
+      }
+    }
+
+    return result;
+  }
+
   public get dirty(): boolean {
     let childControlsDirty = false;
     Object.keys(this.controls).forEach(key => {
@@ -31,17 +56,7 @@ export class FormArrayExtended extends UntypedFormArray {
     };
   }
 
-  constructor(
-    controls: AbstractControl[],
-    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
-    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
-  ) {
-    super(controls, validatorOrOpts, asyncValidator);
-
-    this._startCollection = [...controls];
-  }
-
-  push(control: AbstractControl): void {
+  public push(control: AbstractControl): void {
     super.push(control);
   }
 
@@ -55,20 +70,5 @@ export class FormArrayExtended extends UntypedFormArray {
 
   public setControl(index: number, control: AbstractControl): void {
     super.setControl(index, control);
-  }
-
-  private collectionsEqual(): boolean {
-    let result = this._startCollection.length === this.controls.length;
-
-    if (result) {
-      for (let i = 0; i < this._startCollection.length; i++) {
-        if (this._startCollection[i].value !== this.controls[i].value) {
-          result = false;
-          break;
-        }
-      }
-    }
-
-    return result;
   }
 }

@@ -9,34 +9,38 @@ import { ICellRendererParams } from 'ag-grid-community';
   styleUrls: ['./form-number-cell.component.scss']
 })
 export class FormNumberCellComponent implements ICellRendererAngularComp {
-  get formGroup(): UntypedFormGroup {
-    if (this.rootFormGroup && this.rootFormGroup.controls[this.formArrayKey]) {
-      return (this.rootFormGroup.controls[this.formArrayKey] as UntypedFormArray).controls[
-        this.rowIndex
+  private _rootFormGroup: UntypedFormGroup;
+
+  private _value: number;
+
+  private _formArrayKey: string;
+
+  private _rowIndex: number;
+
+  public key: string;
+
+  public get formGroup(): UntypedFormGroup {
+    if (this._rootFormGroup && this._rootFormGroup.controls[this._formArrayKey]) {
+      return (this._rootFormGroup.controls[this._formArrayKey] as UntypedFormArray).controls[
+        this._rowIndex
       ] as UntypedFormGroup;
     } else {
       return undefined;
     }
   }
 
-  private rootFormGroup: UntypedFormGroup;
-  private value: number;
-  public key: string;
-  private formArrayKey: string;
-  private rowIndex: number;
-
-  agInit(params: ICellRendererParams<number>) {
-    this.rootFormGroup = params.context.formGroup as UntypedFormGroup;
-    this.formArrayKey = params.context.formArrayName;
+  public agInit(params: ICellRendererParams<number>) {
+    this._rootFormGroup = params.context.formGroup as UntypedFormGroup;
+    this._formArrayKey = params.context.formArrayName;
     this.key = params.column.getColId();
-    this.value = params.value;
-    this.rowIndex = params.node.rowIndex;
+    this._value = params.value;
+    this._rowIndex = params.node.rowIndex;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  refresh(params: ICellRendererParams<number>): boolean {
+  public refresh(params: ICellRendererParams<number>): boolean {
     if (this.formGroup) {
-      this.formGroup.controls[this.key].patchValue(this.value);
+      this.formGroup.controls[this.key].patchValue(this._value);
     }
     return true;
   }

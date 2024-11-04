@@ -1,6 +1,8 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
+
 import { ComponentErrorMapper } from '../component-error-mapper';
 
 @Component({
@@ -9,14 +11,16 @@ import { ComponentErrorMapper } from '../component-error-mapper';
   styleUrls: ['./text-area.component.scss']
 })
 export class TextAreaComponent {
-  @HostBinding('class') get class(): string {
+  @Input()
+  public field: IFieldConfig;
+
+  @Input()
+  public group: UntypedFormGroup;
+
+  public constructor(public errorMapper: ComponentErrorMapper) {}
+
+  @HostBinding('class')
+  public get class(): string {
     return this.field.columnClass;
   }
-
-  @Input()
-  field: IFieldConfig;
-  @Input()
-  group: UntypedFormGroup;
-
-  constructor(public errorMapper: ComponentErrorMapper) {}
 }

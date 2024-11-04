@@ -9,11 +9,16 @@ body {
 
 html{
   --mdc-dialog-container-color:rgb(232, 242, 246);
+  
 }
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;  
+}
+
+.ag-theme-material, .ag-theme-material-dark, .ag-theme-material-auto-dark {
+  --ag-cell-horizontal-padding: calc(--ag-grid-size* 1);
 }
 
 /*TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version.*/

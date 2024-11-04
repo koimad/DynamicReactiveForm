@@ -4,7 +4,15 @@ import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/
 let t = false;
 
 export class FormGroupExtended extends UntypedFormGroup {
-  get dirty(): boolean {
+  public constructor(
+    controls: Record<string, AbstractControl>,
+    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
+    asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
+  ) {
+    super(controls, validatorOrOpts, asyncValidator);
+  }
+
+  public get dirty(): boolean {
     let childControlsDirty = false;
 
     Object.keys(this.controls).forEach(key => {
@@ -16,9 +24,5 @@ export class FormGroupExtended extends UntypedFormGroup {
     });
 
     return childControlsDirty;
-  }
-
-  constructor(controls: Record<string, AbstractControl>, validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null, asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null) {
-    super(controls, validatorOrOpts, asyncValidator);
   }
 }

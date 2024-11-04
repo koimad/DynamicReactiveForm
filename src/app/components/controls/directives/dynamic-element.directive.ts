@@ -1,33 +1,32 @@
-import {
-  Directive,
-  Input,
-  OnInit,
-  ViewContainerRef
-} from '@angular/core';
+import { Directive, Input, OnInit, ViewContainerRef } from '@angular/core';
 
 import { IFieldConfig } from '../../../model/IFieldConfig';
+
 import { componentMapper } from '../component-mapper';
+
 import { UntypedFormGroup } from '@angular/forms';
+
 @Directive({
   selector: '[DynamicElement]'
 })
 export class DynamicElementDirective implements OnInit {
+  private _componentRef: any;
+
   @Input()
-  field: IFieldConfig;
+  public field: IFieldConfig;
+
   @Input()
-  group: UntypedFormGroup;
+  public group: UntypedFormGroup;
 
-  componentRef: any;
+  public constructor(private container: ViewContainerRef) {}
 
-  constructor(
-    private container: ViewContainerRef
-  ) { }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (this.field) {
-      this.componentRef = this.container.createComponent(componentMapper[this.field.controlType]);
-      this.componentRef.instance.field = this.field;
-      this.componentRef.instance.group = this.group;
+      this._componentRef = this.container.createComponent(componentMapper[this.field.controlType]);
+
+      this._componentRef.instance.field = this.field;
+
+      this._componentRef.instance.group = this.group;
     }
   }
 }

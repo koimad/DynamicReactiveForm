@@ -1,4 +1,5 @@
 export class ValidationErrorDto {
-  property?: string | undefined;
-  messages?: string[] | undefined;
+  public property?: string | undefined;
+
+  public messages?: string[] | undefined;
 }

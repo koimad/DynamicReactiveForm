@@ -8,12 +8,14 @@ import { IFieldConfig } from 'src/app/model/IFieldConfig';
   styleUrls: ['./radio-button.component.scss']
 })
 export class RadioButtonComponent {
-  @HostBinding('class') get class(): string {
-    return this.field.columnClass;
-  }
+  @Input()
+  public field: IFieldConfig;
 
   @Input()
-  field: IFieldConfig;
-  @Input()
-  group: UntypedFormGroup;
+  public group: UntypedFormGroup;
+
+  @HostBinding('class')
+  public get class(): string {
+    return this.field.columnClass;
+  }
 }

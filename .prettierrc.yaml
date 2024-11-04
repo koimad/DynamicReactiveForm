@@ -10,3 +10,6 @@ ignorePath: .prettierignore
 singleAttributePerLine: true
 endOfLine: crlf
 useEditorConfig: true
+
+classSectionOrder: [properties, staticProperties, constructor, methods, staticMethods ]
+classAccessibilityOrder: [private, protected, public]

@@ -9,7 +9,8 @@ import { IFieldConfig } from 'src/app/model/IFieldConfig';
 })
 export class FormTabComponent {
   @Input()
-  field: IFieldConfig;
+  public field: IFieldConfig;
+
   @Input()
-  group: UntypedFormGroup;
+  public group: UntypedFormGroup;
 }

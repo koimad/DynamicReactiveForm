@@ -5,7 +5,7 @@ import { FormGroupDirective, NgForm, UntypedFormControl } from '@angular/forms';
 @Injectable()
 export class ComponentErrorMapper implements ErrorStateMatcher {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  public isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     return control && control.invalid;
   }
 }

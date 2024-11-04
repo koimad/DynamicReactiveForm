@@ -5,12 +5,19 @@ import { EntityTypeDto } from './EntityTypeDto';
 import { ValidationErrorDto } from './ValidationErrorDto';
 
 export class CommandDto {
-  correlationId: Guid = Guid.create();
-  entityId: 0;
-  operation: CommandOperationDto = CommandOperationDto.None;
-  entityName: EntityTypeDto = EntityTypeDto.None;
-  properties: Record<string, ChangedPropertyValueDto> = {};
-  rowVersion: '';
-  associatedCommands?: Record<string, CommandDto[]> = {};
-  validationErrors?: ValidationErrorDto[] | undefined;
+  public correlationId: Guid = Guid.create();
+
+  public entityId: 0;
+
+  public operation: CommandOperationDto = CommandOperationDto.None;
+
+  public entityName: EntityTypeDto = EntityTypeDto.None;
+
+  public properties: Record<string, ChangedPropertyValueDto> = {};
+
+  public rowVersion: '';
+
+  public associatedCommands?: Record<string, CommandDto[]> = {};
+
+  public validationErrors?: ValidationErrorDto[] | undefined;
 }

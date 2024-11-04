@@ -9,12 +9,16 @@ import { DialogData } from './DialogData';
   styleUrls: ['./display-value-changed.component.scss']
 })
 export class DisplayValueChangedComponent {
-  constructor(public dialogRef: MatDialogRef<DisplayValueChangedComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  public constructor(
+    public dialogRef: MatDialogRef<DisplayValueChangedComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {}
 
-  onNoClick(): void {
+  public onNoClick(): void {
     this.dialogRef.close(false);
   }
-  onYesClick(): void {
+
+  public onYesClick(): void {
     this.dialogRef.close(true);
   }
 }

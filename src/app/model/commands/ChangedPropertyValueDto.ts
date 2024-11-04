@@ -1,15 +1,21 @@
 import { ValueOneOfCaseDto } from './ValueOneOfCaseDto';
 
 export class ChangedPropertyValueDto {
-  integer?: number | undefined;
-  long?: number | undefined;
-  boolean?: boolean | undefined;
-  text?: string | undefined;
-  single?: number | undefined;
-  double?: number | undefined;
-  valueCase?: ValueOneOfCaseDto;
+  public integer?: number | undefined;
 
-  constructor(value: object) {
+  public long?: number | undefined;
+
+  public boolean?: boolean | undefined;
+
+  public text?: string | undefined;
+
+  public single?: number | undefined;
+
+  public double?: number | undefined;
+
+  public valueCase?: ValueOneOfCaseDto;
+
+  public constructor(value: object) {
     if (typeof value === 'number') {
       if (Number.isInteger(value)) {
         this.long = value;

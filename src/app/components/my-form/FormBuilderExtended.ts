@@ -19,13 +19,15 @@ export type FormHooks = 'change' | 'blur' | 'submit';
 
 @Injectable()
 export class FormBuilderExtended extends UntypedFormBuilder {
-  constructor() {
+  public constructor() {
     super();
   }
 
   public control(
     formState: any,
+
     validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
+
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): UntypedFormControl {
     return new FormControlExtended(formState, validatorOrOpts, asyncValidator);
@@ -33,29 +35,39 @@ export class FormBuilderExtended extends UntypedFormBuilder {
 
   public array(
     controlsConfig: any[],
+
     validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
+
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): UntypedFormArray {
     return new FormArrayExtended(controlsConfig, validatorOrOpts, asyncValidator);
   }
 
-  group(
+  public group(
     controlsConfig: Record<string, any>,
+
     options?: AbstractControlOptions | Record<string, any> | null
   ): UntypedFormGroup {
     let validators: ValidatorFn | ValidatorFn[] | null = null;
+
     let asyncValidators: AsyncValidatorFn | AsyncValidatorFn[] | null = null;
+
     let updateOn: FormHooks | undefined;
 
     if (options != null) {
       if (isAbstractControlOptions(options)) {
         // `options` are `AbstractControlOptions`
+
         validators = options.validators != null ? options.validators : null;
+
         asyncValidators = options.asyncValidators != null ? options.asyncValidators : null;
+
         updateOn = options.updateOn != null ? options.updateOn : undefined;
       } else {
         // `options` are legacy form group options
+
         validators = options.validator != null ? options.validator : null;
+
         asyncValidators = options.asyncValidator != null ? options.asyncValidator : null;
       }
     }
@@ -64,7 +76,9 @@ export class FormBuilderExtended extends UntypedFormBuilder {
 
     return new FormGroupExtended(g.controls, {
       asyncValidators,
+
       updateOn,
+
       validators
     });
   }

@@ -2,9 +2,13 @@ import { ApiError } from './ApiError';
 import { HttpStatusCode } from './HttpStatusCode';
 
 export class ApiResponse {
-  statusCode?: HttpStatusCode;
-  message?: string | undefined;
-  isError?: boolean;
-  responseException?: ApiError;
-  result?: unknown | undefined;
+  public statusCode?: HttpStatusCode;
+
+  public message?: string | undefined;
+
+  public isError?: boolean;
+
+  public responseException?: ApiError;
+
+  public result?: unknown | undefined;
 }

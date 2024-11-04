@@ -9,7 +9,6 @@ import { RadioButtonComponent } from './radio-button/radio-button.component';
 import { TextAreaComponent } from './text-area/text-area.component';
 import { TextBoxComponent } from './text-box/textBox.component';
 
-
 export const componentMapper = {
   textBox: TextBoxComponent,
   textBlock: TextAreaComponent,
@@ -23,4 +22,4 @@ export const componentMapper = {
   dragDrop: DragDropComponent
 };
 
-export enum ComponentTypes { }
+export enum ComponentTypes {}

@@ -2,21 +2,10 @@ import { AbstractControlOptions, AsyncValidatorFn, UntypedFormControl, Validator
 
 export class FormControlExtended extends UntypedFormControl {
   private _originalValue: any;
+
   private _previousValue: any;
 
-  get dirty(): boolean {
-    return !this.pristine && this.value !== this._originalValue;
-  }
-
-  get originalValue(): any {
-    return this._originalValue;
-  }
-
-  get PreviousValue(): any {
-    return this._previousValue;
-  }
-
-  constructor(
+  public constructor(
     formState?: any,
     validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
@@ -26,7 +15,19 @@ export class FormControlExtended extends UntypedFormControl {
     this._previousValue = this.value;
   }
 
-  setValue(
+  public get dirty(): boolean {
+    return !this.pristine && this.value !== this._originalValue;
+  }
+
+  public get originalValue(): any {
+    return this._originalValue;
+  }
+
+  public get PreviousValue(): any {
+    return this._previousValue;
+  }
+
+  public setValue(
     value: any,
     options?: {
       onlySelf?: boolean;

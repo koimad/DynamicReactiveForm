@@ -32,37 +32,37 @@ export class Guid {
     return out;
   }
 
-  private value: string;
+  private _value: string;
 
   private constructor(guid: string) {
     if (!guid) {
       throw new TypeError('Invalid argument; `value` has no value.');
     }
 
-    this.value = Guid.EMPTY;
+    this._value = Guid.EMPTY;
 
     if (guid && Guid.isGuid(guid)) {
-      this.value = guid;
+      this._value = guid;
     }
   }
 
   public equals(other: Guid): boolean {
     // Comparing string `value` against provided `guid` will auto-call
     // toString on `guid` for comparison
-    return Guid.isGuid(other) && this.value === other.toString();
+    return Guid.isGuid(other) && this._value === other.toString();
   }
 
   public isEmpty(): boolean {
-    return this.value === Guid.EMPTY;
+    return this._value === Guid.EMPTY;
   }
 
   public toString(): string {
-    return this.value;
+    return this._value;
   }
 
   public toJSON(): unknown {
     return {
-      value: this.value
+      value: this._value
     };
   }
 }

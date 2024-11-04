@@ -1,6 +1,9 @@
 // @ts-check
+
 const eslint = require('@eslint/js');
+
 const tseslint = require('typescript-eslint');
+
 const angular = require('angular-eslint');
 
 module.exports = tseslint.config(
@@ -30,7 +33,19 @@ module.exports = tseslint.config(
           style: 'kebab-case'
         }
       ],
-      '@typescript-eslint/no-explicit-any': 'warn'
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'property',
+          modifiers: ['private'],
+          format: ['camelCase'],
+          leadingUnderscore: 'require'
+        }
+      ],
+      '@typescript-eslint/explicit-member-accessibility': 'error',
+
+      'lines-between-class-members': ['error', 'always']
     }
   },
   {

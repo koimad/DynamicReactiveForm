@@ -7,6 +7,7 @@ import { FamiliyFormData } from './model/Entities/Example/familily';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'reactiveFormsLearning';
-  formFields = new FamiliyFormData().FormData;
+  public title = 'Reactive Forms Learning';
+
+  public formFields = new FamiliyFormData().FormData;
 }

@@ -9,11 +9,13 @@ import { IFieldConfig } from 'src/app/model/IFieldConfig';
 })
 export class GroupBoxComponent {
   @Input()
-  field: IFieldConfig;
-  @Input()
-  group: UntypedFormGroup;
+  public field: IFieldConfig;
 
-  @HostBinding('class') get class(): string {
+  @Input()
+  public group: UntypedFormGroup;
+
+  @HostBinding('class')
+  public get class(): string {
     return this.field.columnClass;
   }
 }

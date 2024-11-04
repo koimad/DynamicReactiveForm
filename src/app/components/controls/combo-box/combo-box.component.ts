@@ -9,14 +9,16 @@ import { ComponentErrorMapper } from '../component-error-mapper';
   styleUrls: ['./combo-box.component.scss']
 })
 export class ComboBoxComponent {
-  @HostBinding('class') get class(): string {
+  @Input()
+  public field: IFieldConfig;
+
+  @Input()
+  public group: UntypedFormGroup;
+
+  public constructor(public errorMapper: ComponentErrorMapper) {}
+
+  @HostBinding('class')
+  public get class(): string {
     return this.field.columnClass;
   }
-
-  @Input()
-  field: IFieldConfig;
-  @Input()
-  group: UntypedFormGroup;
-
-  constructor(public errorMapper: ComponentErrorMapper) {}
 }

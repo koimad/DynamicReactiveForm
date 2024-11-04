@@ -1,6 +1,9 @@
 export class ApiError {
-  exceptionMessage?: string | undefined;
-  details?: string | undefined;
-  referenceErrorCode?: string | undefined;
-  referenceDocumentLink?: string | undefined;
+  public exceptionMessage?: string | undefined;
+
+  public details?: string | undefined;
+
+  public referenceErrorCode?: string | undefined;
+
+  public referenceDocumentLink?: string | undefined;
 }

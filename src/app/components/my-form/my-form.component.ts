@@ -15,28 +15,17 @@ import { IFieldValidator } from 'src/app/model/IFieldValidator';
   styleUrls: ['./my-form.component.scss']
 })
 export class MyFormComponent {
-  reset() {
-    this.rootFormGroup.reset();
-  }
-
-  @Input()
-  public set formData(value: IFieldConfig[]) {
-    this._formData = value;
-    this.setupForm();
-  }
-
-  public get formData(): IFieldConfig[] {
-    return this._formData;
-  }
-
   private _formData: IFieldConfig[];
 
   public rootFormGroup: UntypedFormGroup;
+
   public fields: IFieldConfig[];
+
   public submitData: object;
+
   public jsonSubmitData: string;
 
-  constructor(
+  public constructor(
     private _formBuilder: FormBuilderExtended,
     private _updatedFormValueService: FormUpdatedValuesService,
     private _dialogue: MatDialog
@@ -115,6 +104,20 @@ export class MyFormComponent {
       });
     }
     return result;
+  }
+
+  public reset() {
+    this.rootFormGroup.reset();
+  }
+
+  @Input()
+  public set formData(value: IFieldConfig[]) {
+    this._formData = value;
+    this.setupForm();
+  }
+
+  public get formData(): IFieldConfig[] {
+    return this._formData;
   }
 
   public submit(): void {

@@ -10,15 +10,18 @@ import { ComponentErrorMapper } from './../component-error-mapper';
   styleUrls: ['./date-picker.component.scss']
 })
 export class DatePickerComponent {
-  @HostBinding('class') get class(): string {
+  public errorStateMatcher: ErrorStateMatcher;
+
+  @Input()
+  public field: IFieldConfig;
+
+  @Input()
+  public group: UntypedFormGroup;
+
+  public constructor(public errorMapper: ComponentErrorMapper) {}
+
+  @HostBinding('class')
+  public get class(): string {
     return this.field.columnClass;
   }
-  errorStateMatcher: ErrorStateMatcher;
-
-  @Input()
-  field: IFieldConfig;
-  @Input()
-  group: UntypedFormGroup;
-
-  constructor(public errorMapper: ComponentErrorMapper) {}
 }

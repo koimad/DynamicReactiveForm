@@ -1,14 +1,22 @@
 import { Component, Input } from '@angular/core';
+
 import { AbstractControl, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
+
 import { Column, GridApi, GridReadyEvent, RowNode } from 'ag-grid-community';
+
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
+
 import { FormBuilderExtended } from '../../my-form/FormBuilderExtended';
+
 import { FormNumberCellComponent } from './form-number-cell/form-number-cell.component';
+
 import { FormTextCellComponent } from './form-text-cell/form-text-cell.component';
 
 @Component({
   selector: 'cud-grid',
+
   templateUrl: './cud-grid.component.html',
+
   styleUrls: ['./cud-grid.component.scss']
 })
 export class CudGridComponent {
@@ -19,58 +27,19 @@ export class CudGridComponent {
   private _group: UntypedFormGroup;
 
   private _formArray: UntypedFormArray;
+
   private _fieldName: string;
 
   public rowSelection = { mode: 'singleRow', checkboxes: false, enableClickSelection: true };
 
   public rows: any[];
 
-  @Input()
-  get field(): IFieldConfig {
-    return this._field;
-  }
-  set field(value: IFieldConfig) {
-    this._field = value;
-
-    this.inputsChanged();
-  }
-
-  @Input()
-  get group(): UntypedFormGroup {
-    return this._group;
-  }
-  set group(value: UntypedFormGroup) {
-    this._group = value;
-    this.inputsChanged();
-  }
-
-  constructor(private formBuilder: FormBuilderExtended) {}
+  public constructor(private formBuilder: FormBuilderExtended) {}
 
   private inputsChanged() {
     if (this.field && Array.isArray(this.field.value)) {
       this.rows = [...(this.field.value as [])];
     }
-  }
-
-  public refreshFormControls() {
-    if (this._api) {
-      // slight chicken and egg here - the grid cells will be created before the grid is ready, but
-      // we need set formGroup up front
-      // as such we'll create the grid (and cells) and force refresh the cells
-      // Cell Component will then set the form in the refresh, completing the loop
-      // this is only necessary once, on initialisation
-      this.createFormControls();
-      this._api.refreshCells({ force: true });
-    }
-  }
-
-  public gridReady(params: GridReadyEvent) {
-    this._api = params.api;
-    this.refreshFormControls();
-  }
-
-  public onSelectionChanged() {
-    console.debug(this._api.getSelectedRows());
   }
 
   private createFormControls() {
@@ -88,11 +57,67 @@ export class CudGridComponent {
       columns.forEach((column: Column) => {
         rowGroup.addControl(column.getColDef().field, this.formBuilder.control(rowNode.data[column.getColDef().field]));
       });
+
       rows.push(rowGroup);
     });
+
+    this._api.setColumnsVisible(['Id'], false);
+
     this._formArray = this.formBuilder.array(rows);
+
     this._fieldName = this.field.key;
+
     this._group.addControl(this._fieldName, this._formArray, { emitEvent: false });
+  }
+
+  @Input()
+  public get field(): IFieldConfig {
+    return this._field;
+  }
+
+  public set field(value: IFieldConfig) {
+    this._field = value;
+
+    this.inputsChanged();
+  }
+
+  @Input()
+  public get group(): UntypedFormGroup {
+    return this._group;
+  }
+
+  public set group(value: UntypedFormGroup) {
+    this._group = value;
+
+    this.inputsChanged();
+  }
+
+  public refreshFormControls() {
+    if (this._api) {
+      // slight chicken and egg here - the grid cells will be created before the grid is ready, but
+
+      // we need set formGroup up front
+
+      // as such we'll create the grid (and cells) and force refresh the cells
+
+      // Cell Component will then set the form in the refresh, completing the loop
+
+      // this is only necessary once, on initialisation
+
+      this.createFormControls();
+
+      this._api.refreshCells({ force: true });
+    }
+  }
+
+  public gridReady(params: GridReadyEvent) {
+    this._api = params.api;
+
+    this.refreshFormControls();
+  }
+
+  public onSelectionChanged() {
+    console.debug(this._api.getSelectedRows());
   }
 
   public getComponents() {
@@ -102,6 +127,7 @@ export class CudGridComponent {
   public getContext() {
     return {
       formGroup: this.group,
+
       formArrayName: this.field.key
     };
   }
@@ -109,8 +135,11 @@ export class CudGridComponent {
   public onAdd(): void {
     const newItem = {
       Id: 0,
+
       FirstName: '',
+
       MiddleName: '',
+
       Age: undefined
     };
 
@@ -119,8 +148,11 @@ export class CudGridComponent {
     const formGroup = this.formBuilder.group([]);
 
     let i: 0;
+
     Object.keys(newItem).forEach(name => {
-      formGroup.addControl(name, this.formBuilder.control(Object.values[i++]));
+      const control = this.formBuilder.control(Object.values[i++]);
+
+      formGroup.addControl(name, control);
     });
 
     this._formArray.push(formGroup);
@@ -130,11 +162,13 @@ export class CudGridComponent {
     this._api.getSelectedNodes().forEach(n => {
       this._formArray.removeAt(n.rowIndex);
     });
+
     this._api.applyTransaction({ remove: [this._api.getSelectedNodes()] });
   }
 
   public onReset() {
     this.inputsChanged();
+
     this.createFormControls();
   }
 }

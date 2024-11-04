@@ -11,13 +11,15 @@ import { ComponentErrorMapper } from '../component-error-mapper';
 })
 export class TextBoxComponent {
   @Input()
-  field: IFieldConfig;
-  @Input()
-  group: UntypedFormGroup;
+  public field: IFieldConfig;
 
-  @HostBinding('class') get class(): string {
+  @Input()
+  public group: UntypedFormGroup;
+
+  public constructor(public errorMapper: ComponentErrorMapper) {}
+
+  @HostBinding('class')
+  public get class(): string {
     return this.field.columnClass;
   }
-
-  constructor(public errorMapper: ComponentErrorMapper) {}
 }
