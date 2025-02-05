@@ -2,59 +2,67 @@
   <div class="example-container">
     <h2>Available</h2>
     <div cdkDropList
-         id="SourceList"
-         [cdkDropListData]="source"
-         class="example-box"
-         (cdkDropListDropped)="drop($event)"
-         [cdkDropListEnterPredicate]="toDoCanDrop"
-         cdkDropListSortingDisabled>
-      <div class="example-box"
-           [cdkDragData]="item"
-           *ngFor="let item of source"
-           cdkDrag>
-        <div class="example-custom-placeholder"
-             *cdkDragPlaceholder>
+      id="SourceList"
+      [cdkDropListData]="source"
+      class="example-box"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListEnterPredicate]="toDoCanDrop"
+      cdkDropListSortingDisabled>
+      @for (item of source; track item) {
+        <div class="example-box"
+          [cdkDragData]="item"
+          cdkDrag>
+          <div class="example-custom-placeholder"
+            *cdkDragPlaceholder>
+            <p>{{item}}</p>
+          </div>
+          <div class="example-custom-previewHolder"
+            *cdkDragPreview>
+            <p>{{item}}</p>
+          </div>
           <p>{{item}}</p>
         </div>
-        <div class="example-custom-previewHolder"
-             *cdkDragPreview>
-          <p>{{item}}</p>
-        </div>
-        <p>{{item}}</p>
-      </div>
+      }
     </div>
   </div>
   <div class="example-container">
     <h2>Basket</h2>
     <div cdkDropList
-         id="DestinationList"
-         [cdkDropListData]="destination"
-         class="example-box"
-         (cdkDropListDropped)="drop($event)"
-         cdkDropListSortingDisabled>
-      <div class="example-box"
-           [cdkDragData]="item"
-           *ngFor="let item of destination"
-           cdkDrag>
-        <div class="example-custom-placeholder"
-             *cdkDragPlaceholder>
+      id="DestinationList"
+      [cdkDropListData]="destination"
+      class="example-box"
+      (cdkDropListDropped)="drop($event)"
+      cdkDropListSortingDisabled>
+      @for (item of destination; track item) {
+        <div class="example-box"
+          [cdkDragData]="item"
+          cdkDrag>
+          <div class="example-custom-placeholder"
+            *cdkDragPlaceholder>
+            <p>{{item}}</p>
+          </div>
+          <div class="example-custom-previewHolder"
+            *cdkDragPreview>
+            <p>{{item}}</p>
+          </div>
           <p>{{item}}</p>
         </div>
-        <div class="example-custom-previewHolder"
-             *cdkDragPreview>
-          <p>{{item}}</p>
+      }
+    </div>
+  </div>
+  @for (validationField of field.validators; track validationField) {
+    <div style="width: 300px;"
+      >
+      @if (group.controls[field.key]) {
+        <div>
+          @if (group.controls[field.key].errors && group.controls[field.key].errors[validationField.name]) {
+            <div class='red'
+              >
+              {{validationField.message}}
+            </div>
+          }
         </div>
-        <p>{{item}}</p>
-      </div>
+      }
     </div>
-  </div>
-  <div style="width: 300px;"
-       *ngFor="let validationField of field.validators">
-    <div *ngIf="group.controls[field.key]">
-      <div class='red'
-           *ngIf="group.controls[field.key].errors && group.controls[field.key].errors[validationField.name]">
-        {{validationField.message}}
-      </div>
-    </div>
-  </div>
+  }
 </div>

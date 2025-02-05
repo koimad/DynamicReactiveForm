@@ -5,9 +5,13 @@
     [formControlName]="field.key"
     [type]="field.inputType"
     [errorStateMatcher]="errorMapper">
-    </textarea>
-  <ng-container *ngFor="let validation of field.validators"
-    ngProjectAs="mat-error">
-    <mat-error *ngIf="group.get(field.key).hasError(validation.name)">{{validation.message}}</mat-error>
-  </ng-container>
+  </textarea>
+  @for (validation of field.validators; track validation) {
+    <ng-container
+      ngProjectAs="mat-error">
+      @if (group.get(field.key).hasError(validation.name)) {
+        <mat-error>{{validation.message}}</mat-error>
+      }
+    </ng-container>
+  }
 </mat-form-field>

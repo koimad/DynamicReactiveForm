@@ -1,16 +1,18 @@
 <mat-form-field [formGroup]="group"
-                floatLabel="always"
-                class="mat-form-field--no-underline">
+  floatLabel="always"
+  class="mat-form-field--no-underline">
   <mat-label>{{field.label}}</mat-label>
   <input matInput
-         placeholder="Input"
-         style="display: none">
-  <mat-checkbox [formControlName]="field.key"
-                [indeterminate]="isIndeterniate === true">
-    <mat-label>{{field.label}}</mat-label>
-  </mat-checkbox>
-  <ng-container *ngFor="let validation of field.validators;">
-    <mat-error class="mat-form-field-subscript-wrapper"
-               *ngIf="group.get(field.key).hasError(validation.name)">{{validation.message}}</mat-error>
-  </ng-container>
-</mat-form-field>
+    placeholder="Input"
+    style="display: none">
+    <mat-checkbox [formControlName]="field.key"
+      [indeterminate]="isIndeterniate === true">
+      <mat-label>{{field.label}}</mat-label>
+    </mat-checkbox>
+    @for (validation of field.validators; track validation) {
+      @if (group.get(field.key).hasError(validation.name)) {
+        <mat-error class="mat-form-field-subscript-wrapper"
+        >{{validation.message}}</mat-error>
+      }
+    }
+  </mat-form-field>

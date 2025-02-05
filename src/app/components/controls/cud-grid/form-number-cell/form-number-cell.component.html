@@ -1,10 +1,12 @@
-<div *ngIf="formGroup"
-     [formGroup]="formGroup">
-  <mat-form-field [floatLabel]="'never'"
-                  style="width: 100%">
-    <input matInput
-           type="number"
-           [formControlName]="key"
-           [id]="key">
-  </mat-form-field>
-</div>
+@if (formGroup) {
+  <div
+    [formGroup]="formGroup">
+    <mat-form-field [floatLabel]="'never'"
+      style="width: 100%">
+      <input matInput
+        type="number"
+        [formControlName]="key"
+        [id]="key">
+      </mat-form-field>
+    </div>
+  }

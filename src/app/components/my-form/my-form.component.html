@@ -2,38 +2,40 @@
   <div class="grid">
     <div class='grid-item-right'>touched:</div>
     <div class='dirtymarker'
-         [ngClass]="rootFormGroup.touched ? 'red': 'green'">{{rootFormGroup.touched}}</div>
+    [ngClass]="rootFormGroup.touched ? 'red': 'green'">{{rootFormGroup.touched}}</div>
     <div class='grid-item-right'>dirty:</div>
     <div class='red'
-         [ngClass]="rootFormGroup.dirty ? 'red': 'green'">{{rootFormGroup.dirty}}</div>
+    [ngClass]="rootFormGroup.dirty ? 'red': 'green'">{{rootFormGroup.dirty}}</div>
     <div class='grid-item-right'>Valid:</div>
     <div class='red'
-         [ngClass]="rootFormGroup.status === 'INVALID' ? 'red': 'green'">{{rootFormGroup.status}}</div>
+    [ngClass]="rootFormGroup.status === 'INVALID' ? 'red': 'green'">{{rootFormGroup.status}}</div>
   </div>
   <div class="formBorder formbackGround">
     <form [formGroup]="rootFormGroup">
       <mat-tab-group style="min-height: 700px;">
-        <mat-tab *ngFor="let item of formData;">
-          <ng-template mat-tab-label>
-            <legend>{{item.label}}
-              <p class="dirtyMarker"
-                 [ngClass]="item.group.controls[item.key].dirty ? 'red': 'green'"> *</p>
-            </legend>
-          </ng-template>
-          <ng-template DynamicElement
-                       [field]="item"
-                       [group]="item.group"></ng-template>
-        </mat-tab>
+        @for (item of formData; track item) {
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <legend>{{item.label}}
+                <p class="dirtyMarker"
+                [ngClass]="item.group.controls[item.key].dirty ? 'red': 'green'"> *</p>
+              </legend>
+            </ng-template>
+            <ng-template DynamicElement
+              [field]="item"
+            [group]="item.group"></ng-template>
+          </mat-tab>
+        }
       </mat-tab-group>
     </form>
     <div style="bottom:0">
       <button (click)="submit()"
-              [disabled]="rootFormGroup.status==='INVALID'"
-              style="margin: 10px;">Submit</button>
-      
+        [disabled]="rootFormGroup.status==='INVALID'"
+      style="margin: 10px;">Submit</button>
+
       <button (click)="reset()"
-              [disabled]="rootFormGroup.status==='INVALID'"
-              style="margin: 10px;">Reset</button>
+        [disabled]="rootFormGroup.status==='INVALID'"
+      style="margin: 10px;">Reset</button>
     </div>
     <div>
       <div style="text-align: left;font-size: 0.9em;" [innerHTML]="submitData | jsonprettyprint"></div>

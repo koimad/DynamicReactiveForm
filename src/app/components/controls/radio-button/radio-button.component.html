@@ -5,8 +5,10 @@
   <input matInput
     placeholder="Input"
     style="display: none">
-  <mat-radio-group [formControlName]="field.key">
-    <mat-radio-button *ngFor="let item of field.options"
-      [value]="item">{{item}}</mat-radio-button>
-  </mat-radio-group>
-</mat-form-field>
+    <mat-radio-group [formControlName]="field.key">
+      @for (item of field.options; track item) {
+        <mat-radio-button
+        [value]="item">{{item}}</mat-radio-button>
+      }
+    </mat-radio-group>
+  </mat-form-field>
