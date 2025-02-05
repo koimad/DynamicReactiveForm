@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { AbstractControl, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, TouchedChangeEvent, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 
 import { Column, GridApi, GridReadyEvent, RowNode } from 'ag-grid-community';
 
@@ -30,6 +30,8 @@ export class CudGridComponent {
 
   private _fieldName: string;
 
+  private _initialValue: any;
+
   public rowSelection = { mode: 'singleRow', checkboxes: false, enableClickSelection: true };
 
   public rows: any[];
@@ -45,15 +47,18 @@ export class CudGridComponent {
   private createFormControls() {
     const columns = this._api.getColumns();
 
-    if (this._fieldName) {
-      this._group.removeControl(this._fieldName);
-    }
+    this._fieldName = this._field.key;
+
+    const controlNames = Object.keys(this._group.controls);
+
+    controlNames.forEach(controlName => {
+      this._group.removeControl(controlName);
+    });
 
     const rows = new Array<AbstractControl>();
 
     this._api.forEachNode((rowNode: RowNode) => {
       const rowGroup = this.formBuilder.group([]);
-
       columns.forEach((column: Column) => {
         rowGroup.addControl(column.getColDef().field, this.formBuilder.control(rowNode.data[column.getColDef().field]));
       });
@@ -61,13 +66,17 @@ export class CudGridComponent {
       rows.push(rowGroup);
     });
 
-    this._api.setColumnsVisible(['Id'], false);
-
     this._formArray = this.formBuilder.array(rows);
 
-    this._fieldName = this.field.key;
+    this._formArray.events.subscribe(f => {
+      if (f instanceof TouchedChangeEvent && !f.touched) {
+        this.onReset();
+      }
+    });
 
     this._group.addControl(this._fieldName, this._formArray, { emitEvent: false });
+
+    this._initialValue = this._formArray.value;
   }
 
   @Input()
@@ -95,13 +104,9 @@ export class CudGridComponent {
   public refreshFormControls() {
     if (this._api) {
       // slight chicken and egg here - the grid cells will be created before the grid is ready, but
-
       // we need set formGroup up front
-
       // as such we'll create the grid (and cells) and force refresh the cells
-
       // Cell Component will then set the form in the refresh, completing the loop
-
       // this is only necessary once, on initialisation
 
       this.createFormControls();
@@ -127,9 +132,16 @@ export class CudGridComponent {
   public getContext() {
     return {
       formGroup: this.group,
-
       formArrayName: this.field.key
     };
+  }
+
+  public getRowId(data: any) {
+    // optional here - ag-Grid will create row ids if you don't supply one, but
+    // if you have a way of uniquely identifying rows here's where you'd do it.
+    // doing so would make it easier to pull out specific rows from the form,
+    // say by order number, as we do here
+    return data.Id;
   }
 
   public onAdd(): void {
@@ -168,7 +180,6 @@ export class CudGridComponent {
 
   public onReset() {
     this.inputsChanged();
-
     this.createFormControls();
   }
 }

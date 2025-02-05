@@ -10,10 +10,11 @@
                      class="ag-theme-material"
                      [rowData]="rows"
                      [columnDefs]="field.columnDefinitions"
-                     [components]="getComponents()"
-                     (rowDataChanged)="refreshFormControls()"
-                     (gridReady)="gridReady($event)"
+                     [components]="getComponents()"                     
                      [context]="getContext()"
+                     (rowDataChanged)="refreshFormControls()"
+                     (gridReady)="gridReady($event)"                     
+                    
                      [rowSelection]="rowSelection"
                      (selectionChanged)="onSelectionChanged()">
     </ag-grid-angular>

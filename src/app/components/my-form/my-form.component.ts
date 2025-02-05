@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormUpdatedValuesService } from 'src/app/model/form-updated-values.service';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { FormBuilderExtended } from './FormBuilderExtended';
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayValueChangedComponent } from '../display-value-changed/display-value-changed.component';
-import { UntypedFormGroup, ValidatorFn, Validators, ValueChangeEvent } from '@angular/forms';
+import { FormGroupDirective, UntypedFormGroup, ValidatorFn, Validators, ValueChangeEvent } from '@angular/forms';
 import { FormControlExtended } from './FormControlExtended';
 import { filter } from 'rxjs/operators';
 import { IFieldValidator } from 'src/app/model/IFieldValidator';
@@ -16,6 +16,12 @@ import { IFieldValidator } from 'src/app/model/IFieldValidator';
 })
 export class MyFormComponent {
   private _formData: IFieldConfig[];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private _initialValues: any;
+
+  @ViewChild(FormGroupDirective)
+  private _form: FormGroupDirective;
 
   public rootFormGroup: UntypedFormGroup;
 
@@ -67,6 +73,7 @@ export class MyFormComponent {
       });
 
       this.createGroup(this.rootFormGroup, this._formData);
+      this._initialValues = this.rootFormGroup.value;
     } catch (e) {
       console.error(e);
     }
@@ -107,7 +114,9 @@ export class MyFormComponent {
   }
 
   public reset() {
-    this.rootFormGroup.reset();
+    //this.rootFormGroup.reset(this._initialValues, { onlySelf: false });
+    this._form.resetForm(this._initialValues);
+    //this.rootFormGroup.reset(this.rootFormGroup.reset getRawValue(), { onlySelf: false, emitEvent: false });
   }
 
   @Input()

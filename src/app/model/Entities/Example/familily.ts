@@ -84,7 +84,7 @@ export class FamiliyFormData {
           columnClass: 'form-Column4-end',
           controlType: 'checkBox',
           label: 'Are You British',
-          options: [true, false, null],
+          options: [true, false], //[true, false, null]
           value: true,
           validators: [
             {

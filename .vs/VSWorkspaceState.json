@@ -5,12 +5,12 @@
     "\\src\\app",
     "\\src\\app\\components",
     "\\src\\app\\components\\controls",
-    "\\src\\app\\components\\controls\\check-box",
-    "\\src\\app\\components\\controls\\cud-grid\\form-number-cell",
-    "\\src\\app\\components\\controls\\cud-grid\\form-text-cell",
     "\\src\\app\\components\\controls\\drag-drop",
-    "\\src\\app\\components\\my-form"
+    "\\src\\app\\components\\my-form",
+    "\\src\\app\\model",
+    "\\src\\app\\model\\Entities",
+    "\\src\\app\\model\\Entities\\Example"
   ],
-  "SelectedNode": "\\src\\app\\model\\form-updated-values.service.spec.ts",
+  "SelectedNode": "\\src\\app\\model\\Entities\\Example\\familily.ts",
   "PreviewInSolutionExplorer": false
 }
