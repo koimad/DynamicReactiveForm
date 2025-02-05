@@ -3,9 +3,10 @@ import { UntypedFormGroup } from '@angular/forms';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 
 @Component({
-  selector: 'radio-button',
-  templateUrl: './radio-button.component.html',
-  styleUrls: ['./radio-button.component.scss']
+    selector: 'radio-button',
+    templateUrl: './radio-button.component.html',
+    styleUrls: ['./radio-button.component.scss'],
+    standalone: false
 })
 export class RadioButtonComponent {
   @Input()

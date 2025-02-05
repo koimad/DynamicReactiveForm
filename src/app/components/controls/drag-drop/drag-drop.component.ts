@@ -5,9 +5,10 @@ import { FormBuilderExtended } from './../../my-form/FormBuilderExtended';
 import { CdkDrag, CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'drag-drop',
-  templateUrl: './drag-drop.component.html',
-  styleUrls: ['./drag-drop.component.scss']
+    selector: 'drag-drop',
+    templateUrl: './drag-drop.component.html',
+    styleUrls: ['./drag-drop.component.scss'],
+    standalone: false
 })
 export class DragDropComponent {
   private _destinationArray: UntypedFormArray;

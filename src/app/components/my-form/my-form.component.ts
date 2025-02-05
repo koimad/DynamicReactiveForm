@@ -10,9 +10,10 @@ import { filter } from 'rxjs/operators';
 import { IFieldValidator } from 'src/app/model/IFieldValidator';
 
 @Component({
-  selector: 'my-form',
-  templateUrl: './my-form.component.html',
-  styleUrls: ['./my-form.component.scss']
+    selector: 'my-form',
+    templateUrl: './my-form.component.html',
+    styleUrls: ['./my-form.component.scss'],
+    standalone: false
 })
 export class MyFormComponent {
   private _formData: IFieldConfig[];

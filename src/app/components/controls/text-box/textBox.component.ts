@@ -5,9 +5,10 @@ import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from '../component-error-mapper';
 
 @Component({
-  selector: 'text-box',
-  templateUrl: './textBox.component.html',
-  styleUrls: ['./textBox.component.scss']
+    selector: 'text-box',
+    templateUrl: './textBox.component.html',
+    styleUrls: ['./textBox.component.scss'],
+    standalone: false
 })
 export class TextBoxComponent {
   @Input()

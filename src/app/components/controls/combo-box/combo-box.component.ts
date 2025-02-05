@@ -4,9 +4,10 @@ import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from '../component-error-mapper';
 
 @Component({
-  selector: 'combo-box',
-  templateUrl: './combo-box.component.html',
-  styleUrls: ['./combo-box.component.scss']
+    selector: 'combo-box',
+    templateUrl: './combo-box.component.html',
+    styleUrls: ['./combo-box.component.scss'],
+    standalone: false
 })
 export class ComboBoxComponent {
   @Input()

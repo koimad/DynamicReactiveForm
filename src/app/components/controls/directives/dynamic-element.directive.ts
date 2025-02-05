@@ -7,7 +7,8 @@ import { componentMapper } from '../component-mapper';
 import { UntypedFormGroup } from '@angular/forms';
 
 @Directive({
-  selector: '[DynamicElement]'
+    selector: '[DynamicElement]',
+    standalone: false
 })
 export class DynamicElementDirective implements OnInit {
   private _componentRef: any;

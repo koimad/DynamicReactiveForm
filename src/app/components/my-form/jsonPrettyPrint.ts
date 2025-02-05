@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'jsonprettyprint'
+    name: 'jsonprettyprint',
+    standalone: false
 })
 export class JsonPrettyPrintPipe implements PipeTransform {
   public transform(value) {

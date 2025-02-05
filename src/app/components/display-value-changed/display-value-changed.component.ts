@@ -4,9 +4,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from './DialogData';
 
 @Component({
-  selector: 'display-value-changed',
-  templateUrl: './display-value-changed.component.html',
-  styleUrls: ['./display-value-changed.component.scss']
+    selector: 'display-value-changed',
+    templateUrl: './display-value-changed.component.html',
+    styleUrls: ['./display-value-changed.component.scss'],
+    standalone: false
 })
 export class DisplayValueChangedComponent {
   public constructor(

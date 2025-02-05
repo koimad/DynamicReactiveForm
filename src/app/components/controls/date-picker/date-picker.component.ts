@@ -5,9 +5,10 @@ import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from './../component-error-mapper';
 
 @Component({
-  selector: 'date-picker',
-  templateUrl: './date-picker.component.html',
-  styleUrls: ['./date-picker.component.scss']
+    selector: 'date-picker',
+    templateUrl: './date-picker.component.html',
+    styleUrls: ['./date-picker.component.scss'],
+    standalone: false
 })
 export class DatePickerComponent {
   public errorStateMatcher: ErrorStateMatcher;

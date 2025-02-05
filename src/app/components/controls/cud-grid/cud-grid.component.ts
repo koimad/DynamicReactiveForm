@@ -13,11 +13,10 @@ import { FormNumberCellComponent } from './form-number-cell/form-number-cell.com
 import { FormTextCellComponent } from './form-text-cell/form-text-cell.component';
 
 @Component({
-  selector: 'cud-grid',
-
-  templateUrl: './cud-grid.component.html',
-
-  styleUrls: ['./cud-grid.component.scss']
+    selector: 'cud-grid',
+    templateUrl: './cud-grid.component.html',
+    styleUrls: ['./cud-grid.component.scss'],
+    standalone: false
 })
 export class CudGridComponent {
   private _api: GridApi;

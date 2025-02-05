@@ -3,9 +3,10 @@ import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 @Component({
-  selector: 'check-box',
-  templateUrl: './check-box.component.html',
-  styleUrls: ['./check-box.component.scss']
+    selector: 'check-box',
+    templateUrl: './check-box.component.html',
+    styleUrls: ['./check-box.component.scss'],
+    standalone: false
 })
 export class CheckBoxComponent implements OnDestroy {
   private _internalChange = false;

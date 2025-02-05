@@ -6,9 +6,10 @@ import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from '../component-error-mapper';
 
 @Component({
-  selector: 'text-area',
-  templateUrl: './text-area.component.html',
-  styleUrls: ['./text-area.component.scss']
+    selector: 'text-area',
+    templateUrl: './text-area.component.html',
+    styleUrls: ['./text-area.component.scss'],
+    standalone: false
 })
 export class TextAreaComponent {
   @Input()

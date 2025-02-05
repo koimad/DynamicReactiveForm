@@ -4,9 +4,10 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
-  selector: 'form-number-cell',
-  templateUrl: './form-number-cell.component.html',
-  styleUrls: ['./form-number-cell.component.scss']
+    selector: 'form-number-cell',
+    templateUrl: './form-number-cell.component.html',
+    styleUrls: ['./form-number-cell.component.scss'],
+    standalone: false
 })
 export class FormNumberCellComponent implements ICellRendererAngularComp {
   private _rootFormGroup: UntypedFormGroup;
