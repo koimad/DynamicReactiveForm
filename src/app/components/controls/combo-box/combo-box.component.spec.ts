@@ -8,8 +8,8 @@ describe('ComboBoxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ComboBoxComponent ]
-    })
+    imports: [ComboBoxComponent]
+})
     .compileComponents();
   }));
 

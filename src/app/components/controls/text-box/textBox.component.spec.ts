@@ -8,8 +8,8 @@ describe('InputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TextBoxComponent]
-    }).compileComponents();
+    imports: [TextBoxComponent]
+}).compileComponents();
   }));
 
   beforeEach(() => {

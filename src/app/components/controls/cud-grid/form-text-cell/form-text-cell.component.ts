@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 
-import { UntypedFormArray, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 import { IAfterGuiAttachedParams, ICellRendererParams } from 'ag-grid-community';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 @Component({
     selector: 'form-text-cell',
     templateUrl: './form-text-cell.component.html',
     styleUrls: ['./form-text-cell.component.scss'],
-    standalone: false
+    imports: [ReactiveFormsModule, MatFormField, MatInput]
 })
 export class FormTextCellComponent implements ICellRendererAngularComp {
   private _rootFormGroup: UntypedFormGroup;

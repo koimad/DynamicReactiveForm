@@ -8,19 +8,19 @@
       (cdkDropListDropped)="drop($event)"
       [cdkDropListEnterPredicate]="toDoCanDrop"
       cdkDropListSortingDisabled>
-      @for (item of source; track item) {
+      @for (item of source; track item.key) {
         <div class="example-box"
           [cdkDragData]="item"
           cdkDrag>
           <div class="example-custom-placeholder"
             *cdkDragPlaceholder>
-            <p>{{item}}</p>
+            <p>{{item.value.name}}</p>
           </div>
           <div class="example-custom-previewHolder"
             *cdkDragPreview>
-            <p>{{item}}</p>
+            <p>{{item.value.name}}</p>
           </div>
-          <p>{{item}}</p>
+          <p>{{item.value.name}}</p>
         </div>
       }
     </div>
@@ -32,20 +32,20 @@
       [cdkDropListData]="destination"
       class="example-box"
       (cdkDropListDropped)="drop($event)"
-      cdkDropListSortingDisabled>
-      @for (item of destination; track item) {
+      cdkDropListSortingDisabled="false">
+      @for (item of destination; track item.key ) {
         <div class="example-box"
           [cdkDragData]="item"
           cdkDrag>
           <div class="example-custom-placeholder"
             *cdkDragPlaceholder>
-            <p>{{item}}</p>
+            <p>{{item.value.name}}</p>
           </div>
           <div class="example-custom-previewHolder"
             *cdkDragPreview>
-            <p>{{item}}</p>
+            <p>{{item.value.name}}</p>
           </div>
-          <p>{{item}}</p>
+          <p>{{item.value.name}}</p>
         </div>
       }
     </div>

@@ -47,3 +47,8 @@ testem.log
 Thumbs.db
 /.vs/DynamicReactiveForm/v17
 /.vs/DynamicReactiveForm/FileContentIndex
+
+
+
+.nx/cache
+.nx/workspace-data

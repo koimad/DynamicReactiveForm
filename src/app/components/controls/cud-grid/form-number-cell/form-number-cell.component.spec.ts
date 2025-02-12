@@ -8,8 +8,8 @@ describe('FormNumberCellComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormNumberCellComponent ]
-    })
+    imports: [FormNumberCellComponent]
+})
     .compileComponents();
   }));
 

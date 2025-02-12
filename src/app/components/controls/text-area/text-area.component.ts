@@ -1,15 +1,17 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 
 import { ComponentErrorMapper } from '../component-error-mapper';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 @Component({
     selector: 'text-area',
     templateUrl: './text-area.component.html',
     styleUrls: ['./text-area.component.scss'],
-    standalone: false
+    imports: [MatFormField, ReactiveFormsModule, MatLabel, MatInput, MatError]
 })
 export class TextAreaComponent {
   @Input()

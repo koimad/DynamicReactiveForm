@@ -8,8 +8,8 @@ describe('DragDropComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DragDropComponent ]
-    })
+    imports: [DragDropComponent]
+})
     .compileComponents();
   }));
 

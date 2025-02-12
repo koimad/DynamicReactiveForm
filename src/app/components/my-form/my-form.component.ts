@@ -1,19 +1,39 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, forwardRef, Input, ViewChild } from '@angular/core';
 import { FormUpdatedValuesService } from 'src/app/model/form-updated-values.service';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { FormBuilderExtended } from './FormBuilderExtended';
 import { MatDialog } from '@angular/material/dialog';
 import { DisplayValueChangedComponent } from '../display-value-changed/display-value-changed.component';
-import { FormGroupDirective, UntypedFormGroup, ValidatorFn, Validators, ValueChangeEvent } from '@angular/forms';
+import {
+  FormGroupDirective,
+  UntypedFormGroup,
+  ValidatorFn,
+  Validators,
+  ValueChangeEvent,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { FormControlExtended } from './FormControlExtended';
 import { filter } from 'rxjs/operators';
 import { IFieldValidator } from 'src/app/model/IFieldValidator';
+import { NgClass } from '@angular/common';
+import { MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs';
+
+import { JsonPrettyPrintPipe } from './jsonPrettyPrint';
+import { DynamicElementDirective } from 'src/app/directives/dynamic-element.directive';
 
 @Component({
-    selector: 'my-form',
-    templateUrl: './my-form.component.html',
-    styleUrls: ['./my-form.component.scss'],
-    standalone: false
+  selector: 'my-form',
+  templateUrl: './my-form.component.html',
+  styleUrls: ['./my-form.component.scss'],
+  imports: [
+    NgClass,
+    ReactiveFormsModule,
+    MatTabGroup,
+    MatTab,
+    MatTabLabel,
+    JsonPrettyPrintPipe,
+    forwardRef(() => DynamicElementDirective)
+  ]
 })
 export class MyFormComponent {
   private _formData: IFieldConfig[];
@@ -135,3 +155,4 @@ export class MyFormComponent {
     this.submitData = commands; // JSON.stringify(commands,undefined,2);
   }
 }
+

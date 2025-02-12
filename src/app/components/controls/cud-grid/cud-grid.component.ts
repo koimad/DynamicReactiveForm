@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { AbstractControl, TouchedChangeEvent, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, TouchedChangeEvent, UntypedFormArray, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { Column, GridApi, GridReadyEvent, RowNode } from 'ag-grid-community';
 
@@ -11,12 +11,14 @@ import { FormBuilderExtended } from '../../my-form/FormBuilderExtended';
 import { FormNumberCellComponent } from './form-number-cell/form-number-cell.component';
 
 import { FormTextCellComponent } from './form-text-cell/form-text-cell.component';
+import { NgClass } from '@angular/common';
+import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
     selector: 'cud-grid',
     templateUrl: './cud-grid.component.html',
     styleUrls: ['./cud-grid.component.scss'],
-    standalone: false
+    imports: [NgClass, ReactiveFormsModule, AgGridAngular]
 })
 export class CudGridComponent {
   private _api: GridApi;

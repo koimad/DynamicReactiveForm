@@ -1,4 +1,5 @@
 import { Validators } from '@angular/forms';
+
 import { maxDate } from '../../validators/dateValidators';
 
 export class FamiliyFormData {
@@ -99,7 +100,7 @@ export class FamiliyFormData {
           columnClass: 'form-Column1-4',
           controlType: 'datePicker',
           label: 'Date Of Birth',
-          value: new Date('08/21/1975'),
+          value: new Date('12/21/1980'),
           validators: [
             {
               name: 'maxDate',
@@ -191,8 +192,18 @@ export class FamiliyFormData {
         {
           key: 'ShoppingBasket',
           label: 'Select Items',
-          options: ['Carrots', 'Apples', 'Oranges', 'Tomatoes', 'Grapes'],
-          value: ['Carrots', 'Apples', 'Apples'],
+          options: [
+            { id: 1, name: 'Carrots' },
+            { id: 2, name: 'Apples' },
+            { id: 3, name: 'Oranges' },
+            { id: 4, name: 'Tomatoes' },
+            { id: 5, name: 'Grapes' }
+          ],
+          value: [
+            { id: 1, name: 'Carrots' },
+            { id: 2, name: 'Apples' },
+            { id: 2, name: 'Apples' }
+          ],
           controlType: 'dragDrop',
           validators: [
             {
@@ -212,3 +223,4 @@ export class FamiliyFormData {
     }
   ];
 }
+

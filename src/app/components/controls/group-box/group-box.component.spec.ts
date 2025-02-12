@@ -8,8 +8,8 @@ describe('GroupBoxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroupBoxComponent ]
-    })
+    imports: [GroupBoxComponent]
+})
     .compileComponents();
   }));
 

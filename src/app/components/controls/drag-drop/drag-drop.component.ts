@@ -1,14 +1,31 @@
 import { Component, HostBinding, Input } from '@angular/core';
+
 import { UntypedFormArray, UntypedFormGroup, ValidationErrors } from '@angular/forms';
+
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
+
 import { FormBuilderExtended } from './../../my-form/FormBuilderExtended';
-import { CdkDrag, CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
+
+import {
+  CdkDrag,
+  CdkDragDrop,
+  copyArrayItem,
+  moveItemInArray,
+  CdkDropListGroup,
+  CdkDropList,
+  CdkDragPlaceholder,
+  CdkDragPreview,
+  DragDrop
+} from '@angular/cdk/drag-drop';
 
 @Component({
-    selector: 'drag-drop',
-    templateUrl: './drag-drop.component.html',
-    styleUrls: ['./drag-drop.component.scss'],
-    standalone: false
+  selector: 'drag-drop',
+
+  templateUrl: './drag-drop.component.html',
+
+  styleUrls: ['./drag-drop.component.scss'],
+
+  imports: [CdkDropListGroup, CdkDropList, CdkDrag, CdkDragPlaceholder, CdkDragPreview]
 })
 export class DragDropComponent {
   private _destinationArray: UntypedFormArray;
@@ -17,37 +34,54 @@ export class DragDropComponent {
 
   private _group: UntypedFormGroup;
 
-  public source: object[];
+  public source: DragDropContainer[];
 
-  public destination: string[];
+  public destination: DragDropContainer[];
 
   public constructor(private _formBuilder: FormBuilderExtended) {
     this.destination = [];
+
     this.source = [];
   }
 
   private setupControl() {
     if (this._group && this._field) {
       this.setupSourceData();
+
       this.setupDestinationData();
     }
   }
 
   private setupSourceData() {
     // this could be populated from an ngrx store rather than passing in.
+
     // other option is to make the options field an observable as well.
-    this.source = [...(this._field.options ?? [])];
+
+    if (this._field.options) {
+      this.source = this._field.options.map((value, index) => {
+        return { key: index, value: value };
+      }) as DragDropContainer[];
+    } else {
+      this.source = [];
+    }
   }
 
   private setupDestinationData() {
     this.destination = [...((this._field.value as []) ?? [])];
+
+    this.destination = (this._field.value as []).map((value, index) => {
+      return { key: index, value: value };
+    }) as DragDropContainer[];
+
     const controls = [];
 
     this.destination.forEach(f => {
       controls.push(this._formBuilder.control(f));
     });
+
     this._destinationArray = this._formBuilder.array(
       controls,
+
       this._field.validators.map(f => f.validator)
     );
 
@@ -62,6 +96,7 @@ export class DragDropComponent {
   @Input()
   public set field(value: IFieldConfig) {
     this._field = value;
+
     this.setupControl();
   }
 
@@ -72,6 +107,7 @@ export class DragDropComponent {
   @Input()
   public set group(value: UntypedFormGroup) {
     this._group = value;
+
     this.setupControl();
   }
 
@@ -83,7 +119,7 @@ export class DragDropComponent {
     return this._destinationArray.errors ?? [];
   }
 
-  public drop(event: CdkDragDrop<string[]>) {
+  public drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -92,14 +128,23 @@ export class DragDropComponent {
 
         this._destinationArray.removeAt(event.previousIndex);
       } else {
+        console.log(event.currentIndex);
+
         copyArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+
         this._destinationArray.push(this._formBuilder.control(event.item.data));
       }
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public toDoCanDrop(item: CdkDrag<string>) {
+  public toDoCanDrop(item: CdkDrag<DragDropContainer>) {
     return true;
   }
 }
+
+export class DragDropContainer {
+  public key: number;
+
+  public value: any;
+}
+

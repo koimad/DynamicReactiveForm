@@ -1,12 +1,14 @@
-import { Component, HostBinding, Input } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { Component, forwardRef, HostBinding, Input } from '@angular/core';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
+import { NgClass } from '@angular/common';
+import { DynamicElementDirective } from 'src/app/directives/dynamic-element.directive';
 
 @Component({
-    selector: 'app-group-box',
-    templateUrl: './group-box.component.html',
-    styleUrls: ['./group-box.component.scss'],
-    standalone: false
+  selector: 'app-group-box',
+  templateUrl: './group-box.component.html',
+  styleUrls: ['./group-box.component.scss'],
+  imports: [ReactiveFormsModule, NgClass, forwardRef(() => DynamicElementDirective)]
 })
 export class GroupBoxComponent {
   @Input()
@@ -20,3 +22,4 @@ export class GroupBoxComponent {
     return this.field.columnClass;
   }
 }
+

@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { UntypedFormGroup, UntypedFormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormArray, ReactiveFormsModule } from '@angular/forms';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 @Component({
     selector: 'form-number-cell',
     templateUrl: './form-number-cell.component.html',
     styleUrls: ['./form-number-cell.component.scss'],
-    standalone: false
+    imports: [ReactiveFormsModule, MatFormField, MatInput]
 })
 export class FormNumberCellComponent implements ICellRendererAngularComp {
   private _rootFormGroup: UntypedFormGroup;

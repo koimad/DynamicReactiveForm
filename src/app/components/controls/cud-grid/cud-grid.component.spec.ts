@@ -8,8 +8,8 @@ describe('CudGridComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CudGridComponent ]
-    })
+    imports: [CudGridComponent]
+})
     .compileComponents();
   }));
 

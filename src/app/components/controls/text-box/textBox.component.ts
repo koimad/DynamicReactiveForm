@@ -1,14 +1,16 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from '../component-error-mapper';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 @Component({
     selector: 'text-box',
     templateUrl: './textBox.component.html',
     styleUrls: ['./textBox.component.scss'],
-    standalone: false
+    imports: [MatFormField, ReactiveFormsModule, MatLabel, MatInput, MatError]
 })
 export class TextBoxComponent {
   @Input()

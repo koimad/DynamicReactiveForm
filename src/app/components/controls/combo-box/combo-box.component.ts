@@ -1,13 +1,16 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { ComponentErrorMapper } from '../component-error-mapper';
+import { MatFormField, MatError } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
 
 @Component({
     selector: 'combo-box',
     templateUrl: './combo-box.component.html',
     styleUrls: ['./combo-box.component.scss'],
-    standalone: false
+    imports: [MatFormField, ReactiveFormsModule, MatSelect, MatOption, MatError]
 })
 export class ComboBoxComponent {
   @Input()

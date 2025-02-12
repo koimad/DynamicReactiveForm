@@ -8,8 +8,8 @@ describe('DisplayValueChangedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DisplayValueChangedComponent ]
-    })
+    imports: [DisplayValueChangedComponent]
+})
     .compileComponents();
   }));
 

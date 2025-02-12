@@ -1,12 +1,15 @@
 import { Component, HostBinding, Input, OnDestroy } from '@angular/core';
-import { AbstractControl, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatCheckbox } from '@angular/material/checkbox';
 @Component({
     selector: 'check-box',
     templateUrl: './check-box.component.html',
     styleUrls: ['./check-box.component.scss'],
-    standalone: false
+    imports: [MatFormField, ReactiveFormsModule, MatLabel, MatInput, MatCheckbox, MatError]
 })
 export class CheckBoxComponent implements OnDestroy {
   private _internalChange = false;
