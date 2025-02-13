@@ -1,6 +1,12 @@
 import { Component, Input } from '@angular/core';
 
-import { AbstractControl, TouchedChangeEvent, UntypedFormArray, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  TouchedChangeEvent,
+  UntypedFormArray,
+  UntypedFormGroup,
+  ReactiveFormsModule
+} from '@angular/forms';
 
 import { Column, GridApi, GridReadyEvent, RowNode } from 'ag-grid-community';
 
@@ -13,12 +19,13 @@ import { FormNumberCellComponent } from './form-number-cell/form-number-cell.com
 import { FormTextCellComponent } from './form-text-cell/form-text-cell.component';
 import { NgClass } from '@angular/common';
 import { AgGridAngular } from 'ag-grid-angular';
+import { FormGroupExtended } from '../../my-form/FormGroupExtended';
 
 @Component({
-    selector: 'cud-grid',
-    templateUrl: './cud-grid.component.html',
-    styleUrls: ['./cud-grid.component.scss'],
-    imports: [NgClass, ReactiveFormsModule, AgGridAngular]
+  selector: 'cud-grid',
+  templateUrl: './cud-grid.component.html',
+  styleUrls: ['./cud-grid.component.scss'],
+  imports: [NgClass, ReactiveFormsModule, AgGridAngular]
 })
 export class CudGridComponent {
   private _api: GridApi;
@@ -76,6 +83,8 @@ export class CudGridComponent {
     });
 
     this._group.addControl(this._fieldName, this._formArray, { emitEvent: false });
+
+    (this._group as FormGroupExtended).entityType = this._field.entityType;
 
     this._initialValue = this._formArray.value;
   }

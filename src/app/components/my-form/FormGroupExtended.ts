@@ -2,6 +2,8 @@ import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
 export class FormGroupExtended extends UntypedFormGroup {
+  public entityType: string;
+
   public constructor(
     controls: Record<string, AbstractControl>,
     validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,

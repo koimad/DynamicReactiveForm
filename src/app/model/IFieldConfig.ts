@@ -4,6 +4,7 @@ import { IColumnDefinition } from './IColumnDefinition';
 export interface IFieldConfig {
   key?: string;
   label?: string;
+  entityType?: string;
   inputType?: string;
   options?: object[];
   collection?: object;
@@ -16,3 +17,4 @@ export interface IFieldConfig {
   columnDefinitions?: IColumnDefinition[];
   columnClass?: string;
 }
+

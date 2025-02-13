@@ -128,6 +128,7 @@ export class FamiliyFormData {
           columnClass: 'form-Column1-12',
           controlType: 'cudGrid',
           label: 'Children',
+          entityType: 'Person',
           options: null,
           columnDefinitions: [
             {
@@ -192,24 +193,25 @@ export class FamiliyFormData {
         {
           key: 'ShoppingBasket',
           label: 'Select Items',
+          entityType: 'Food',
           options: [
-            { id: 1, name: 'Carrots' },
-            { id: 2, name: 'Apples' },
-            { id: 3, name: 'Oranges' },
-            { id: 4, name: 'Tomatoes' },
-            { id: 5, name: 'Grapes' }
+            { Id: 1, Name: 'Carrots' },
+            { Id: 2, Name: 'Apples' },
+            { Id: 3, Name: 'Oranges' },
+            { Id: 4, Name: 'Tomatoes' },
+            { Id: 5, Name: 'Grapes' }
           ],
           value: [
-            { id: 1, name: 'Carrots' },
-            { id: 2, name: 'Apples' },
-            { id: 2, name: 'Apples' }
+            { Id: 1, Name: 'Carrots' },
+            { Id: 2, Name: 'Apples' },
+            { Id: 2, Name: 'Apples' }
           ],
           controlType: 'dragDrop',
           validators: [
             {
               name: 'minlength',
-              validator: Validators.minLength(3),
-              message: 'Must have at least 3 items.'
+              validator: Validators.minLength(2),
+              message: 'Must have at least 2 items.'
             },
             {
               name: 'maxlength',

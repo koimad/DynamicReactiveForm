@@ -14,9 +14,12 @@ import {
   CdkDropListGroup,
   CdkDropList,
   CdkDragPlaceholder,
-  CdkDragPreview,
-  DragDrop
+  CdkDragPreview
 } from '@angular/cdk/drag-drop';
+
+import { DragDropContainer } from 'src/app/model/DragDropContainer';
+
+import { FormGroupExtended } from '../../my-form/FormGroupExtended';
 
 @Component({
   selector: 'drag-drop',
@@ -49,6 +52,8 @@ export class DragDropComponent {
       this.setupSourceData();
 
       this.setupDestinationData();
+
+      (this._group as FormGroupExtended).entityType = this._field.entityType;
     }
   }
 
@@ -59,7 +64,7 @@ export class DragDropComponent {
 
     if (this._field.options) {
       this.source = this._field.options.map((value, index) => {
-        return { key: index, value: value };
+        return new DragDropContainer(index, value);
       }) as DragDropContainer[];
     } else {
       this.source = [];
@@ -67,10 +72,8 @@ export class DragDropComponent {
   }
 
   private setupDestinationData() {
-    this.destination = [...((this._field.value as []) ?? [])];
-
     this.destination = (this._field.value as []).map((value, index) => {
-      return { key: index, value: value };
+      return new DragDropContainer(index, value);
     }) as DragDropContainer[];
 
     const controls = [];
@@ -140,11 +143,5 @@ export class DragDropComponent {
   public toDoCanDrop(item: CdkDrag<DragDropContainer>) {
     return true;
   }
-}
-
-export class DragDropContainer {
-  public key: number;
-
-  public value: any;
 }
 

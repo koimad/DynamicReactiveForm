@@ -4,6 +4,8 @@ import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/
 export class FormArrayExtended extends UntypedFormArray {
   private _startCollection: AbstractControl[];
 
+  public entityType: string;
+
   public constructor(
     controls: AbstractControl[],
     validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
@@ -72,3 +74,4 @@ export class FormArrayExtended extends UntypedFormArray {
     super.setControl(index, control);
   }
 }
+
