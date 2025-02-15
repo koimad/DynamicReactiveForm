@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input } from '@angular/core';
 
 import { UntypedFormArray, UntypedFormGroup, ValidationErrors } from '@angular/forms';
 
@@ -9,7 +9,6 @@ import { FormBuilderExtended } from './../../my-form/FormBuilderExtended';
 import {
   CdkDrag,
   CdkDragDrop,
-  copyArrayItem,
   moveItemInArray,
   CdkDropListGroup,
   CdkDropList,
@@ -41,7 +40,7 @@ export class DragDropComponent {
 
   public destination: DragDropContainer[];
 
-  public constructor(private _formBuilder: FormBuilderExtended) {
+  public constructor(private _formBuilder: FormBuilderExtended, private _ref: ChangeDetectorRef) {
     this.destination = [];
 
     this.source = [];
@@ -122,7 +121,7 @@ export class DragDropComponent {
     return this._destinationArray.errors ?? [];
   }
 
-  public drop(event: CdkDragDrop<any[]>) {
+  public drop(event: CdkDragDrop<DragDropContainer[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -132,8 +131,16 @@ export class DragDropComponent {
         this._destinationArray.removeAt(event.previousIndex);
       } else {
         console.log(event.currentIndex);
+        event.container.data.splice(
+          event.currentIndex,
+          0,
+          new DragDropContainer(event.currentIndex, event.item.data.value)
+        );
 
-        copyArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+        let i = 0;
+        event.container.data.forEach(item => {
+          item.key = i++;
+        });
 
         this._destinationArray.push(this._formBuilder.control(event.item.data));
       }
@@ -141,6 +148,8 @@ export class DragDropComponent {
   }
 
   public toDoCanDrop(item: CdkDrag<DragDropContainer>) {
+    //console.info(item);
+
     return true;
   }
 }

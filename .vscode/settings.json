@@ -7,10 +7,16 @@
         "source.fixAll": "explicit"
     },
 
+   "typescript.format.insertSpaceAfterConstructor": true,
+   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": true,
+   "typescript.format.insertSpaceAfterCommaDelimiter": true,
+   "typescript.format.insertSpaceAfterSemicolonInForStatements": true,
+
+
    "[typescript]": {        
-    "editor.defaultFormatter": "esbenp.prettier-vscode",  
-    "diffEditor.ignoreTrimWhitespace": true,
-        
+    "editor.defaultFormatter": "esbenp.prettier-vscode",      
+    "diffEditor.ignoreTrimWhitespace": true,              
   },
   
   "[markdown]": {    
@@ -19,6 +25,11 @@
     "editor.renderWhitespace": "all",
     "editor.acceptSuggestionOnEnter": "off"
   },
+  "javascript.format.insertSpaceAfterConstructor": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+  "javascript.format.semicolons": "insert",
 
  
   

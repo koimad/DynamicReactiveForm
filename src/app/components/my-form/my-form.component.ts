@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input, ViewChild } from '@angular/core';
-import { FormUpdatedValuesService } from 'src/app/model/form-updated-values.service';
+import { FormUpdatedValuesService } from 'src/app/services/form-updated-values.service';
 import { IFieldConfig } from 'src/app/model/IFieldConfig';
 import { FormBuilderExtended } from './FormBuilderExtended';
 import { MatDialog } from '@angular/material/dialog';

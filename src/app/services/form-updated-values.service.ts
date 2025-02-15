@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 
 import { FormArrayExtended } from '../components/my-form/FormArrayExtended';
 
@@ -7,21 +7,21 @@ import { FormControlExtended } from '../components/my-form/FormControlExtended';
 
 import { FormGroupExtended } from '../components/my-form/FormGroupExtended';
 
-import { CommandDto } from './commands/CommandDto';
+import { CommandDto } from '../model/commands/CommandDto';
 
-import { ChangedPropertyValueDto } from './commands/ChangedPropertyValueDto';
+import { CommandOperationDto } from '../model/commands/CommandOperationDto';
 
-import { CommandOperationDto } from './commands/CommandOperationDto';
+import { DragDropContainer } from '../model/DragDropContainer';
 
-import { EntityTypeDto } from './commands/EntityTypeDto';
+import { EntityTypeDto } from '../model/commands/EntityTypeDto';
 
-import { DragDropContainer } from './DragDropContainer';
+import { ChangedPropertyValueDto } from '../model/commands/ChangedPropertyValueDto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormUpdatedValuesService {
-  private async getFormGroupChanges(group: FormGroupExtended, command: CommandDto, handleInserts = false) {
+  private getFormGroupChanges(group: FormGroupExtended, command: CommandDto, handleInserts = false) {
     for (const field in group.controls) {
       const control = group.get(field);
 
@@ -104,8 +104,14 @@ export class FormUpdatedValuesService {
   }
 
   private getControlValue(control: FormControlExtended, command: CommandDto): void {
-    if (control.value.type === 'DragDropContainer') {
-      command.properties['Name'] = (control.value as DragDropContainer).value.Name;
+    if (control.value instanceof DragDropContainer) {
+      Object.keys(control.value.value).forEach(key => {
+        if (key === 'Id') {
+          command.entityId = control.value.value[key];
+        } else {
+          command.properties[key] = control.value.value[key];
+        }
+      });
     } else {
       for (const key in control.parent.controls) {
         if (control.parent.controls[key] === control) {
@@ -122,7 +128,6 @@ export class FormUpdatedValuesService {
 
     for (const field in group.controls) {
       const control = group.get(field);
-
       if (control.dirty) {
         if (control instanceof FormControlExtended) {
           this.getControlValue(control, command);
@@ -135,15 +140,14 @@ export class FormUpdatedValuesService {
 
   private getFormGroupDeletionChanges(group: FormGroupExtended, command: CommandDto) {
     const control = group.get('Id');
-
     command.entityId = control.value;
   }
 
   private getFormControlDeletionChanges(control: FormControlExtended, command: CommandDto) {
-    const c = control.value as DragDropContainer;
+    const dragDropContainer = control.value as DragDropContainer;
 
-    if (c) {
-      command.entityId = c.value.Id;
+    if (dragDropContainer) {
+      command.entityId = dragDropContainer.value.Id;
     }
   }
 
